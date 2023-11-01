@@ -10,10 +10,7 @@ class BytestreamUser(db.Model):
     bytestream_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('bytestreams.id')))
     bytespace_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('bytespaces.id')))
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
-    user_username = db.Column(db.String, db.ForeignKey(add_prefix_for_prod('users.username')))
-    user_first_name = db.Column(db.String, db.ForeignKey(add_prefix_for_prod('users.first_name')))
-    user_last_name = db.Column(db.String, db.ForeignKey(add_prefix_for_prod('users.last_name')))
-    user_email = db.Column(db.String, db.ForeignKey(add_prefix_for_prod('users.email')))
+    user = db.relationship('User', back_populates='bytestreams')
 
     ## Bytespace Relationships
     my_bytespace_id = db.relationship('Bytespace', back_populates='my_bytestream_users_id')
@@ -23,10 +20,7 @@ class BytestreamUser(db.Model):
 
     ## User Relationships
     my_user_id = db.relationship('Users', back_populates='my_bytestream_users_id')
-    my_user_username = db.relationship('Users', back_populates='my_bytestream_users_username')
-    my_user_first_name = db.relationship('Users', back_populates='my_bytestream_users_first_name')
-    my_user_last_name = db.relationship('Users', back_populates='my_bytestream_users_last_name')
-    my_user_email = db.relationship('Users', back_populates='my_bytestream_users_email')
+
 
 
 
