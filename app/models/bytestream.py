@@ -20,7 +20,7 @@ class Bytestream(db.Model):
     my_bytespace_id = db.relationship('Bytespace', back_populates='my_bytestream_bytespace_id')
 
     ## BytestreamUser Relationship
-    my_bytestream_users_id = db.relationship('BytestreamUser', back_populates='my_bytestream_id', cascade='all, delete-orphan')
+    bytestreamuser = db.relationship('BytestreamUser', back_populates='bytestream', cascade='all, delete-orphan')
 
     ## Unique Constraint to ensure no duplicate names across the same bytestream.
     __table_args__ = (
