@@ -9,10 +9,10 @@ class BytespaceUser(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     bytespace_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('bytespaces.id')))
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
-    user_username = db.Column(db.String(add_prefix_for_prod('users.username')))
-    user_first_name = db.Column(db.String(add_prefix_for_prod('users.first_name')))
-    user_last_name = db.Column(db.String(add_prefix_for_prod('users.last_name')))
-    user_email = db.Column(db.String(add_prefix_for_prod('users.email')))
+    user_username = db.Column(db.String, db.ForeignKey(add_prefix_for_prod('users.username')))
+    user_first_name = db.Column(db.String, db.ForeignKey(add_prefix_for_prod('users.first_name')))
+    user_last_name = db.Column(db.String, db.ForeignKey(add_prefix_for_prod('users.last_name')))
+    user_email = db.Column(db.String, db.ForeignKey(add_prefix_for_prod('users.email')))
 
     ## Bytespace Relationships
     my_bytespace_id = db.relationship('Bytespace', back_populates='my_bytespace_users_id')
