@@ -4,3 +4,4 @@ from .db import environment, SCHEMA
 from .bytespace import Bytespace
 from .bytestream import Bytestream
 from .bytestream_users import BytestreamUser
+from .bytespace_users import BytespaceUser

@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from sqlalchemy import UniqueConstraint
 
 class Bytestream(db.Model):
     __tablename__ = 'bytestreams'
@@ -21,7 +22,10 @@ class Bytestream(db.Model):
     ## BytestreamUser Relationship
     my_bytestream_users_id = db.relationship('BytestreamUser', back_populates='my_bytestream_id', cascade='all, delete-orphan')
 
-
+    ## Unique Constraint to ensure no duplicate names across the same bytestream.
+    __table_args__ = (
+        UniqueConstraint('name', 'bytespace_id', name='uq_name_bytespace_id'),
+    )
 
     def to_dict(self):
         return {

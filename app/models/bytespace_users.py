@@ -24,8 +24,6 @@ class BytespaceUser(db.Model):
     my_user_last_name = db.relationship('Users', back_populates='my_bytespace_users_last_name')
     my_user_email = db.relationship('Users', back_populates='my_bytespace_users_email')
 
-
-
     def to_dict(self):
         return {
             'id': self.id,
