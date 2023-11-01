@@ -3,15 +3,15 @@ from sqlalchemy.sql import text
 
 def seed_bytestream_users():
     tree = BytestreamUser (
-        bytestream_id=1, bytespace_id=1, user_id=1, user_username='Demo', user_first_name='Demo', user_last_name='User', user_email='demo@aa.io'
+        bytestream_id=1, bytespace_id=1, user_id=1
     )
 
     rock = BytestreamUser (
-        bytestream_id=2, bytespace_id=2, user_id=2, user_username='marnie', user_first_name='Marnie', user_last_name='Flock', user_email='marnie@aa.io'
+        bytestream_id=2, bytespace_id=2, user_id=2
     )
 
     stick = BytestreamUser (
-        bytestream_id=3, bytespace_id=3, user_id=3, user_username='bobbie', user_first_name='Bobbie', user_last_name='Knight', user_email='bobbie@aa.io'
+        bytestream_id=3, bytespace_id=3, user_id=3
     )
 
     db.session.add(tree)

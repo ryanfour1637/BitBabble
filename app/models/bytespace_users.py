@@ -9,13 +9,13 @@ class BytespaceUser(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     bytespace_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('bytespaces.id')))
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
-    user = db.relationship('Bytespace', back_populates='bytespaces')
+    user = db.relationship('User', back_populates='bytespaces')
 
     ## Bytespace Relationships
     my_bytespace_id = db.relationship('Bytespace', back_populates='my_bytespace_users_id')
 
     ## User Relationships
-    my_user_id = db.relationship('Users', back_populates='my_bytespace_users_id')
+    my_user_id = db.relationship('User', back_populates='my_bytespace_users_id')
 
 
     def to_dict(self):

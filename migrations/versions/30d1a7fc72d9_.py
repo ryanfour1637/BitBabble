@@ -1,16 +1,19 @@
 """empty message
 
-Revision ID: 33cdf0505b3d
-Revises: 
-Create Date: 2023-11-01 14:43:55.672360
+Revision ID: 30d1a7fc72d9
+Revises:
+Create Date: 2023-11-01 15:36:46.961049
 
 """
 from alembic import op
 import sqlalchemy as sa
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
-revision = '33cdf0505b3d'
+revision = '30d1a7fc72d9'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,6 +32,10 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+
     op.create_table('bytespaces',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
@@ -38,22 +45,21 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
     op.create_table('bytespace_users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('bytespace_id', sa.Integer(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.Column('user_username', sa.String(), nullable=True),
-    sa.Column('user_first_name', sa.String(), nullable=True),
-    sa.Column('user_last_name', sa.String(), nullable=True),
-    sa.Column('user_email', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['bytespace_id'], ['bytespaces.id'], ),
-    sa.ForeignKeyConstraint(['user_email'], ['users.email'], ),
-    sa.ForeignKeyConstraint(['user_first_name'], ['users.first_name'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.ForeignKeyConstraint(['user_last_name'], ['users.last_name'], ),
-    sa.ForeignKeyConstraint(['user_username'], ['users.username'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+
     op.create_table('bytestreams',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
@@ -65,24 +71,23 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name', 'bytespace_id', name='uq_name_bytespace_id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+
     op.create_table('bytestream_users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('bytestream_id', sa.Integer(), nullable=True),
     sa.Column('bytespace_id', sa.Integer(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.Column('user_username', sa.String(), nullable=True),
-    sa.Column('user_first_name', sa.String(), nullable=True),
-    sa.Column('user_last_name', sa.String(), nullable=True),
-    sa.Column('user_email', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['bytespace_id'], ['bytespaces.id'], ),
     sa.ForeignKeyConstraint(['bytestream_id'], ['bytestreams.id'], ),
-    sa.ForeignKeyConstraint(['user_email'], ['users.email'], ),
-    sa.ForeignKeyConstraint(['user_first_name'], ['users.first_name'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.ForeignKeyConstraint(['user_last_name'], ['users.last_name'], ),
-    sa.ForeignKeyConstraint(['user_username'], ['users.username'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 

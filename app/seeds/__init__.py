@@ -13,22 +13,24 @@ seed_commands = AppGroup('seed')
 def seed():
     if environment == 'production':
 
-        undo_bytestream_users
-        undo_bytespace_users
+        undo_bytestream_users()
+        undo_bytespace_users()
         undo_bytestreams()
         undo_bytespaces()
         undo_users()
     seed_users()
     seed_bytespaces()
     seed_bytestreams()
-    seed_bytespace_users
-    seed_bytestream_users
+    seed_bytespace_users()
+    seed_bytestream_users()
 
 
 
 
 @seed_commands.command('undo')
 def undo():
-    undo_users()
-    undo_bytespaces()
+    undo_bytestream_users()
+    undo_bytespace_users()
     undo_bytestreams()
+    undo_bytespaces()
+    undo_users()
