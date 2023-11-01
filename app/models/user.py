@@ -28,10 +28,7 @@ class User(db.Model, UserMixin):
 
     ## BytespaceUser Relationships
     my_bytespace_users_id = db.relationship('BytespaceUser', back_populates='my_user_id', cascade='all, delete-orphan')
-    my_bytespace_users_username = db.relationship('BytespaceUser', back_populates='my_user_username', cascade='all, delete-orphan')
-    my_bytespace_users_first_name = db.relationship('BytespaceUser', back_populates='my_user_first_name', cascade='all, delete-orphan')
-    my_bytespace_users_last_name = db.relationship('BytespaceUser', back_populates='my_user_last_name', cascade='all, delete-orphan')
-    my_bytespace_users_email = db.relationship('BytespaceUser', back_populates='my_user_email', cascade='all, delete-orphan')
+    bytespaces = db.relationship('BytespaceUser', back_populates='user', cascade='all, delete-orphan')
 
 
 
