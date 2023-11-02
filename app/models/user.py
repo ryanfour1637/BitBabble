@@ -17,18 +17,16 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     ## Bytespace Relationships
-    my_bytespace_id = db.relationship('Bytespace', back_populates='my_bytespace_user_id', cascade='all, delete-orphan')
+    bytespaceuser_user = db.relationship('Bytespace', back_populates='user_bytespaceuser', cascade='all, delete-orphan')
 
     ## Bytestream Relationships
-    my_bytestream_id = db.relationship('Bytestream', back_populates='my_bytestream_user_id', cascade='all, delete-orphan')
+    bytestream_user = db.relationship('Bytestream', back_populates='user_bytestream', cascade='all, delete-orphan')
 
     ## BytestreamUser Relationships
-    # my_bytestream_users_id = db.relationship('BytestreamUser', back_populates='my_user_id', cascade='all, delete-orphan')
-    bytestreams = db.relationship('BytestreamUser', back_populates='user', cascade='all, delete-orphan')
+    bytestreamuser_user = db.relationship('BytestreamUser', back_populates='user_bytestreamuser', cascade='all, delete-orphan')
 
     ## BytespaceUser Relationships
-    my_bytespace_users_id = db.relationship('BytespaceUser', back_populates='my_user_id', cascade='all, delete-orphan')
-    bytespaces = db.relationship('BytespaceUser', back_populates='user', cascade='all, delete-orphan')
+    bytespaceuser_user = db.relationship('BytespaceUser', back_populates='user_bytespaceuser', cascade='all, delete-orphan')
 
 
 

@@ -14,13 +14,13 @@ class Bytestream(db.Model):
     date_created = db.Column(db.Date, nullable=False)
 
     ## User Relationships
-    my_bytestream_user_id = db.relationship('User', back_populates='my_bytestream_id')
+    user_bytestream = db.relationship('User', back_populates='bytestream_user')
 
     ## Bytespace Relationships
-    my_bytespace_id = db.relationship('Bytespace', back_populates='my_bytestream_bytespace_id')
+    bytespace_bytestream = db.relationship('Bytespace', back_populates='bytestream_bytespace')
 
     ## BytestreamUser Relationship
-    bytestreamuser = db.relationship('BytestreamUser', back_populates='bytestream', cascade='all, delete-orphan')
+    bytestreamuser_bytestream = db.relationship('BytestreamUser', back_populates='bytestream_bytestreamuser', cascade='all, delete-orphan')
 
     ## Unique Constraint to ensure no duplicate names across the same bytestream.
     __table_args__ = (

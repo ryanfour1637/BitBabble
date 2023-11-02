@@ -10,16 +10,17 @@ class BytestreamUser(db.Model):
     bytestream_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('bytestreams.id')))
     bytespace_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('bytespaces.id')))
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
-    user = db.relationship('User', back_populates='bytestreams')
-
-    ## Bytespace Relationships
-    my_bytespace_id = db.relationship('Bytespace', back_populates='my_bytestream_users_id')
-
-    ## Bytestream Relationships
-    bytestream = db.relationship('Bytestream', back_populates='bytestreamuser')
 
     ## User Relationships
-    # my_user_id = db.relationship('User', back_populates='my_bytestream_users_id')
+    user_bytestreamuser = db.relationship('User', back_populates='bytestreamuser_user')
+
+    ## Bytespace Relationships
+    bytespace_bytestreamuser = db.relationship('Bytespace', back_populates='bytestreamuser_bytespace')
+
+    ## Bytestream Relationships
+    bytestream_bytestreamuser = db.relationship('Bytestream', back_populates='bytestreamuser_bytestream')
+
+
 
 
 
