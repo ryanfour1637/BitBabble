@@ -12,7 +12,7 @@ class Bytespace(db.Model):
     date_created = db.Column(db.Date, nullable=False)
 
     ## User Relationships
-    user_bytespace = db.relationship('User', back_populates='bytespaces')
+    user_bytespace = db.relationship('User', back_populates='bytespace_user')
 
     ## Bytestream Relationships
     bytestream_bytespace = db.relationship('Bytestream', back_populates='bytespace_bytestream', cascade='all, delete-orphan')

@@ -17,7 +17,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     ## Bytespace Relationships
-    bytespaceuser_user = db.relationship('Bytespace', back_populates='user_bytespaceuser', cascade='all, delete-orphan')
+    bytespace_user = db.relationship('Bytespace', back_populates='user_bytespace', cascade='all, delete-orphan')
 
     ## Bytestream Relationships
     bytestream_user = db.relationship('Bytestream', back_populates='user_bytestream', cascade='all, delete-orphan')
