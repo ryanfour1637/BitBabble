@@ -12,16 +12,16 @@ class Bytespace(db.Model):
     date_created = db.Column(db.Date, nullable=False)
 
     ## User Relationships
-    my_bytespace_user_id = db.relationship('User', back_populates='my_bytespace_id')
+    user_bytespace = db.relationship('User', back_populates='bytespaces')
 
     ## Bytestream Relationships
-    my_bytestream_bytespace_id = db.relationship('Bytestream', back_populates='my_bytespace_id', cascade='all, delete-orphan')
+    bytestream_bytespace = db.relationship('Bytestream', back_populates='bytespace_bytestream', cascade='all, delete-orphan')
 
     ## BytestreamUser Relationships
-    my_bytestream_users_id = db.relationship('BytestreamUser', back_populates='my_bytespace_id', cascade='all, delete-orphan')
+    bytestreamuser_bytespace = db.relationship('BytestreamUser', back_populates='bytespace_bytestreamuser', cascade='all, delete-orphan')
 
     ## BytespaceUser Relationships
-    my_bytespace_users_id = db.relationship('BytespaceUser', back_populates='my_bytespace_id', cascade='all, delete-orphan')
+    bytespaceuser_bytespace = db.relationship('BytespaceUser', back_populates='bytespace_bytespaceuser', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
