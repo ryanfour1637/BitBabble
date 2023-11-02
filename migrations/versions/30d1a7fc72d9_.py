@@ -47,7 +47,8 @@ def upgrade():
     )
 
     if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE bytespaces SET SCHEMA {SCHEMA};")
+
     op.create_table('bytespace_users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('bytespace_id', sa.Integer(), nullable=True),
@@ -58,7 +59,7 @@ def upgrade():
     )
 
     if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE bytespace_users SET SCHEMA {SCHEMA};")
 
     op.create_table('bytestreams',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -73,7 +74,7 @@ def upgrade():
     )
 
     if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE bytestreams SET SCHEMA {SCHEMA};")
 
     op.create_table('bytestream_users',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -87,7 +88,7 @@ def upgrade():
     )
 
     if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE bytestream_users SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 
