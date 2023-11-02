@@ -20,11 +20,6 @@ class BytestreamUser(db.Model):
     ## Bytestream Relationships
     bytestream_bytestreamuser = db.relationship('Bytestream', back_populates='bytestreamuser_bytestream')
 
-
-
-
-
-
     def to_dict(self):
         return {
             'id': self.id,

@@ -16,9 +16,6 @@ class BytespaceUser(db.Model):
     ## Bytespace Relationships
     bytespace_bytespaceuser = db.relationship('Bytespace', back_populates='bytespaceuser_bytespace')
 
-
-
-
     def to_dict(self):
         return {
             'id': self.id,
