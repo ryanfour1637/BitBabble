@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import JoinBytespaceModal from "./joinBytespaceModal";
+import CreateBytespaceModal from "./createBytespaceModel";
 import logo from "../../images/logo.png";
 
 function ByteSpaceDropdown() {
@@ -52,7 +53,7 @@ function ByteSpaceDropdown() {
                <OpenModalButton
                   buttonText="Create new bytespace"
                   onItemClick={closeMenu}
-                  modalComponent={"being created 2"}
+                  modalComponent={<CreateBytespaceModal />}
                />
             </li>
          </ul>
