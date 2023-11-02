@@ -17,16 +17,16 @@ function JoinBytespaceModal() {
       dispatch(thunkGetAllBytespaces());
    }, [dispatch]);
 
-   const handleChange = (e) => {
-      setSelectedValue(e.target.value);
-   };
 
    const joinBytespace = () => {};
 
    return (
       <div>
          <h1>Join Bytespaces</h1>
-         <select value={selectedValue} onChange={handleChange}>
+         <select
+            value={selectedValue}
+            onChange={(e) => setSelectedValue(e.target.value)}
+         >
             <option value="">Select a bytespace</option>
             {bytespacesArr.map((bytespace) => (
                <option key={bytespace.id} value={bytespace.name}>

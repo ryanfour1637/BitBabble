@@ -5,6 +5,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+import LoginLandingPage from "./components/LoginLandingPage";
 
 function App() {
    const dispatch = useDispatch();
@@ -24,6 +25,10 @@ function App() {
                <Route path="/signup">
                   <SignupFormPage />
                </Route>
+               <Route path="/">
+                  <LoginLandingPage />
+               </Route>
+               <Route path="/user/:userId/bytespaces/:bytespaceId"></Route>
             </Switch>
          )}
       </>
