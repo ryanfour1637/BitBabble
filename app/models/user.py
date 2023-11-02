@@ -23,7 +23,7 @@ class User(db.Model, UserMixin):
     my_bytestream_id = db.relationship('Bytestream', back_populates='my_bytestream_user_id', cascade='all, delete-orphan')
 
     ## BytestreamUser Relationships
-    my_bytestream_users_id = db.relationship('BytestreamUser', back_populates='my_user_id', cascade='all, delete-orphan')
+    # my_bytestream_users_id = db.relationship('BytestreamUser', back_populates='my_user_id', cascade='all, delete-orphan')
     bytestreams = db.relationship('BytestreamUser', back_populates='user', cascade='all, delete-orphan')
 
     ## BytespaceUser Relationships
