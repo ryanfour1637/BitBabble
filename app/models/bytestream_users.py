@@ -19,7 +19,7 @@ class BytestreamUser(db.Model):
     bytestream = db.relationship('Bytestream', back_populates='bytestreamuser')
 
     ## User Relationships
-    my_user_id = db.relationship('User', back_populates='my_bytestream_users_id')
+    # my_user_id = db.relationship('User', back_populates='my_bytestream_users_id')
 
 
 
