@@ -7,9 +7,10 @@ import JoinBytespaceModal from "../Leftside-Navbar/joinBytespaceModal";
 
 function LoginLandingPage() {
    const dispatch = useDispatch();
-   const { userId } = useParams();
+   const user = useSelector((state) => state.session.user);
    const bytespaces = useSelector((state) => state.bytespace.bytespaces);
    const bytespacesArr = Object.values(bytespaces);
+   // going to need to filter this for the bytespace list once I have the store built out for bytespaceUsers so that I can show all bytespaces a person is in, not just the ones they started.
 
    useEffect(() => {
       dispatch(thunkGetAllBytespaces());
@@ -19,7 +20,7 @@ function LoginLandingPage() {
       <div>
          {bytespacesArr.length > 0 ? (
             bytespacesArr.map((bytespace) => (
-               <NavLink to={`/user/${userId}/bytespaces/${bytespace.id}`}>
+               <NavLink to={`/user/${user.id}/bytespaces/${bytespace.id}`}>
                   <h2>{bytespace.name}</h2>
                </NavLink>
             ))

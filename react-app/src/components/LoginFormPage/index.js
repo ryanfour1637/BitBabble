@@ -12,7 +12,7 @@ function LoginFormPage() {
    const [password, setPassword] = useState("");
    const [errors, setErrors] = useState([]);
 
-   if (sessionUser) return push(`/user/${sessionUser.id}/bytespaces`);
+   if (sessionUser) return push(`/bytespaces`);
 
    const handleSubmit = async (e) => {
       e.preventDefault();

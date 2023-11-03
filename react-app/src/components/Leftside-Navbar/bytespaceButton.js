@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
@@ -9,6 +9,8 @@ import logo from "../../images/logo.png";
 
 function ByteSpaceDropdown() {
    const [showMenu, setShowMenu] = useState(false);
+   const user = useSelector((state) => state.session.user);
+
    const ulRefBytespace = useRef();
 
    const openMenu = () => {
@@ -46,14 +48,14 @@ function ByteSpaceDropdown() {
                <OpenModalButton
                   buttonText="Join new bytespace"
                   onItemClick={closeMenu}
-                  modalComponent={<JoinBytespaceModal />}
+                  modalComponent={<JoinBytespaceModal userId={user.id} />}
                />
             </li>
             <li>
                <OpenModalButton
                   buttonText="Create new bytespace"
                   onItemClick={closeMenu}
-                  modalComponent={<CreateBytespaceModal />}
+                  modalComponent={<CreateBytespaceModal userId={user.id} />}
                />
             </li>
          </ul>

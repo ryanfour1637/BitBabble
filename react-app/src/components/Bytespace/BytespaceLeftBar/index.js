@@ -5,24 +5,15 @@ import BytespaceNameDropdown from "./nameDropDown";
 
 function ByteSpaceLeftBar() {
    const dispatch = useDispatch();
-   const user = useSelector((state) => state.session.user);
-   const bytespaces = useSelector((state) => state.bytespace.bytespaces);
-   const bytespacesArr = Object.values(bytespaces);
-   const userBytespaceArr = bytespacesArr.filter(
-      (bytespace) => bytespace.ownerId == user.id
-   );
 
    // placeholder to pull all channels
    //placeholder to pull all threads
    //placeholder to pull all dms
 
-   if (user == undefined) return null;
-   if (!userBytespaceArr) return null;
-
    return (
       <div>
          <div>
-            <BytespaceNameDropdown userBytespaceArr={userBytespaceArr} />
+            <BytespaceNameDropdown />
          </div>
          <div>
             Placeholder for channels dropdown which will hold all of the channel

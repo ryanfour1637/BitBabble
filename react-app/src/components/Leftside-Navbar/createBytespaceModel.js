@@ -4,7 +4,7 @@ import { useModal } from "../../context/Modal";
 import { thunkCreateBytespace } from "../../store/bytespace_reducer";
 import { useHistory } from "react-router-dom";
 
-function CreateBytespaceModal() {
+function CreateBytespaceModal({ userId }) {
    const dispatch = useDispatch();
    const { closeModal } = useModal();
    const { push } = useHistory();
@@ -13,7 +13,7 @@ function CreateBytespaceModal() {
    const createBytespace = async () => {
       const id = dispatch(thunkCreateBytespace({ name: name }));
       closeModal();
-      push(`/bytespace/${id}`);
+      push(`/user/${userId}/bytespace/${id}`);
    };
 
    return (
