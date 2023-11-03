@@ -49,25 +49,31 @@ export const thunkRemoveFromBytespace =
 //reducer
 //key on the outside will be the bytespaceId and then inside it will be keys and values of the bytespaceUsersId so that it will be easy to delete when needed.
 
-const initialState = { bytespaceId: {
-    userId: {}
-} };
+const initialState = {
+   bytespaceId: {
+      userId: {},
+   },
+};
 export default function bytespaceMembersReducer(state = initialState, action) {
    let newState;
    switch (action.type) {
       case ADD_TO_BYTESPACE:
-         const bytespaceId = action.bytespaceMemberObj.bytespaceId;
-         const userId = action.bytespaceMemberObj.userId;
-         const uniqueId = action.bytespaceMemberObj.id;
+         let bytespaceIdAdd = action.bytespaceMemberObj.bytespaceId;
+         let userIdAdd = action.bytespaceMemberObj.userId;
+         let uniqueIdAdd = action.bytespaceMemberObj.id;
          newState = { ...state, bytespaceId: { ...state.bytespaceId } };
-         newState.bytespaceId[bytespaceId] = {
-            userId: userId,
+         // I may need to spread in the details of the bytespaceId so as not to overwrite it. Need to figure out how to do this. 
+         newState.bytespaceId[bytespaceIdAdd] = {
+            [userIdAdd]: uniqueIdAdd,
          };
          return newState;
       case REMOVE_FROM_BYTESPACE:
+         const bytespaceId = action.bytespaceMemberObj.bytespaceId;
+         const userId = action.bytespaceMemberObj.userId;
          newState = { ...state, bytespaceId: { ...state.bytespaceId } };
-         delete newState.bytespaceId[action.bytespaceMemberObj.userId];
-      default:
-         return state;
+         delete newState.bytespaceId[bytespaceId][userId]
+        return newState
+        default:
+           return state;
+         };
    }
-}
