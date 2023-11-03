@@ -19,11 +19,6 @@ class BytespaceUser(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'bytestreamId': self.bytestream_id,
             'bytespaceId': self.bytespace_id,
             'userId': self.user_id,
-            'username': self.user_username,
-            'firstName': self.user_first_name,
-            'lastName': self.user_last_name,
-            'email': self.user_email
         }

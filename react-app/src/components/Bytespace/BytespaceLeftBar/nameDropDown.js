@@ -4,7 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import OpenModalButton from "../../OpenModalButton";
 import UpdateBytespaceModal from "./updateBytespace";
 import DeleteBytespaceModal from "./deleteBytespaceModal";
-import { thunkGetAllBytespaces } from "../../../store/bytespace_reducer";
+import { thunkGetAllBytespaces } from "../../../store/bytespace";
 
 function BytespaceNameDropdown() {
    const dispatch = useDispatch();

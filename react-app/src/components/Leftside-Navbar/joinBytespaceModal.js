@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
-import { thunkGetAllBytespaces } from "../../store/bytespace_reducer";
+import { thunkGetAllBytespaces } from "../../store/bytespace";
 import { useModal } from "../../context/Modal";
 
 function JoinBytespaceModal() {
@@ -16,7 +16,6 @@ function JoinBytespaceModal() {
    useEffect(() => {
       dispatch(thunkGetAllBytespaces());
    }, [dispatch]);
-
 
    const joinBytespace = () => {};
 

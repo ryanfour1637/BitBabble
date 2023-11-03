@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
-import { thunkDeleteBytespace } from "../../../store/bytespace_reducer";
+import { thunkDeleteBytespace } from "../../../store/bytespace";
 
 function DeleteBytespaceModal({ bytespaceId }) {
    const dispatch = useDispatch();

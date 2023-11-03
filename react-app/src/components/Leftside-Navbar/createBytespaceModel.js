@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { thunkCreateBytespace } from "../../store/bytespace_reducer";
+import { thunkCreateBytespace } from "../../store/bytespace";
 import { useHistory } from "react-router-dom";
 
 function CreateBytespaceModal({ userId }) {
