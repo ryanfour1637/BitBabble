@@ -25,8 +25,8 @@ export const thunkAddToBytespace = (bytespaceId) => async (dispatch) => {
    );
 
    if (response.ok) {
-      const bytespaceUserObj = await response.json();
-      dispatch(actionAddToBytespace(bytespaceUserObj));
+      const bytespaceMemberObj = await response.json();
+      dispatch(actionAddToBytespace(bytespaceMemberObj));
       return null;
    } else {
       const errors = await response.json();
@@ -49,7 +49,7 @@ export const thunkRemoveFromBytespace =
       return null;
    };
 
-//reducer
+// Reducer
 //key on the outside will be the bytespaceId and then inside it will be keys and values of the bytespaceUsersId so that it will be easy to delete when needed.
 
 const initialState = {};
@@ -62,8 +62,6 @@ export default function bytespaceMembersReducer(state = initialState, action) {
       case ADD_TO_BYTESPACE:
          ({ bytespaceId, userId, id } = action.bytespaceMemberObj);
          newState = { ...state };
-         // I may need to spread in the details of the bytespaceId so as not to overwrite it. Need to figure out how to do this.
-
          if (!newState[bytespaceId]) newState[bytespaceId] = {};
          newState[bytespaceId][userId] = id;
          return newState;
