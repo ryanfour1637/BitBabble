@@ -37,10 +37,13 @@ export const thunkAddToBytespace = (bytespaceId) => async (dispatch) => {
 // passing in the id for the bytespaceUsers table to easily remove by that id when someone leaves a space
 export const thunkRemoveFromBytespace =
    (bytespaceMemberId) => async (dispatch) => {
-      const response = fetch(`/api/bytespace_members/${bytespaceMemberId}`, {
-         method: "DELETE",
-      });
-      const bytespaceUserObj = (await response).json();
+      const response = await fetch(
+         `/api/bytespace_members/${bytespaceMemberId}`,
+         {
+            method: "DELETE",
+         }
+      );
+      const bytespaceUserObj = await response.json();
 
       dispatch(actionRemoveFromBytespace(bytespaceUserObj));
       return null;
@@ -49,31 +52,29 @@ export const thunkRemoveFromBytespace =
 //reducer
 //key on the outside will be the bytespaceId and then inside it will be keys and values of the bytespaceUsersId so that it will be easy to delete when needed.
 
-const initialState = {
-   bytespaceId: {
-      userId: {},
-   },
-};
+const initialState = {};
 export default function bytespaceMembersReducer(state = initialState, action) {
    let newState;
+   let bytespaceId;
+   let userId;
+   let id;
    switch (action.type) {
       case ADD_TO_BYTESPACE:
-         let bytespaceIdAdd = action.bytespaceMemberObj.bytespaceId;
-         let userIdAdd = action.bytespaceMemberObj.userId;
-         let uniqueIdAdd = action.bytespaceMemberObj.id;
-         newState = { ...state, bytespaceId: { ...state.bytespaceId } };
-         // I may need to spread in the details of the bytespaceId so as not to overwrite it. Need to figure out how to do this. 
-         newState.bytespaceId[bytespaceIdAdd] = {
-            [userIdAdd]: uniqueIdAdd,
-         };
+         ({ bytespaceId, userId, id } = action.bytespaceMemberObj);
+         newState = { ...state };
+         // I may need to spread in the details of the bytespaceId so as not to overwrite it. Need to figure out how to do this.
+
+         if (!newState[bytespaceId]) newState[bytespaceId] = {};
+         newState[bytespaceId][userId] = id;
          return newState;
       case REMOVE_FROM_BYTESPACE:
-         const bytespaceId = action.bytespaceMemberObj.bytespaceId;
-         const userId = action.bytespaceMemberObj.userId;
-         newState = { ...state, bytespaceId: { ...state.bytespaceId } };
-         delete newState.bytespaceId[bytespaceId][userId]
-        return newState
-        default:
-           return state;
-         };
+         ({ bytespaceId, userId, id } = action.bytespaceMemberObj);
+         newState = { ...state };
+         delete newState.bytespaceId[bytespaceId][userId];
+         if (Object.keys(newState[bytespaceId].length === 0))
+            delete newState[bytespaceId];
+         return newState;
+      default:
+         return state;
    }
+}
