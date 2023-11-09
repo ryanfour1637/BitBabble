@@ -1,6 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
-class BytestreamUser(db.Model):
+class BytestreamMember(db.Model):
     __tablename__ = 'bytestream_users'
 
     if environment == "production":
