@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, NavLink } from "react-router-dom";
-import { thunkGetAllBytespaces } from "../../store/bytespace_reducer";
+import { thunkGetAllBytespaces } from "../../store/bytespace";
 import OpenModalButton from "../OpenModalButton";
 import JoinBytespaceModal from "../Leftside-Navbar/joinBytespaceModal";
 

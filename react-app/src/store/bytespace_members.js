@@ -20,7 +20,7 @@ const actionRemoveFromBytespace = (bytespaceMemberObj) => ({
 // thunks
 export const thunkAddToBytespace = (bytespaceId) => async (dispatch) => {
    const response = await fetch(
-      `/api/bytespace_members/bytespaces/${bytespaceId}/add_user`,
+      `/api/bytespace_members/${bytespaceId}/add_user`,
       { method: "POST" }
    );
 

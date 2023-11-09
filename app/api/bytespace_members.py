@@ -6,7 +6,7 @@ from ..models.bytespace_users import BytespaceUser
 
 bytespace_members_routes = Blueprint('bytespace_members', __name__)
 
-@bytespace_members_routes.routes('/<int:id>/add_user', methods={'POST'})
+@bytespace_members_routes.route('/<int:id>/add_user', methods={'POST'})
 def add_to_bytespace(id):
     """This route is used to add users to a specific bytespace"""
     membership_to_add = BytespaceUser(

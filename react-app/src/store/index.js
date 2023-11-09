@@ -1,7 +1,7 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import session from "./session";
-import bytespaceReducer from "./bytespace_reducer";
+import bytespaceReducer from "./bytespace";
 
 const rootReducer = combineReducers({
    session,
