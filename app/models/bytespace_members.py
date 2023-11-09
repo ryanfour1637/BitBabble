@@ -1,6 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
-class BytespaceUser(db.Model):
+class BytespaceMember(db.Model):
     __tablename__ = 'bytespace_users'
 
     if environment == "production":
