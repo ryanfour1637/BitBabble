@@ -47,5 +47,17 @@ export const thunkRemoveFromBytestream =
       return null;
    };
 
-
 // Reducer
+
+const initialState = {};
+export default function bytestreamMembersReducer(state = initialState, action) {
+   let newState;
+   let bytestreamId;
+   let userId;
+   let id;
+   switch (action.type) {
+      case ADD_TO_BYTESTREAM:
+         ({ bytestreamId, userId, id } = action.bytestreamMemberObj);
+      // need to get the bytespace Id from the bytepaceleftbar index.js to pass in here.
+   }
+}
