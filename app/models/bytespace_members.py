@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 class BytespaceMember(db.Model):
-    __tablename__ = 'bytespace_users'
+    __tablename__ = 'bytespace_members'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
@@ -11,10 +11,10 @@ class BytespaceMember(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
 
     ## User Relationships
-    user_bytespaceuser = db.relationship('User', back_populates='bytespaceuser_user')
+    user_bytespacemembers = db.relationship('User', back_populates='bytespacemembers_user')
 
     ## Bytespace Relationships
-    bytespace_bytespaceuser = db.relationship('Bytespace', back_populates='bytespaceuser_bytespace')
+    bytespace_bytespacemembers = db.relationship('Bytespace', back_populates='bytespacemembers_bytespace')
 
     def to_dict(self):
         return {

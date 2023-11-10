@@ -20,7 +20,7 @@ class Bytestream(db.Model):
     bytespace_bytestream = db.relationship('Bytespace', back_populates='bytestream_bytespace')
 
     ## BytestreamUser Relationship
-    bytestreamuser_bytestream = db.relationship('BytestreamUser', back_populates='bytestream_bytestreamuser', cascade='all, delete-orphan')
+    bytestreammembers_bytestream = db.relationship('BytestreamMember', back_populates='bytestream_bytestreammembers', cascade='all, delete-orphan')
 
 
     def to_dict(self):

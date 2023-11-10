@@ -22,11 +22,11 @@ class User(db.Model, UserMixin):
     ## Bytestream Relationships
     bytestream_user = db.relationship('Bytestream', back_populates='user_bytestream', cascade='all, delete-orphan')
 
-    ## BytestreamUser Relationships
-    bytestreamuser_user = db.relationship('BytestreamUser', back_populates='user_bytestreamuser', cascade='all, delete-orphan')
+    ## BytestreamMember Relationships
+    bytestreammembers_user = db.relationship('BytestreamMember', back_populates='user_bytestreammembers', cascade='all, delete-orphan')
 
     ## BytespaceUser Relationships
-    bytespaceuser_user = db.relationship('BytespaceUser', back_populates='user_bytespaceuser', cascade='all, delete-orphan')
+    bytespacemembers_user = db.relationship('BytespaceMember', back_populates='user_bytespacemembers', cascade='all, delete-orphan')
 
 
 

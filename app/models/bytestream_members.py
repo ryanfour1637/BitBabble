@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 class BytestreamMember(db.Model):
-    __tablename__ = 'bytestream_users'
+    __tablename__ = 'bytestream_members'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
@@ -12,13 +12,13 @@ class BytestreamMember(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
 
     ## User Relationships
-    user_bytestreamuser = db.relationship('User', back_populates='bytestreamuser_user')
+    user_bytestreammembers = db.relationship('User', back_populates='bytestreammembers_user')
 
     ## Bytespace Relationships
-    bytespace_bytestreamuser = db.relationship('Bytespace', back_populates='bytestreamuser_bytespace')
+    bytespace_bytestreammembers = db.relationship('Bytespace', back_populates='bytestreammembers_bytespace')
 
     ## Bytestream Relationships
-    bytestream_bytestreamuser = db.relationship('Bytestream', back_populates='bytestreamuser_bytestream')
+    bytestream_bytestreammembers = db.relationship('Bytestream', back_populates='bytestreammembers_bytestream')
 
     def to_dict(self):
         return {
