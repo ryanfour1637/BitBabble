@@ -11,8 +11,13 @@ function CreateBytespaceModal({ userId }) {
    const [name, setName] = useState("");
 
    const createBytespace = async () => {
-      const id = dispatch(thunkCreateBytespace({ name: name }));
+      const id = await dispatch(thunkCreateBytespace({ name: name }));
+      console.log(
+         "🚀 ~ file: createBytespaceModel.js:15 ~ createBytespace ~ id:",
+         id
+      );
       closeModal();
+
       push(`/user/${userId}/bytespace/${id}`);
    };
 

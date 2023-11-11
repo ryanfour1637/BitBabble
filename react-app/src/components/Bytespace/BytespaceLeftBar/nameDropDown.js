@@ -37,13 +37,17 @@ function BytespaceNameDropdown() {
       document.addEventListener("click", closeMenu);
 
       return () => document.removeEventListener("click", closeMenu);
-   }, [showMenu]);
+   }, [showMenu, dispatch]);
 
    const ulClassNameSingleBytespace =
       "profile-dropdown" + (showMenu ? "" : " hidden");
    const closeMenu = () => setShowMenu(false);
 
-   if (bytespaceObj == undefined) return null;
+   console.log(
+      "🚀 ~ file: nameDropDown.js:47 ~ BytespaceNameDropdown ~ bytespaceObj:",
+      bytespaceObj
+   );
+
    return (
       <div>
          <div>
