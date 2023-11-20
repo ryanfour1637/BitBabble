@@ -48,6 +48,8 @@ function BytespaceNameDropdown() {
       bytespaceObj
    );
 
+   if (bytespaceObj == undefined) return null;
+
    return (
       <div>
          <div>
@@ -80,9 +82,7 @@ function BytespaceNameDropdown() {
                            buttonText="Delete your bytespace"
                            onItemClick={closeMenu}
                            modalComponent={
-                              <DeleteBytespaceModal
-                                 bytespaceId={bytespaceObj.id}
-                              />
+                              <DeleteBytespaceModal bytespaceId={bytespaceId} />
                            }
                         />
                      </li>

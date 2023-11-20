@@ -17,8 +17,6 @@ function CreateBytespaceModal({ userId }) {
          id
       );
       closeModal();
-
-      push(`/user/${userId}/bytespace/${id}`);
    };
 
    return (
