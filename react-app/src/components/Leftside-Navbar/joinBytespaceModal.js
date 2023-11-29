@@ -8,7 +8,7 @@ import { useModal } from "../../context/Modal";
 function JoinBytespaceModal() {
    const dispatch = useDispatch();
    const bytespaces = useSelector((state) => state.bytespace.bytespaces);
-   const bytespaceMembers = useSelector((state) => state.)
+   const bytespaceMembers = useSelector((state) => state.bytespaceMembers);
    const { closeModal } = useModal();
    const [errors, setErrors] = useState([]);
    const [selectedValue, setSelectedValue] = useState("");
@@ -16,7 +16,7 @@ function JoinBytespaceModal() {
    const bytespacesArr = Object.values(bytespaces);
 
    // need to filter out bytespaces which a particular user is already a part of so that they cannot be added to it a second time.
-   const bytespacesToDisplay =
+   // const bytespacesToDisplay =
    const selectedBytespace = bytespacesArr.find(
       (bytespace) => bytespace.id == selectedId
    );
@@ -35,6 +35,7 @@ function JoinBytespaceModal() {
       dispatch(thunkAddToBytespace(selectedId));
    };
 
+   console.log("this is bytespacemembers", bytespaceMembers);
    return (
       <div>
          <h1>Join Bytespaces</h1>
