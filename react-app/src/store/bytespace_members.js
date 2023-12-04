@@ -2,6 +2,7 @@
 
 const ADD_TO_BYTESPACE = "bytespace_members/ADD_TO_BYTESPACE";
 const REMOVE_FROM_BYTESPACE = "bytespace_members/REMOVE_FROM_BYTESPACE";
+const GET_ALL_MEMBERS = "bytespace_members/GET_ALL_MEMBERS";
 
 // Actions
 
@@ -15,6 +16,15 @@ const actionAddToBytespace = (bytespaceMemberObj) => ({
 const actionRemoveFromBytespace = (bytespaceMemberObj) => ({
    type: REMOVE_FROM_BYTESPACE,
    bytespaceMemberObj,
+});
+
+// get all the bytespacemembers info.
+// filter out the ones which the specific users id is already included in
+// display the rest on the page
+
+const actionGetAllBytespaceMembers = (arrOfMemberObjs) => ({
+   type: GET_ALL_MEMBERS,
+   arrOfMemberObjs,
 });
 
 // thunks
@@ -49,6 +59,19 @@ export const thunkRemoveFromBytespace =
       return null;
    };
 
+export const thunkGetAllMembers = () => async (dispatch) => {
+   const response = await fetch("/api/bytespace_members/get_all_members");
+
+   if (response.ok) {
+      const arrOfMembers = await response.json();
+      dispatch(actionGetAllBytespaceMembers(arrOfMembers));
+      return arrOfMembers;
+   } else {
+      const errors = await response.json();
+      return errors;
+   }
+};
+
 // Reducer
 //key on the outside will be the bytespaceId and then inside it will be keys and values of the bytespaceUsersId so that it will be easy to delete when needed.
 
@@ -71,6 +94,17 @@ export default function bytespaceMembersReducer(state = initialState, action) {
          delete newState.bytespaceId[bytespaceId][userId];
          if (Object.keys(newState[bytespaceId].length === 0))
             delete newState[bytespaceId];
+         return newState;
+      case GET_ALL_MEMBERS:
+         newState = {};
+         action.arrOfMemberObjs.forEach((member) => {
+            if (!newState[member.bytespaceId]) {
+               newState[member.bytespaceId] = {};
+               newState[member.bytespaceId][member.userId] = member.id;
+            } else {
+               newState[member.bytespaceId][member.userId] = member.id;
+            }
+         });
          return newState;
       default:
          return state;

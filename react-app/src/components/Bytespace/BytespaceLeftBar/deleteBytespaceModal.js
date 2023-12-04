@@ -10,14 +10,9 @@ function DeleteBytespaceModal({ bytespaceId }) {
    const { closeModal } = useModal();
 
    const deleteBytespace = async () => {
-      const errors = await dispatch(thunkDeleteBytespace(bytespaceId));
-
-      if (!errors) {
-         closeModal();
-         push("/bytespaces");
-      } else {
-         //placeholder to set errors
-      }
+      await dispatch(thunkDeleteBytespace(bytespaceId));
+      closeModal();
+      push("/bytespaces");
    };
 
    return (

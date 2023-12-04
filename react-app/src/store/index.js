@@ -2,10 +2,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import session from "./session";
 import bytespaceReducer from "./bytespace";
+import bytespaceMembersReducer from "./bytespace_members";
 
 const rootReducer = combineReducers({
    session,
    bytespace: bytespaceReducer,
+   bytespaceMembers: bytespaceMembersReducer,
 });
 
 let enhancer;

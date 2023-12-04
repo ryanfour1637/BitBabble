@@ -37,13 +37,19 @@ function BytespaceNameDropdown() {
       document.addEventListener("click", closeMenu);
 
       return () => document.removeEventListener("click", closeMenu);
-   }, [showMenu]);
+   }, [showMenu, dispatch]);
 
    const ulClassNameSingleBytespace =
       "profile-dropdown" + (showMenu ? "" : " hidden");
    const closeMenu = () => setShowMenu(false);
 
+   console.log(
+      "🚀 ~ file: nameDropDown.js:47 ~ BytespaceNameDropdown ~ bytespaceObj:",
+      bytespaceObj
+   );
+
    if (bytespaceObj == undefined) return null;
+
    return (
       <div>
          <div>
@@ -76,9 +82,7 @@ function BytespaceNameDropdown() {
                            buttonText="Delete your bytespace"
                            onItemClick={closeMenu}
                            modalComponent={
-                              <DeleteBytespaceModal
-                                 bytespaceId={bytespaceObj.id}
-                              />
+                              <DeleteBytespaceModal bytespaceId={bytespaceId} />
                            }
                         />
                      </li>

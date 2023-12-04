@@ -76,11 +76,12 @@ export const thunkUpdateBytespace =
    };
 
 export const thunkDeleteBytespace = (bytespaceId) => async (dispatch) => {
-   const response = fetch(`/api/bytespaces/${bytespaceId}/delete`, {
+   const response = await fetch(`/api/bytespaces/${bytespaceId}/delete`, {
       method: "DELETE",
    });
 
    dispatch(actionDeleteBytespace(bytespaceId));
+
    return null;
 };
 
