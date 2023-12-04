@@ -58,23 +58,7 @@ function BytespaceNameDropdown() {
    )
       return null;
 
-   console.log(
-      "🚀 ~ file: nameDropDown.js:21 ~ BytespaceNameDropdown ~ bytespacesMembershipRosters :",
-      bytespacesMembershipRosters
-   );
-   console.log(
-      "🚀 ~ file: nameDropDown.js:15 ~ BytespaceNameDropdown ~ userId:",
-      userId
-   );
-   console.log(
-      "🚀 ~ file: nameDropDown.js:15 ~ BytespaceNameDropdown ~ bytespaceId:",
-      bytespaceId
-   );
    const memberIdToDelete = bytespacesMembershipRosters[bytespaceId][userId];
-   console.log(
-      "🚀 ~ file: nameDropDown.js:28 ~ BytespaceNameDropdown ~ memberIdToDelete:",
-      memberIdToDelete
-   );
 
    return (
       <div>
