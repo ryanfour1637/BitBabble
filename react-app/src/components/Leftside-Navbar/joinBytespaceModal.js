@@ -18,6 +18,7 @@ function JoinBytespaceModal() {
    const [selectedValue, setSelectedValue] = useState("");
    const [selectedId, setSelectedId] = useState(null);
    const bytespacesArr = Object.values(bytespaces);
+
    const bytespacesMembershipRostersArr = Object.entries(
       bytespacesMembershipRosters
    );
@@ -27,9 +28,16 @@ function JoinBytespaceModal() {
    for (let rosterData of bytespacesMembershipRostersArr) {
       const [bytespaceId, roster] = rosterData;
 
-
       if (!Object.keys(roster).includes(user.id.toString())) {
          nonJoinedBytespaceArr.push(bytespaceId);
+      }
+   }
+
+   const bytespacesToDisplay = [];
+
+   for (let bytespace of bytespacesArr) {
+      if (nonJoinedBytespaceArr.includes(bytespace.id.toString())) {
+         bytespacesToDisplay.push(bytespace);
       }
    }
 
@@ -48,8 +56,9 @@ function JoinBytespaceModal() {
    };
 
    const joinBytespace = () => {
-      console.log("onclick", selectedId);
       dispatch(thunkAddToBytespace(selectedId));
+      closeModal();
+      
    };
 
    return (
@@ -57,7 +66,7 @@ function JoinBytespaceModal() {
          <h1>Join Bytespaces</h1>
          <select value={selectedValue} onChange={valueChange}>
             <option value="">Select a bytespace</option>
-            {bytespacesArr.map((bytespace) => (
+            {bytespacesToDisplay.map((bytespace) => (
                <option key={bytespace.id} value={bytespace.id}>
                   {bytespace.name}
                </option>
