@@ -9,10 +9,10 @@ function LeaveBytespaceModal({ idToDelete }) {
    const { push } = useHistory();
    const { closeModal } = useModal();
 
-   const leaveBytespace = async () => {
-      await dispatch(thunkRemoveFromBytespace(idToDelete));
+   const leaveBytespace = () => {
+      dispatch(thunkRemoveFromBytespace(idToDelete));
       closeModal();
-      push("/bytespaces");
+      return push("/bytespaces");
    };
    return (
       <div>

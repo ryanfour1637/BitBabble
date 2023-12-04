@@ -5,9 +5,11 @@ import { thunkGetAllBytespaces } from "../../store/bytespace";
 import { thunkAddToBytespace } from "../../store/bytespace_members";
 import { thunkGetAllMembers } from "../../store/bytespace_members";
 import { useModal } from "../../context/Modal";
+import { useHistory } from "react-router-dom";
 
 function JoinBytespaceModal() {
    const dispatch = useDispatch();
+   const { push } = useHistory();
    const bytespaces = useSelector((state) => state.bytespace.bytespaces);
    const bytespacesMembershipRosters = useSelector(
       (state) => state.bytespaceMembers
@@ -58,7 +60,7 @@ function JoinBytespaceModal() {
    const joinBytespace = () => {
       dispatch(thunkAddToBytespace(selectedId));
       closeModal();
-      
+      push("/bytespaces");
    };
 
    return (

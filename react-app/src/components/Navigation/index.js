@@ -11,7 +11,7 @@ function Navigation({ isLoaded }) {
    return (
       <ul>
          <li>
-            <NavLink exact to="/">
+            <NavLink exact to="/bytespaces">
                Home
             </NavLink>
          </li>
