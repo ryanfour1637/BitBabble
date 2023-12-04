@@ -52,7 +52,6 @@ def update_bytespace(id):
 @bytespace_routes.route('/<int:id>/delete', methods=['DELETE'])
 def delete_bytespace(id):
     bytespace_to_delete = Bytespace.query.get(id)
-    print("🚀 ~ file: bytespace_routes.py:55 ~ bytespace_to_delete:", bytespace_to_delete)
 
     db.session.delete(bytespace_to_delete)
     db.session.commit()
