@@ -3,11 +3,13 @@ import thunk from "redux-thunk";
 import session from "./session";
 import bytespaceReducer from "./bytespace";
 import bytespaceMembersReducer from "./bytespace_members";
+import bytestreamsReducer from "./bytestream";
 
 const rootReducer = combineReducers({
    session,
    bytespace: bytespaceReducer,
    bytespaceMembers: bytespaceMembersReducer,
+   bytestreams: bytestreamsReducer,
 });
 
 let enhancer;

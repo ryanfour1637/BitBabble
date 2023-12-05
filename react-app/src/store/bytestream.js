@@ -37,7 +37,7 @@ export const thunkGetAllBytestreams = () => async (dispatch) => {
 };
 
 export const thunkCreateBytestream = (nameObj) => async (dispatch) => {
-   const response = await fetch(`/api/bytesreams/create`, {
+   const response = await fetch(`/api/bytestreams/create`, {
       method: "POST",
       headers: {
          "Content-Type": "application/json",

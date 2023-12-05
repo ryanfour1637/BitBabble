@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import BytespaceNameDropdown from "./nameDropDown";
+import BytestreamNameDropdown from "./bytestreamDropDown";
 
 function ByteSpaceLeftBar() {
    const dispatch = useDispatch();
@@ -16,8 +17,7 @@ function ByteSpaceLeftBar() {
             <BytespaceNameDropdown />
          </div>
          <div>
-            Placeholder for channels dropdown which will hold all of the channel
-            names you have joined
+            <BytestreamNameDropdown />
          </div>
       </div>
    );
