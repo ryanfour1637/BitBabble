@@ -2,9 +2,8 @@ from flask import Blueprint, request
 from datetime import date
 from flask_login import login_required, current_user
 from .auth_routes import validation_errors_to_error_messages
+from ..forms.create_update_bytestream_form import CreateUpdateBytestreamForm
 from ..models import Bytestream
-
-'''create a form specifically for bytestreams to be used with update and create'''
 from ..forms.create_update_bytespace_form import CreateUpdateBytespaceForm
 from ..models.db import db
 
@@ -17,8 +16,8 @@ def bytestreams():
     all_bytestreams = Bytestream.query.all()
     return [bytestream.to_dict() for bytestream in all_bytestreams]
 
-@bytestream_routes.route('/create', methods=['POST'])
-def create_bytestream():
+@bytestream_routes.route('/create/<int:id>', methods=['POST'])
+def create_bytestream(id):
     """Adding a bytestream to the database when someone wants to create a new one"""
 
     form = CreateUpdateBytestreamForm()
@@ -27,6 +26,7 @@ def create_bytestream():
         bytestream = Bytestream(
             name=form.data['name'],
             owner_id=current_user.id,
+            bytespace_id=id,
             date_created=date.today()
         )
 

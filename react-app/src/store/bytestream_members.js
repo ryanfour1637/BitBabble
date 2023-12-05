@@ -53,7 +53,7 @@ export const thunkRemoveFromBytestream =
       return null;
    };
 
-export const thunkGetAllByteStreamMembers = () => async (dispatch) => {
+export const thunkGetAllBytestreamMembers = () => async (dispatch) => {
    const response = await fetch("/api/bytestream_members/get_all_members");
 
    if (response.ok) {

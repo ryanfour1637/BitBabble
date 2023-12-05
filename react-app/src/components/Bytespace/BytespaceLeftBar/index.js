@@ -5,12 +5,6 @@ import BytespaceNameDropdown from "./nameDropDown";
 import BytestreamNameDropdown from "./bytestreamDropDown";
 
 function ByteSpaceLeftBar() {
-   const dispatch = useDispatch();
-
-   // placeholder to pull all channels
-   //placeholder to pull all threads
-   //placeholder to pull all dms
-
    return (
       <div>
          <div>

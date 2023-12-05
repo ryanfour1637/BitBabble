@@ -36,24 +36,25 @@ export const thunkGetAllBytestreams = () => async (dispatch) => {
    }
 };
 
-export const thunkCreateBytestream = (nameObj) => async (dispatch) => {
-   const response = await fetch(`/api/bytestreams/create`, {
-      method: "POST",
-      headers: {
-         "Content-Type": "application/json",
-      },
-      body: JSON.stringify(nameObj),
-   });
+export const thunkCreateBytestream =
+   (nameObj, bytespaceId) => async (dispatch) => {
+      const response = await fetch(`/api/bytestreams/create/${bytespaceId}`, {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify(nameObj),
+      });
 
-   if (response.ok) {
-      const data = await response.json();
-      dispatch(actionCreateBytestream(data));
-      return data.id;
-   } else {
-      const errors = await response.json();
-      return errors;
-   }
-};
+      if (response.ok) {
+         const data = await response.json();
+         dispatch(actionCreateBytestream(data));
+         return data.id;
+      } else {
+         const errors = await response.json();
+         return errors;
+      }
+   };
 
 export const thunkUpdateBytestream =
    (nameObj, bytestreamId) => async (dispatch) => {

@@ -22,6 +22,7 @@ function App() {
          <Navigation isLoaded={isLoaded} />
          {isLoaded && (
             <Switch>
+               <Route path="/user/:userId/bytespaces/:bytespaceId/bytestream/:bytestreamId"></Route>
                <Route path="/user/:userId/bytespaces/:bytespaceId">
                   <SingleBytespaceLandingPage />
                </Route>
