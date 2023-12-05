@@ -1,46 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { login } from "../../../store/session";
 import { useDispatch, useSelector } from "react-redux";
-import { thunkGetAllBytestreams } from "../../../store/bytestream";
 import {
    thunkGetAllBytestreamMembers,
    thunkAddToBytestream,
 } from "../../../store/bytestream_members";
 import { useModal } from "../../../context/Modal";
 import { useHistory, useParams } from "react-router-dom";
+import { string } from "prop-types";
 
-function JoinBytestreamModal() {
+function JoinBytestreamModal({
+   bytespaceBytestreamsArr,
+   bytestreamMembershipRosters,
+   userId,
+   bytespaceId,
+}) {
    const dispatch = useDispatch();
-   const { userId, bytespaceId } = useParams();
+   console.log("🚀 ~ file: joinBytestreamModal.js:17 ~ userId:", userId);
    const { push } = useHistory();
    const { closeModal } = useModal();
    const [errors, setErrors] = useState([]);
    const [selectedValue, setSelectedValue] = useState("");
    const [selectedId, setSelectedId] = useState(null);
-   const bytestreams = useSelector((state) => state.bytestreams);
-   const bytestreamMembershipRosters = useSelector(
-      (state) => state.bytestreamMembers
-   );
-
-   useEffect(() => {
-      dispatch(thunkGetAllBytestreams);
-      dispatch(thunkGetAllBytestreamMembers);
-   }, [dispatch]);
-
-   if (bytestreams == undefined || Object.values(bytestreams).length === 0)
-      return null;
-
-   if (
-      bytestreamMembershipRosters == undefined ||
-      Object.entries(bytestreamMembershipRosters).length === 0
-   )
-      return null;
-
-   const bytespaceBytestreams = bytestreams[bytespaceId];
 
    const bytestreamMembershipRostersArr = Object.entries(
       bytestreamMembershipRosters
    );
+   console.log(
+      "🚀 ~ file: joinBytestreamModal.js:29 ~ bytestreamMembershipRostersArr:",
+      bytestreamMembershipRostersArr
+   );
+
+   // i need to figure out why the bytestreamIds i am getting do not match. It could be something to do with the shape of my store or the way I am getting the data out of the store.
 
    const nonJoinedBytestreamArr = [];
 
@@ -50,15 +41,13 @@ function JoinBytestreamModal() {
          nonJoinedBytestreamArr.push(bytestreamId);
       }
    }
-
+   console.log(
+      "🚀 ~ file: joinBytestreamModal.js:42 ~ nonJoinedBytestreamArr:",
+      nonJoinedBytestreamArr
+   );
    const bytestreamsToDisplay = [];
 
-   console.log(
-      "🚀 ~ file: joinBytestreamModal.js:57 ~ JoinBytestreamModal ~ bytespaceBytestreams:",
-      bytespaceBytestreams
-   );
-
-   for (let bytestream of bytespaceBytestreams) {
+   for (let bytestream of bytespaceBytestreamsArr) {
       if (nonJoinedBytestreamArr.includes(bytestream.id.toString())) {
          bytestreamsToDisplay.push(bytestream);
       }
@@ -69,8 +58,12 @@ function JoinBytestreamModal() {
       bytestreamsToDisplay
    );
 
-   const selectedBytestream = bytespaceBytestreams.find(
+   const selectedBytestream = bytespaceBytestreamsArr.find(
       (bytestream) => bytestream.id == selectedId
+   );
+   console.log(
+      "🚀 ~ file: joinBytestreamModal.js:75 ~ selectedBytestream:",
+      selectedBytestream
    );
    const valueChange = (e) => {
       setSelectedId(e.target.value);

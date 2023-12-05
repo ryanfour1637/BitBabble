@@ -5,6 +5,7 @@ import OpenModalButton from "../../OpenModalButton";
 import CreateBytestreamModal from "./createBytestreamModal";
 import JoinBytestreamModal from "./joinBytestreamModal";
 import { thunkGetAllBytestreams } from "../../../store/bytestream";
+import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
 import { NavLink } from "react-router-dom";
 
 function BytestreamNameDropdown() {
@@ -13,6 +14,9 @@ function BytestreamNameDropdown() {
    const { userId, bytespaceId } = useParams();
    const bytestreams = useSelector((state) => state.bytestreams);
    const bytespaceBytestreams = bytestreams[bytespaceId];
+   const bytestreamMembershipRosters = useSelector(
+      (state) => state.bytestreamMembers
+   );
 
    const ulRefAllBytestreams = useRef();
 
@@ -23,6 +27,7 @@ function BytestreamNameDropdown() {
 
    useEffect(() => {
       dispatch(thunkGetAllBytestreams());
+      dispatch(thunkGetAllBytestreamMembers());
       if (!showMenu) return;
 
       const closeMenu = (e) => {
@@ -67,7 +72,16 @@ function BytestreamNameDropdown() {
                      <OpenModalButton
                         buttonText="Join"
                         onButtonClick={closeMenu}
-                        modalComponent={<JoinBytestreamModal />}
+                        modalComponent={
+                           <JoinBytestreamModal
+                              bytespaceBytestreamsArr={bytespaceBytestreamsArr}
+                              bytestreamMembershipRosters={
+                                 bytestreamMembershipRosters
+                              }
+                              userId={userId}
+                              bytespaceId={bytespaceId}
+                           />
+                        }
                      />
                   </li>
                   {bytespaceBytestreamsArr &&

@@ -23,3 +23,10 @@ def remove_from_bytestream(id):
     db.session.delete(membership_to_delete)
     db.session.commit()
     return {membership_to_delete}
+
+@bytestream_members_routes.route('/get_all_members')
+def get_all_members():
+    '''This route is used to get a list of all the members of all the bytespaces'''
+    all_bytestreams_membership = BytestreamMember.query.all()
+    print(all_bytestreams_membership)
+    return [bytestream_members.to_dict() for bytestream_members in all_bytestreams_membership]
