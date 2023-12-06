@@ -4,15 +4,18 @@ import { useHistory, useParams } from "react-router-dom";
 import OpenModalButton from "../../OpenModalButton";
 import CreateBytestreamModal from "./createBytestreamModal";
 import JoinBytestreamModal from "./joinBytestreamModal";
+import UpdateBytestreamModal from "./updateBytestreamModal";
 import { thunkGetAllBytestreams } from "../../../store/bytestream";
 import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
 import { NavLink } from "react-router-dom";
+import { useRightClickMenu } from "../../../context/rightClick";
 
 function BytestreamNameDropdown() {
    const dispatch = useDispatch();
    const [showMenu, setShowMenu] = useState(false);
    const { userId, bytespaceId } = useParams();
    const ulRefAllBytestreams = useRef();
+   const { openRightClickMenu, closeRightClickMenu } = useRightClickMenu();
    const bytestreams = useSelector((state) => state.bytestreams);
    const bytestreamsMembershipRosters = useSelector(
       (state) => state.bytestreamMembers
@@ -97,6 +100,32 @@ function BytestreamNameDropdown() {
       setShowMenu(true);
    };
 
+   const handleRightClick = (e, bytestream) => {
+      e.preventDefault();
+
+      const menuContent = (
+         <div>
+            <OpenModalButton
+               buttonText="Update Bytestream"
+               onButtonClick={closeMenu}
+               modalComponent={
+                  <UpdateBytestreamModal bytestream={bytestream} />
+               }
+            />
+            <OpenModalButton
+               buttonText="Leave Bytestream"
+               onButtonClick={closeMenu}
+            />
+         </div>
+      );
+      const position = {
+         x: e.pageX,
+         y: e.pageY,
+      };
+
+      openRightClickMenu(menuContent, position);
+   };
+
    const ulClassNameAllBytestreams =
       "profile-dropdown" + (showMenu ? "" : " hidden");
    const closeMenu = () => setShowMenu(false);
@@ -135,6 +164,9 @@ function BytestreamNameDropdown() {
                      joinedBytestreamsToDisplay.map((bytestream) => (
                         <li key={bytestream.id}>
                            <NavLink
+                              onContextMenu={(e) =>
+                                 handleRightClick(e, bytestream)
+                              }
                               to={`/user/${userId}/bytespaces/${bytespaceId}/bytestream/${bytestream.id}`}
                            >
                               {bytestream.name}{" "}
