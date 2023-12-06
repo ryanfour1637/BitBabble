@@ -23,7 +23,7 @@ def remove_from_bytestream(id):
     membership_to_delete = BytestreamMember.query.get(id)
     db.session.delete(membership_to_delete)
     db.session.commit()
-    return {membership_to_delete}
+    return membership_to_delete.to_dict()
 
 @bytestream_members_routes.route('/get_all_members')
 def get_all_members():

@@ -93,11 +93,10 @@ export default function bytestreamMembersReducer(state = initialState, action) {
          }
          return newState;
       case REMOVE_FROM_BYTESTREAM:
-         ({ bytestreamId, userId, id } = action.bytestreamMemberObj);
+         ({ bytestreamId, bytespaceId, userId, id } =
+            action.bytestreamMemberObj);
          newState = { ...state };
-         delete newState.bytestreamId[bytestreamId][userId];
-         if (Object.keys(newState[bytestreamId].length === 0))
-            delete newState[bytestreamId];
+         delete newState[bytespaceId][bytestreamId][userId];
          return newState;
       case GET_ALL_MEMBERS:
          newState = {};

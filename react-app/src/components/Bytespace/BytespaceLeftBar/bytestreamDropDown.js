@@ -5,6 +5,7 @@ import OpenModalButton from "../../OpenModalButton";
 import CreateBytestreamModal from "./createBytestreamModal";
 import JoinBytestreamModal from "./joinBytestreamModal";
 import UpdateBytestreamModal from "./updateBytestreamModal";
+import LeaveBytestreamModal from "./leaveBytestreamModal";
 import { thunkGetAllBytestreams } from "../../../store/bytestream";
 import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
 import { NavLink } from "react-router-dom";
@@ -103,6 +104,9 @@ function BytestreamNameDropdown() {
    const handleRightClick = (e, bytestream) => {
       e.preventDefault();
 
+      const bytestreamMemberId =
+         thisBytespacesBytestreamsMembers[bytestream.id][userId];
+
       const menuContent = (
          <div>
             <OpenModalButton
@@ -115,6 +119,9 @@ function BytestreamNameDropdown() {
             <OpenModalButton
                buttonText="Leave Bytestream"
                onButtonClick={closeMenu}
+               modalComponent={
+                  <LeaveBytestreamModal idToDelete={bytestreamMemberId} />
+               }
             />
          </div>
       );
