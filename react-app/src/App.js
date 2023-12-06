@@ -7,6 +7,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import LoginLandingPage from "./components/LoginLandingPage";
 import SingleBytespaceLandingPage from "./components/Bytespace";
+import LoggedOutLandingPage from "./components/Homepage";
 
 function App() {
    const dispatch = useDispatch();
@@ -32,10 +33,16 @@ function App() {
                <Route path="/signup">
                   <SignupFormPage />
                </Route>
-               <Route path="/bytespaces">
-                  <LoginLandingPage />
-               </Route>
-               <Route path="/"></Route>
+
+               {!user ? (
+                  <Route path="/">
+                     <LoggedOutLandingPage />
+                  </Route>
+               ) : (
+                  <Route path="/">
+                     <LoginLandingPage />
+                  </Route>
+               )}
             </Switch>
          )}
       </>
