@@ -18,9 +18,9 @@ const actionCreateBytestream = (bytestream) => ({
 });
 
 // bytespaceId is the id of the successfully deleted bytespace to be removed from the store
-const actionDeleteBytestream = (bytestreamId) => ({
+const actionDeleteBytestream = (bytestreamObj) => ({
    type: DELETE_BYTESTREAM,
-   bytestreamId,
+   bytestreamObj,
 });
 
 // Thunks
@@ -76,12 +76,12 @@ export const thunkUpdateBytestream =
       }
    };
 
-export const thunkDeleteBytestream = (bytestreamId) => async (dispatch) => {
-   const response = await fetch(`/api/bytestreams/${bytestreamId}/delete`, {
+export const thunkDeleteBytestream = (bytestreamObj) => async (dispatch) => {
+   const response = await fetch(`/api/bytestreams/${bytestreamObj.id}/delete`, {
       method: "DELETE",
    });
 
-   dispatch(actionDeleteBytestream(bytestreamId));
+   dispatch(actionDeleteBytestream(bytestreamObj));
 
    return null;
 };
@@ -90,6 +90,8 @@ export const thunkDeleteBytestream = (bytestreamId) => async (dispatch) => {
 const initialState = {};
 export default function bytestreamsReducer(state = initialState, action) {
    let newState;
+   let bytespaceId;
+   let bytestreamId;
    switch (action.type) {
       case GET_ALL_BYTESTREAMS:
          newState = {};
@@ -114,10 +116,9 @@ export default function bytestreamsReducer(state = initialState, action) {
          }
          return newState;
       case DELETE_BYTESTREAM:
+         ({ bytespaceId, bytestreamId } = action.bytestreamObj);
          newState = { ...state };
-         delete newState[action.bytestream.bytespaceId][
-            action.bytestream.bytestreamId
-         ];
+         delete newState[bytespaceId][bytestreamId];
          return newState;
       default:
          return state;
