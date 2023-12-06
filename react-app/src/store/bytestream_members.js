@@ -23,21 +23,22 @@ const actionGetAllBytestreamMembers = (arrOfMemberObjs) => ({
 
 // Thunks
 
-export const thunkAddToBytestream = (bytestreamId) => async (dispatch) => {
-   const response = await fetch(
-      `/api/bytestream_members/bytestreams/${bytestreamId}/add_user`,
-      { method: "POST" }
-   );
+export const thunkAddToBytestream =
+   (bytestreamId, bytespaceId) => async (dispatch) => {
+      const response = await fetch(
+         `/api/bytestream_members/${bytespaceId}/bytestreams/${bytestreamId}/add_user`,
+         { method: "POST" }
+      );
 
-   if (response.ok) {
-      const bytestreamMemberObj = await response.json();
-      dispatch(actionAddToBytestream(bytestreamMemberObj));
-      return null;
-   } else {
-      const errors = await response.json();
-      return errors;
-   }
-};
+      if (response.ok) {
+         const bytestreamMemberObj = await response.json();
+         dispatch(actionAddToBytestream(bytestreamMemberObj));
+         return null;
+      } else {
+         const errors = await response.json();
+         return errors;
+      }
+   };
 
 export const thunkRemoveFromBytestream =
    (bytestreamMemberId) => async (dispatch) => {
@@ -74,15 +75,23 @@ export default function bytestreamMembersReducer(state = initialState, action) {
    let bytestreamId;
    let userId;
    let id;
+   let bytespaceId;
    switch (action.type) {
-      //may have to update this to fix to match the get all members below?
       case ADD_TO_BYTESTREAM:
-         ({ bytestreamId, userId, id } = action.bytestreamMemberObj);
+         ({ bytestreamId, bytespaceId, userId, id } =
+            action.bytestreamMemberObj);
          newState = { ...state };
-         if (!newState[bytestreamId]) newState[bytestreamId] = {};
-         newState[bytestreamId][userId] = id;
+         if (!newState[bytespaceId]) {
+            newState[bytespaceId] = {};
+            newState[bytespaceId][bytestreamId] = {};
+            newState[bytespaceId][bytestreamId][userId] = id;
+         } else if (!newState[bytespaceId][bytestreamId]) {
+            newState[bytespaceId][bytestreamId] = {};
+            newState[bytespaceId][bytestreamId][userId] = id;
+         } else {
+            newState[bytespaceId][bytestreamId][userId] = id;
+         }
          return newState;
-      // may have to update to get to work with the update thats been made to get all members.
       case REMOVE_FROM_BYTESTREAM:
          ({ bytestreamId, userId, id } = action.bytestreamMemberObj);
          newState = { ...state };
@@ -93,14 +102,16 @@ export default function bytestreamMembersReducer(state = initialState, action) {
       case GET_ALL_MEMBERS:
          newState = {};
          action.arrOfMemberObjs.forEach((member) => {
-            if (!newState[member.bytespaceId]) {
-               newState[member.bytespaceId] = {};
-               newState[member.bytespaceId][member.bytestreamId] = {};
-               newState[member.bytespaceId][member.bytestreamId][
-                  member.userId
-               ] = member.id;
+            const { bytestreamId, bytespaceId, userId, id } = member;
+            if (!newState[bytespaceId]) {
+               newState[bytespaceId] = {};
+               newState[bytespaceId][bytestreamId] = {};
+               newState[bytespaceId][bytestreamId][userId] = id;
+            } else if (!newState[bytespaceId][bytestreamId]) {
+               newState[bytespaceId][bytestreamId] = {};
+               newState[bytespaceId][bytestreamId][userId] = id;
             } else {
-               newState[member.bytestreamId][member.userId] = member.id;
+               newState[bytespaceId][bytestreamId][userId] = id;
             }
          });
          return newState;

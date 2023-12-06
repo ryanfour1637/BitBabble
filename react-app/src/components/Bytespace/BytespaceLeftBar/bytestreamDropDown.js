@@ -64,8 +64,7 @@ function BytestreamNameDropdown() {
    const thisBytespacesBytestreamsMembers =
       bytestreamsMembershipRosters[bytespaceId];
 
-   // obtain the list of the bytestreams within this bytespace which the current user is not in
-   // this check should not be necessary once I add the thunk to add the person who creates the channel to the channel but it is for now.
+   // obtain the list of the bytestreams within this bytespace which the current user is not in, this check should not be necessary once I add the thunk to add the person who creates the channel to the channel but it is for now.
    for (let id of allBytestreamIdsInThisBytespaceArr) {
       if (!Object.keys(thisBytespacesBytestreamsMembers).includes(id)) {
          nonJoinedBytestreamIdArr.push(id);
@@ -124,11 +123,9 @@ function BytestreamNameDropdown() {
                         onButtonClick={closeMenu}
                         modalComponent={
                            <JoinBytestreamModal
-                              bytespaceBytestreamsArr={bytespaceBytestreamsArr}
-                              // bytestreamMembershipRosters={
-                              //    bytestreamMembershipRosters
-                              // }
-                              userId={userId}
+                              nonJoinedBytestreamsToDisplay={
+                                 nonJoinedBytestreamsToDisplay
+                              }
                               bytespaceId={bytespaceId}
                            />
                         }
