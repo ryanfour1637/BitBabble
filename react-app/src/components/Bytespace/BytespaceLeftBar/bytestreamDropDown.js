@@ -13,6 +13,10 @@ function BytestreamNameDropdown() {
    const [showMenu, setShowMenu] = useState(false);
    const { userId, bytespaceId } = useParams();
    const ulRefAllBytestreams = useRef();
+   const bytestreams = useSelector((state) => state.bytestreams);
+   const bytestreamsMembershipRosters = useSelector(
+      (state) => state.bytestreamMembers
+   );
 
    useEffect(() => {
       dispatch(thunkGetAllBytestreams());
@@ -33,11 +37,6 @@ function BytestreamNameDropdown() {
       return () => document.removeEventListener("click", closeMenu);
    }, [showMenu, dispatch]);
 
-   // get all bytestreams
-   const bytestreams = useSelector((state) => state.bytestreams);
-   const bytestreamsMembershipRosters = useSelector(
-      (state) => state.bytestreamMembers
-   );
    if (
       bytestreamsMembershipRosters == undefined ||
       Object.values(bytestreamsMembershipRosters).length === 0
@@ -85,6 +84,7 @@ function BytestreamNameDropdown() {
       }
    }
 
+   // create two buckets. One to display the bytestreams this particular user is already in and the other to pass as a prop to the join bytestream modal.
    for (let bytestream of bytespaceBytestreamsArr) {
       if (!nonJoinedBytestreamIdArr.includes(bytestream.id.toString())) {
          joinedBytestreamsToDisplay.push(bytestream);
@@ -92,54 +92,15 @@ function BytestreamNameDropdown() {
          nonJoinedBytestreamsToDisplay.push(bytestream);
       }
    }
-   console.log(
-      "🚀 ~ file: bytestreamDropDown.js:62 ~ BytestreamNameDropdown ~ joinedBytestreamsToDisplay:",
-      joinedBytestreamsToDisplay
-   );
-   console.log(
-      "🚀 ~ file: bytestreamDropDown.js:64 ~ BytestreamNameDropdown ~ nonJoinedBytestreamsToDisplay:",
-      nonJoinedBytestreamsToDisplay
-   );
-   console.log(
-      "🚀 ~ file: bytestreamDropDown.js:51 ~ BytestreamNameDropdown ~ nonJoinedBytestreamIdArr:",
-      nonJoinedBytestreamIdArr
-   );
-   console.log(
-      "🚀 ~ file: bytestreamDropDown.js:53 ~ BytestreamNameDropdown ~ joinedBytestreamIdArr:",
-      joinedBytestreamIdArr
-   );
 
    const openMenu = () => {
       if (showMenu) return;
       setShowMenu(true);
    };
 
-   // useEffect(() => {
-   //    dispatch(thunkGetAllBytestreams());
-   //    dispatch(thunkGetAllBytestreamMembers());
-   //    if (!showMenu) return;
-
-   //    const closeMenu = (e) => {
-   //       if (
-   //          ulRefAllBytestreams.current &&
-   //          !ulRefAllBytestreams.current.contains(e.target)
-   //       ) {
-   //          setShowMenu(false);
-   //       }
-   //    };
-
-   //    document.addEventListener("click", closeMenu);
-
-   //    return () => document.removeEventListener("click", closeMenu);
-   // }, [showMenu, dispatch]);
-
    const ulClassNameAllBytestreams =
       "profile-dropdown" + (showMenu ? "" : " hidden");
    const closeMenu = () => setShowMenu(false);
-
-   // if (bytestreams == undefined || Object.values(bytestreams).length === 0) {
-   //    return null;
-   // }
 
    return (
       <div>
