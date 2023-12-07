@@ -26,36 +26,44 @@ function LoginFormModal() {
    };
 
    return (
-      <>
-         <h1>Log In</h1>
-         <form onSubmit={handleSubmit}>
+      <div className="login-modal-outerdiv">
+         <h1 className="login-modal-loginwords">Log In</h1>
+         <form className="login-modal-form" onSubmit={handleSubmit}>
             <ul>
                {errors.map((error, idx) => (
                   <li key={idx}>{error}</li>
                ))}
             </ul>
-            <label>
-               Email
-               <input
-                  type="text"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-               />
-            </label>
-            <label>
-               Password
-               <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-               />
-            </label>
-            <DemoUser setEmail={setEmail} setPassword={setPassword} />
-            <button type="submit">Log In</button>
+            <div className="login-modal-inputdiv">
+               <label>
+                  <input
+                     className="login-modal-form-inputs"
+                     type="text"
+                     value={email}
+                     onChange={(e) => setEmail(e.target.value)}
+                     required
+                     placeholder="Enter your email"
+                  />
+               </label>
+
+               <label>
+                  <input
+                     className="login-modal-form-inputs"
+                     type="password"
+                     value={password}
+                     onChange={(e) => setPassword(e.target.value)}
+                     required
+                     placeholder="Enter your password"
+                  />
+               </label>
+
+               <DemoUser setEmail={setEmail} setPassword={setPassword} />
+               <button className="login-modal-submit-buttons" type="submit">
+                  Log In
+               </button>
+            </div>
          </form>
-      </>
+      </div>
    );
 }
 
