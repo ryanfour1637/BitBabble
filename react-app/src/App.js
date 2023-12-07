@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
@@ -11,8 +11,10 @@ import LoggedOutLandingPage from "./components/Homepage";
 
 function App() {
    const dispatch = useDispatch();
+   const location = useLocation();
    const [isLoaded, setIsLoaded] = useState(false);
    const user = useSelector((state) => state.session.user);
+   const isLoginLandingPage = location.pathname === "/";
 
    useEffect(() => {
       dispatch(authenticate()).then(() => setIsLoaded(true));
@@ -20,7 +22,7 @@ function App() {
 
    return (
       <>
-         {user && <Navigation isLoaded={isLoaded} />}
+         {user && !isLoginLandingPage && <Navigation isLoaded={isLoaded} />}
          {isLoaded && (
             <Switch>
                <Route path="/user/:userId/bytespaces/:bytespaceId/bytestream/:bytestreamId"></Route>
