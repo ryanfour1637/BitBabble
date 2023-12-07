@@ -1,0 +1,124 @@
+body {
+   background-color: #8e25eb;
+}
+
+.loggedout-topdiv {
+   display: flex;
+   justify-content: space-between;
+}
+
+.loggedout-topdiv-leftside {
+   width: 500px;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-evenly;
+   margin-left: 75px;
+   margin-top: 25px;
+}
+
+.loggedout-topdiv-rightside {
+   display: flex;
+   width: 400px;
+   justify-content: space-evenly;
+   margin-right: 150px;
+   margin-top: 25px;
+}
+
+.loggedout-topdiv-leftside-links {
+   color: #ffffff;
+   font-size: 16px;
+   font-family: "Source Sans Pro";
+   font-weight: 500;
+   line-height: 21px;
+}
+
+.loggedout-topdiv-rightside button {
+   cursor: pointer;
+   width: 153px;
+   height: 60px;
+   padding: 0px 8px;
+   border: 0;
+   box-sizing: border-box;
+   border-radius: 24px;
+   background-color: #ffffff;
+   color: #161616;
+   font-size: 20px;
+   font-family: "Source Sans Pro";
+   font-weight: 700;
+   line-height: 26px;
+   outline: none;
+}
+
+.loggedout-midpage {
+   color: #ffffff;
+   font-size: 60px;
+   font-family: "Source Sans Pro";
+   font-weight: 700;
+   line-height: 70px;
+   text-align: center;
+   margin-top: 100px;
+   margin-bottom: 100px;
+}
+
+.loggedout-bottompage {
+   display: flex;
+   flex-direction: row;
+   margin-bottom: 59px;
+}
+
+.loggedout-bottompage-leftside {
+   display: flex;
+   flex-direction: column;
+   width: 60%;
+}
+
+.loggedout-bottompage-leftside-gettingstarted {
+   display: flex;
+   justify-content: center;
+   color: #ffffff;
+   font-size: 40px;
+   font-family: "Source Sans Pro";
+   font-weight: 700;
+   line-height: 50px;
+   margin-bottom: 0px;
+   margin-left: 90px;
+}
+
+.loggedout-bottompage-leftside-paragraph {
+   width: 500px;
+   color: #ffffff;
+   font-size: 20px;
+   font-family: "Source Sans Pro";
+   line-height: 25px;
+   margin-left: 240px;
+}
+
+.loggedout-bottompage-rightside {
+   margin-top: 25px;
+   margin-right: 250px;
+}
+#loggedout-image {
+   background-image: url(../../images/loggedout-homepage-image.png);
+   width: 525px;
+   height: 400px;
+   border-radius: 24px;
+   background-position: center center;
+   background-size: cover;
+   background-repeat: no-repeat;
+}
+
+.bottom-footer {
+   display: flex;
+   justify-content: space-evenly;
+   width: 100%;
+   background-color: #323232;
+   margin: 0;
+}
+
+.bottom-footer-tags {
+   color: #ffffff;
+   font-size: 12px;
+   font-family: "Source Sans Pro";
+   line-height: 15px;
+   text-align: center;
+}

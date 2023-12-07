@@ -17,11 +17,11 @@ class Bytespace(db.Model):
     ## Bytestream Relationships
     bytestream_bytespace = db.relationship('Bytestream', back_populates='bytespace_bytestream', cascade='all, delete-orphan')
 
-    ## BytestreamUser Relationships
-    bytestreamuser_bytespace = db.relationship('BytestreamUser', back_populates='bytespace_bytestreamuser', cascade='all, delete-orphan')
+    ## BytestreamMember Relationships
+    bytestreammembers_bytespace = db.relationship('BytestreamMember', back_populates='bytespace_bytestreammembers', cascade='all, delete-orphan')
 
     ## BytespaceUser Relationships
-    bytespaceuser_bytespace = db.relationship('BytespaceUser', back_populates='bytespace_bytespaceuser', cascade='all, delete-orphan')
+    bytespacemembers_bytespace = db.relationship('BytespaceMember', back_populates='bytespace_bytespacemembers', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
