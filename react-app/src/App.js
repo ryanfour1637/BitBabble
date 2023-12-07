@@ -20,7 +20,7 @@ function App() {
 
    return (
       <>
-         <Navigation isLoaded={isLoaded} />
+         {user && <Navigation isLoaded={isLoaded} />}
          {isLoaded && (
             <Switch>
                <Route path="/user/:userId/bytespaces/:bytespaceId/bytestream/:bytestreamId"></Route>
