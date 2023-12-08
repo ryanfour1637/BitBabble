@@ -13,7 +13,6 @@ function DeleteBytestreamModal({ bytestream }) {
 
    const deleteBytestream = async () => {
       await dispatch(thunkDeleteBytestream(bytestream));
-      await dispatch(thunkGetAllBytestreams());
       await dispatch(thunkGetAllBytestreamMembers());
       return closeModal();
    };
