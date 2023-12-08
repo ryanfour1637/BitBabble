@@ -5,6 +5,10 @@ import { thunkGetAllBytespaces } from "../../store/bytespace";
 import { thunkGetAllMembers } from "../../store/bytespace_members";
 import OpenModalButton from "../OpenModalButton";
 import JoinBytespaceModal from "../Leftside-Navbar/joinBytespaceModal";
+import CreateBytespaceModal from "../Leftside-Navbar/createBytespaceModel";
+import joinImage from "../../images/joinbytespaceimg.png";
+import createImage from "../../images/createbytespaceimg.png";
+import "./loginlandingpage.css";
 
 function LoginLandingPage() {
    const dispatch = useDispatch();
@@ -41,22 +45,69 @@ function LoginLandingPage() {
    }, [dispatch]);
 
    return (
-      <div>
-         {bytespacesArr.length > 0 ? (
-            bytespacesToDisplay.map((bytespace) => (
-               <NavLink to={`/user/${user.id}/bytespaces/${bytespace.id}`}>
-                  <h2>{bytespace.name}</h2>
-               </NavLink>
-            ))
-         ) : (
-            <div>
-               <h2>Interested in joining a public bytespace?? </h2>
-               <OpenModalButton
-                  buttonText="Join Here!"
-                  modalComponent={<JoinBytespaceModal />}
-               />
+      <div className="loginlp-totaldiv">
+         <div className="loginlp-topdiv">
+            <h1 className="loginlp-topdiv-bitbabble">BitBabble</h1>
+            <div className="loginlp-topdiv-bottomdiv">
+               <h2 className="loginlp-topdiv-bottomdiv-welcome">
+                  Welcome back! You look nice today.
+               </h2>
+               <h6 className="loginlp-topdiv-bottomdiv-choose">
+                  Choose a bytespace below to get back to working with your
+                  team.
+               </h6>
             </div>
-         )}
+         </div>
+         <div className="loginlp-middiv">
+            <h3 className="loginlp-middiv-your">{`Bytespaces for ${user.firstName} ${user.lastName}`}</h3>
+            {bytespacesArr.length > 0 ? (
+               bytespacesToDisplay.map((bytespace) => (
+                  <NavLink
+                     target="_blank"
+                     className="loginlp-middiv-bytespace"
+                     to={`/user/${user.id}/bytespaces/${bytespace.id}`}
+                  >
+                     <h2 className="loginlp-middiv-bytespacename">
+                        {bytespace.name}
+                     </h2>
+                  </NavLink>
+               ))
+            ) : (
+               <h4>Once you join a bytespace, it will appear here</h4>
+            )}
+         </div>
+         <div className="loginlp-bottom-divs">
+            <div className="loginlp-bottom-divs-left">
+               <img
+                  className="loginlp-bottom-img"
+                  src={createImage}
+                  alt="lightbulb"
+               />
+               <p className="loginlp-bottom-divs-p">
+                  Want to use BitBabble with a different team?
+               </p>
+            </div>
+            <OpenModalButton
+               buttonText="Create Another Bytespace"
+               modalComponent={<CreateBytespaceModal />}
+            />
+         </div>
+         <div className="loginlp-bottom-divs">
+            <div className="loginlp-bottom-divs-left">
+               <img
+                  className="loginlp-bottom-img"
+                  src={joinImage}
+                  alt="lightbulb"
+               />
+               <p className="loginlp-bottom-divs-p">
+                  Looking for a different Bytespace?
+               </p>
+            </div>
+            <OpenModalButton
+               buttonText="Join Another Bytespace"
+               modalComponent={<JoinBytespaceModal />}
+            />
+         </div>
       </div>
    );
 }

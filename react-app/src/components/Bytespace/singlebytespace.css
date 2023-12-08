@@ -1,0 +1,52 @@
+.single-bytespace-outerdiv {
+   display: grid;
+   grid-template-columns: 5% 15% 80%;
+}
+
+.bytespace-leftbar {
+   width: 100%;
+   background-color: #323232;
+}
+
+.bytespace-leftbar-topdiv {
+   display: flex;
+   justify-content: space-around;
+}
+
+.bytespace-name-words {
+   padding-left: 4px;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   cursor: pointer;
+   width: 130px;
+   height: 40px;
+   border: 0;
+   box-sizing: border-box;
+   border-radius: 24px;
+   background-color: #323232;
+   color: #bebebe;
+   font-size: 17px;
+   font-family: "Source Sans Pro";
+   line-height: 19px;
+}
+
+.bytestream-name-words {
+   cursor: pointer;
+   width: 130px;
+   height: 40px;
+   border: 0;
+   box-sizing: border-box;
+   border-radius: 24px;
+   background-color: #323232;
+   color: #bebebe;
+   font-size: 14px;
+   font-family: "Source Sans Pro";
+   line-height: 19px;
+}
+
+.addmessagebutton {
+   width: 25px;
+   height: 25px;
+   cursor: pointer;
+}
