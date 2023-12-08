@@ -1,4 +1,4 @@
- // Types
+// Types
 
 const ADD_TO_BYTESTREAM = "bytestream_members/ADD_TO_BYTESTREAM";
 const REMOVE_FROM_BYTESTREAM = "bytestream_members/REMOVE_FROM_BYTESTREAM";
@@ -33,7 +33,7 @@ export const thunkAddToBytestream =
       if (response.ok) {
          const bytestreamMemberObj = await response.json();
          dispatch(actionAddToBytestream(bytestreamMemberObj));
-         return null;
+         return bytestreamMemberObj.id;
       } else {
          const errors = await response.json();
          return errors;

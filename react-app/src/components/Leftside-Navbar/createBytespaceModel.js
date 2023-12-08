@@ -15,6 +15,7 @@ function CreateBytespaceModal({ userId }) {
       const id = await dispatch(thunkCreateBytespace({ name: name }));
       await dispatch(thunkAddToBytespace(id));
       closeModal();
+      return push("/");
    };
 
    return (

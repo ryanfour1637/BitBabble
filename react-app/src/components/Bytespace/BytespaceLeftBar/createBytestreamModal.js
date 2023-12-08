@@ -12,10 +12,10 @@ function CreateBytestreamModal({ bytespaceId }) {
    const [name, setName] = useState("");
 
    const createBytestream = async () => {
-      const id = await dispatch(
+      const bytestreamId = await dispatch(
          thunkCreateBytestream({ name: name }, bytespaceId)
       );
-      await dispatch(thunkAddToBytestream(id, bytespaceId));
+      dispatch(thunkAddToBytestream(bytestreamId, bytespaceId));
       closeModal();
    };
 
