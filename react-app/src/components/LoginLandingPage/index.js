@@ -63,6 +63,7 @@ function LoginLandingPage() {
             {bytespacesArr.length > 0 ? (
                bytespacesToDisplay.map((bytespace) => (
                   <NavLink
+                     target="_blank"
                      className="loginlp-middiv-bytespace"
                      to={`/user/${user.id}/bytespaces/${bytespace.id}`}
                   >

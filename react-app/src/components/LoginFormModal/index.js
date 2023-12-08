@@ -21,7 +21,7 @@ function LoginFormModal() {
          setErrors(data);
       } else {
          closeModal();
-         push("/bytespaces");
+         push("/");
       }
    };
 

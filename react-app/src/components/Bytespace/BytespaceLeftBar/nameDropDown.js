@@ -61,61 +61,53 @@ function BytespaceNameDropdown() {
    const memberIdToDelete = bytespacesMembershipRosters[bytespaceId][userId];
 
    return (
-      <div>
-         <div>
-            <button onClick={openMenu}>
-               <h1>{bytespaceObj.name}</h1>
-            </button>
-            <ul
-               className={ulClassNameSingleBytespace}
-               ref={ulRefSingleBytespace}
-            >
-               <li>{bytespaceObj.name}</li>
-               <li>{bytespaceObj.dateCreated}</li>
+      <div className="bytespace-namedropdown-div">
+         <h1 className="bytespace-name-words" onClick={openMenu}>
+            {bytespaceObj.name}
+         </h1>
 
-               {userId == bytespaceObj.ownerId && (
-                  <div>
-                     <li>
-                        <OpenModalButton
-                           buttonText="Update your bytespace"
-                           onItemClick={closeMenu}
-                           modalComponent={
-                              <UpdateBytespaceModal
-                                 bytespaceObj={bytespaceObj}
-                              />
-                           }
-                        />
-                     </li>
-                     <li>
-                        {" "}
-                        <OpenModalButton
-                           buttonText="Delete your bytespace"
-                           onItemClick={closeMenu}
-                           modalComponent={
-                              <DeleteBytespaceModal bytespaceId={bytespaceId} />
-                           }
-                        />
-                     </li>
-                  </div>
-               )}
+         <ul className={ulClassNameSingleBytespace} ref={ulRefSingleBytespace}>
+            <li>{bytespaceObj.name}</li>
+            <li>{bytespaceObj.dateCreated}</li>
 
-               {userId != bytespaceObj.ownerId && (
-                  <div>
-                     <li>
-                        <OpenModalButton
-                           buttonText="Leave Bytespace"
-                           onItemClick={closeMenu}
-                           modalComponent={
-                              <LeaveBytespaceModal
-                                 idToDelete={memberIdToDelete}
-                              />
-                           }
-                        />
-                     </li>
-                  </div>
-               )}
-            </ul>
-         </div>
+            {userId == bytespaceObj.ownerId && (
+               <div>
+                  <li>
+                     <OpenModalButton
+                        buttonText="Update your bytespace"
+                        onItemClick={closeMenu}
+                        modalComponent={
+                           <UpdateBytespaceModal bytespaceObj={bytespaceObj} />
+                        }
+                     />
+                  </li>
+                  <li>
+                     {" "}
+                     <OpenModalButton
+                        buttonText="Delete your bytespace"
+                        onItemClick={closeMenu}
+                        modalComponent={
+                           <DeleteBytespaceModal bytespaceId={bytespaceId} />
+                        }
+                     />
+                  </li>
+               </div>
+            )}
+
+            {userId != bytespaceObj.ownerId && (
+               <div>
+                  <li>
+                     <OpenModalButton
+                        buttonText="Leave Bytespace"
+                        onItemClick={closeMenu}
+                        modalComponent={
+                           <LeaveBytespaceModal idToDelete={memberIdToDelete} />
+                        }
+                     />
+                  </li>
+               </div>
+            )}
+         </ul>
       </div>
    );
 }

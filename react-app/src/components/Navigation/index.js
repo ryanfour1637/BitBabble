@@ -1,31 +1,32 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import LeftsideNav from "../Leftside-Navbar";
+import homeicon from "../../images/homeicon.png";
 import "./Navigation.css";
+import { authenticate } from "../../store/session";
 
-function Navigation({ isLoaded }) {
+function Navigation() {
+   const dispatch = useDispatch();
    const sessionUser = useSelector((state) => state.session.user);
+   const [isLoaded, setIsLoaded] = useState(false);
+
+   useEffect(() => {
+      dispatch(authenticate()).then(() => setIsLoaded(true));
+   }, [dispatch]);
 
    return (
-      <ul>
-         <li>
-            <NavLink exact to="/bytespaces">
-               Home
+      <div className="left-nav">
+         <div className="left-nav-topdiv">
+            <NavLink exact to="/">
+               <img src={homeicon} alt="home" />
             </NavLink>
-         </li>
-         {isLoaded && (
-            <li>
-               <ProfileButton user={sessionUser} />
-            </li>
-         )}
-         {sessionUser && (
-            <li>
-               <LeftsideNav />
-            </li>
-         )}
-      </ul>
+            {sessionUser && <LeftsideNav />}
+         </div>
+         {isLoaded && <ProfileButton user={sessionUser} />}
+      </div>
    );
 }
 

@@ -5,7 +5,7 @@ import * as sessionActions from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import JoinBytespaceModal from "./joinBytespaceModal";
 import CreateBytespaceModal from "./createBytespaceModel";
-import logo from "../../images/logo.png";
+import bytespaceimg from "../../images/bytespaceimage.png";
 
 function ByteSpaceDropdown() {
    const [showMenu, setShowMenu] = useState(false);
@@ -38,9 +38,12 @@ function ByteSpaceDropdown() {
 
    return (
       <div>
-         <button onClick={openMenu}>
-            <img src={logo} alt="logo" id="logo" />
-         </button>
+         <img
+            onClick={openMenu}
+            src={bytespaceimg}
+            alt="logo"
+            className="left-nav-bytespace-dropdown"
+         />
          <ul className={ulClassNameBytespace} ref={ulRefBytespace}>
             <li>{"Placeholder for current space name"}</li>
             <li>{"Placeholder for links to other spaces"}</li>
