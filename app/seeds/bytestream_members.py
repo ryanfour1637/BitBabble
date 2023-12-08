@@ -21,8 +21,8 @@ def seed_bytestream_members():
 
 def undo_bytestream_members():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.bytestream_users RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.bytestream_members RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM bytestream_users"))
+        db.session.execute(text("DELETE FROM bytestream_members"))
 
     db.session.commit()
