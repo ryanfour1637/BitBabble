@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { thunkCreateBytestream } from "../../../store/bytestream";
+import { thunkAddToBytestream } from "../../../store/bytestream_members";
 import { useHistory } from "react-router-dom";
 
 function CreateBytestreamModal({ bytespaceId }) {
@@ -10,8 +11,11 @@ function CreateBytestreamModal({ bytespaceId }) {
    const { push } = useHistory();
    const [name, setName] = useState("");
 
-   const createBytestream = () => {
-      dispatch(thunkCreateBytestream({ name: name }, bytespaceId));
+   const createBytestream = async () => {
+      const bytestreamId = await dispatch(
+         thunkCreateBytestream({ name: name }, bytespaceId)
+      );
+      dispatch(thunkAddToBytestream(bytestreamId, bytespaceId));
       closeModal();
    };
 

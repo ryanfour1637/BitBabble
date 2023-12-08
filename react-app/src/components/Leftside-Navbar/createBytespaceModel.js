@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkCreateBytespace } from "../../store/bytespace";
+import { thunkAddToBytespace } from "../../store/bytespace_members";
 import { useHistory } from "react-router-dom";
 
 function CreateBytespaceModal({ userId }) {
@@ -12,7 +13,9 @@ function CreateBytespaceModal({ userId }) {
 
    const createBytespace = async () => {
       const id = await dispatch(thunkCreateBytespace({ name: name }));
+      await dispatch(thunkAddToBytespace(id));
       closeModal();
+      return push("/");
    };
 
    return (

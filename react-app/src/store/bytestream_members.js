@@ -33,7 +33,7 @@ export const thunkAddToBytestream =
       if (response.ok) {
          const bytestreamMemberObj = await response.json();
          dispatch(actionAddToBytestream(bytestreamMemberObj));
-         return null;
+         return bytestreamMemberObj.id;
       } else {
          const errors = await response.json();
          return errors;

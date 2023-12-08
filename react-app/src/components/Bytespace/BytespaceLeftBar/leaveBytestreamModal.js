@@ -3,14 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
 import { thunkRemoveFromBytestream } from "../../../store/bytestream_members";
+import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
 
 function LeaveBytestreamModal({ idToDelete }) {
    const dispatch = useDispatch();
    const { push } = useHistory();
    const { closeModal } = useModal();
 
-   const leaveBytestream = () => {
-      dispatch(thunkRemoveFromBytestream(idToDelete));
+   const leaveBytestream = async () => {
+      await dispatch(thunkRemoveFromBytestream(idToDelete));
+      await dispatch(thunkGetAllBytestreamMembers());
       return closeModal();
    };
    return (

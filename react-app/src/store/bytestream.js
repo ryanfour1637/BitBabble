@@ -26,8 +26,10 @@ const actionDeleteBytestream = (bytestreamObj) => ({
 // Thunks
 export const thunkGetAllBytestreams = () => async (dispatch) => {
    const response = await fetch("/api/bytestreams");
+
    if (response.ok) {
       const data = await response.json();
+
       dispatch(actionGetAllBytestreams(data));
       return data;
    } else {
