@@ -202,15 +202,11 @@ function BytestreamNameDropdown() {
                </li>
                {joinedBytestreamsToDisplay.length > 0 &&
                   joinedBytestreamsToDisplay.map((bytestream) => (
-                     <li key={bytestream.id}>
-                        <NavLink
-                           onContextMenu={(e) =>
-                              handleRightClick(e, bytestream)
-                           }
-                           to={`/user/${userId}/bytespaces/${bytespaceId}/bytestream/${bytestream.id}`}
-                        >
-                           {bytestream.name}{" "}
-                        </NavLink>
+                     <li
+                        key={bytestream.id}
+                        onContextMenu={(e) => handleRightClick(e, bytestream)}
+                     >
+                        {bytestream.name}{" "}
                      </li>
                   ))}
             </div>
