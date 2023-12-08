@@ -90,14 +90,6 @@ function BytestreamNameDropdown() {
       }
    }
 
-   console.log(
-      "🚀 ~ file: bytestreamDropDown.js:88 ~ BytestreamNameDropdown ~ allBytestreamIdsInThisBytespaceArr:",
-      allBytestreamIdsInThisBytespaceArr
-   );
-   console.log(
-      "🚀 ~ file: bytestreamDropDown.js:94 ~ BytestreamNameDropdown ~ thisBytespacesBytestreamsMembers: values",
-      Object.values(thisBytespacesBytestreamsMembers).length
-   );
    if (Object.values(thisBytespacesBytestreamsMembers).length > 0) {
       for (let rosterData of Object.values(thisBytespacesBytestreamsMembers)) {
          const bytestreamId = Object.keys(rosterData)[0];
@@ -115,24 +107,12 @@ function BytestreamNameDropdown() {
       }
    } else {
       for (let id of allBytestreamIdsInThisBytespaceArr) {
-         console.log(
-            "🚀 ~ file: bytestreamDropDown.js:118 ~ BytestreamNameDropdown ~ id:",
-            id
-         );
          nonJoinedBytestreamIdArr.push(id);
       }
    }
 
    // create two buckets. One to display the bytestreams this particular user is already in and the other to pass as a prop to the join bytestream modal.
 
-   console.log(
-      "🚀 ~ file: bytestreamDropDown.js:118 ~ BytestreamNameDropdown ~ nonJoinedBytestreamIdArr:",
-      nonJoinedBytestreamIdArr
-   );
-   console.log(
-      "🚀 ~ file: bytestreamDropDown.js:121 ~ BytestreamNameDropdown ~ bytespaceBytestreamsArr:",
-      bytespaceBytestreamsArr
-   );
    for (let bytestream of bytespaceBytestreamsArr) {
       if (!nonJoinedBytestreamIdArr.includes(bytestream.id.toString())) {
          joinedBytestreamsToDisplay.push(bytestream);
@@ -140,14 +120,6 @@ function BytestreamNameDropdown() {
          nonJoinedBytestreamsToDisplay.push(bytestream);
       }
    }
-   console.log(
-      "🚀 ~ file: bytestreamDropDown.js:117 ~ BytestreamNameDropdown ~ nonJoinedBytestreamsToDisplay:",
-      nonJoinedBytestreamsToDisplay
-   );
-   console.log(
-      "🚀 ~ file: bytestreamDropDown.js:115 ~ BytestreamNameDropdown ~ joinedBytestreamsToDisplay:",
-      joinedBytestreamsToDisplay
-   );
 
    const openMenu = () => {
       if (showMenu) return;
@@ -156,21 +128,9 @@ function BytestreamNameDropdown() {
 
    const handleRightClick = (e, bytestream) => {
       e.preventDefault();
-      console.log(
-         "🚀 ~ file: bytestreamDropDown.js:126 ~ handleRightClick ~ bytestream:",
-         bytestream
-      );
-      console.log(
-         "🚀 ~ file: bytestreamDropDown.js:134 ~ handleRightClick ~ thisBytespacesBytestreamsMembers:",
-         thisBytespacesBytestreamsMembers
-      );
 
       const bytestreamMemberId =
          thisBytespacesBytestreamsMembers[0][bytestream.id][userId];
-      console.log(
-         "🚀 ~ file: bytestreamDropDown.js:137 ~ handleRightClick ~ bytestreamMemberId :",
-         bytestreamMemberId
-      );
 
       const menuContent = (
          <div>

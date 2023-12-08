@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
 import { thunkDeleteBytestream } from "../../../store/bytestream";
+import { thunkGetAllBytestreams } from "../../../store/bytestream";
+import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
 
 function DeleteBytestreamModal({ bytestream }) {
    const dispatch = useDispatch();
@@ -11,6 +13,8 @@ function DeleteBytestreamModal({ bytestream }) {
 
    const deleteBytestream = async () => {
       await dispatch(thunkDeleteBytestream(bytestream));
+      await dispatch(thunkGetAllBytestreams());
+      await dispatch(thunkGetAllBytestreamMembers());
       return closeModal();
    };
 
