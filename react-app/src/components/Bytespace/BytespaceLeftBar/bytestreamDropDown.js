@@ -52,15 +52,21 @@ function BytestreamNameDropdown() {
    }
 
    // filter for the bytestream data specific to the bytespace we are currently in
+
    const bytespaceBytestreams = bytestreams[bytespaceId];
 
-   const bytespaceBytestreamsArr = Object.values(bytespaceBytestreams);
-
+   // const bytespaceBytestreamsArr = Object.values(bytespaceBytestreams);
+   const bytespaceBytestreamsArr = Object.values(bytespaceBytestreams ?? {});
    // retrieve all of the bytestream ids of the bytestreams in this bytespace
-   const allBytestreamIdsInThisBytespaceArr = Object.keys(bytespaceBytestreams);
+   // const allBytestreamIdsInThisBytespaceArr = Object.keys(bytespaceBytestreams);
+   const allBytestreamIdsInThisBytespaceArr = bytespaceBytestreams
+      ? Object.keys(bytespaceBytestreams)
+      : [];
+
    const nonJoinedBytestreamIdArr = [];
    const joinedBytestreamIdArr = [];
    const joinedBytestreamsToDisplay = [];
+
    const nonJoinedBytestreamsToDisplay = [];
 
    // obtain all of the membership rosters for the various bytestreams
@@ -70,21 +76,26 @@ function BytestreamNameDropdown() {
       bytestreamsMembershipRosters[bytespaceId];
 
    // obtain the list of the bytestreams within this bytespace which the current user is not in, this check should not be necessary once I add the thunk to add the person who creates the channel to the channel but it is for now.
-   for (let id of allBytestreamIdsInThisBytespaceArr) {
-      if (!Object.keys(thisBytespacesBytestreamsMembers).includes(id)) {
-         nonJoinedBytestreamIdArr.push(id);
+
+   if (allBytestreamIdsInThisBytespaceArr) {
+      for (let id of allBytestreamIdsInThisBytespaceArr) {
+         if (!Object.keys(thisBytespacesBytestreamsMembers).includes(id)) {
+            nonJoinedBytestreamIdArr.push(id);
+         }
       }
    }
 
    // split out the data into the bytestreamId (these are the keys) and the membership rosters (these are the values). The rosters are an object with keys which represent the user who is in the bytestream and values which represent the unique bytestream members id to make removing someone from a bytestream easier.
 
-   for (let rosterData of Object.entries(thisBytespacesBytestreamsMembers)) {
-      const [bytestreamId, roster] = rosterData;
+   if (thisBytespacesBytestreamsMembers) {
+      for (let rosterData of Object.entries(thisBytespacesBytestreamsMembers)) {
+         const [bytestreamId, roster] = rosterData;
 
-      if (!Object.keys(roster).includes(userId.toString())) {
-         nonJoinedBytestreamIdArr.push(bytestreamId);
-      } else {
-         joinedBytestreamIdArr.push(bytestreamId);
+         if (!Object.keys(roster).includes(userId.toString())) {
+            nonJoinedBytestreamIdArr.push(bytestreamId);
+         } else {
+            joinedBytestreamIdArr.push(bytestreamId);
+         }
       }
    }
 
@@ -176,7 +187,7 @@ function BytestreamNameDropdown() {
                      }
                   />
                </li>
-               {joinedBytestreamsToDisplay &&
+               {joinedBytestreamsToDisplay.length > 0 &&
                   joinedBytestreamsToDisplay.map((bytestream) => (
                      <li key={bytestream.id}>
                         <NavLink

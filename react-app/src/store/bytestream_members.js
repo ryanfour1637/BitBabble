@@ -1,4 +1,4 @@
-// Types
+ // Types
 
 const ADD_TO_BYTESTREAM = "bytestream_members/ADD_TO_BYTESTREAM";
 const REMOVE_FROM_BYTESTREAM = "bytestream_members/REMOVE_FROM_BYTESTREAM";
