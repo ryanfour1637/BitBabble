@@ -35,7 +35,8 @@ function LoginFormModal() {
                ))}
             </ul>
             <div className="login-modal-inputdiv">
-               <label>
+               <label className="login-modal-label">
+                  Email
                   <input
                      className="login-modal-form-inputs"
                      type="text"
@@ -46,7 +47,8 @@ function LoginFormModal() {
                   />
                </label>
 
-               <label>
+               <label className="login-modal-label">
+                  Password
                   <input
                      className="login-modal-form-inputs"
                      type="password"

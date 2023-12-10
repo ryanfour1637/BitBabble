@@ -5,6 +5,7 @@ from .auth_routes import validation_errors_to_error_messages
 from ..models import Bytespace
 from ..forms.create_update_bytespace_form import CreateUpdateBytespaceForm
 from ..models.db import db
+from sqlalchemy.exc import IntegrityError
 
 bytespace_routes = Blueprint('bytespaces', __name__)
 
@@ -22,15 +23,20 @@ def create_bytespace():
     form = CreateUpdateBytespaceForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        bytespace = Bytespace(
-            name=form.data['name'],
-            owner_id=current_user.id,
-            date_created=date.today()
-        )
+        try:
+            bytespace = Bytespace(
+                name=form.data['name'],
+                owner_id=current_user.id,
+                date_created=date.today()
+            )
 
-        db.session.add(bytespace)
-        db.session.commit()
-        return bytespace.to_dict()
+            db.session.add(bytespace)
+            db.session.commit()
+            return bytespace.to_dict()
+        except IntegrityError:
+            db.session.rollback()
+            return {'errors': 'A bytespace with this name already exists'}, 400
+    print(form.errors)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 @bytespace_routes.route('/<int:id>/update', methods=['PUT'])

@@ -4,32 +4,52 @@ import { useModal } from "../../context/Modal";
 import { thunkCreateBytespace } from "../../store/bytespace";
 import { thunkAddToBytespace } from "../../store/bytespace_members";
 import { useHistory } from "react-router-dom";
+import "./createBytespace.css";
 
 function CreateBytespaceModal({ userId }) {
    const dispatch = useDispatch();
    const { closeModal } = useModal();
    const { push } = useHistory();
    const [name, setName] = useState("");
+   const [errors, setErrors] = useState("");
 
    const createBytespace = async () => {
-      const id = await dispatch(thunkCreateBytespace({ name: name }));
-      await dispatch(thunkAddToBytespace(id));
-      closeModal();
-      return push("/");
+      const errors = await dispatch(thunkCreateBytespace({ name: name }));
+      console.log(
+         "🚀 ~ file: createBytespaceModel.js:18 ~ createBytespace ~ errors:",
+         errors
+      );
+      console.log("what is the type", typeof errors);
+
+      if (typeof errors == "number") {
+         await dispatch(thunkAddToBytespace(errors));
+         closeModal();
+         return push("/");
+      } else {
+         setErrors(errors.errors);
+      }
    };
 
    return (
-      <div>
+      <div className="createbytespace-outerdiv">
          <h1>Create a Bytespace</h1>
-         <label>
+         <p className="createbytespace-errors">{errors}</p>
+
+         <label className="createbytespace-label">
             Bytespace Name
             <input
+               className="createbytespace-input"
                type="text"
+               placeholder="Name must be between 6-25 characters"
                value={name}
                onChange={(e) => setName(e.target.value)}
             ></input>
          </label>
-         <button onClick={createBytespace} disabled={name.length < 6}>
+         <button
+            className="createbytespace-button"
+            onClick={createBytespace}
+            disabled={name.length < 6 || name.length > 25}
+         >
             Create Bytespace
          </button>
       </div>

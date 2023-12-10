@@ -45,6 +45,10 @@ export const thunkCreateBytespace = (nameObj) => async (dispatch) => {
       body: JSON.stringify(nameObj),
    });
 
+   console.log(
+      "🚀 ~ file: bytespace.js:42 ~ thunkCreateBytespace ~ response:",
+      response
+   );
    if (response.ok) {
       const data = await response.json();
       dispatch(actionCreateBytespace(data));
