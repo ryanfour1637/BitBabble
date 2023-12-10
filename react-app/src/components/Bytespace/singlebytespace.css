@@ -32,9 +32,6 @@
 }
 
 .bytestream-name-words {
-   white-space: nowrap;
-   overflow: hidden;
-   text-overflow: ellipsis;
    cursor: pointer;
    width: 130px;
    height: 40px;

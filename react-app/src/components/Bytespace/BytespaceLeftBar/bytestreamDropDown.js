@@ -212,7 +212,7 @@ function BytestreamNameDropdown() {
          </h1>
 
          <ul className={ulClassNameAllBytestreams} ref={ulRefAllBytestreams}>
-            <div>
+            <div className="joined-bytestreams-to-display">
                <li>
                   <OpenModalButton
                      buttonText="Create"
