@@ -28,17 +28,28 @@ function JoinBytestreamModal({ nonJoinedBytestreamsToDisplay, bytespaceId }) {
    };
 
    return (
-      <div>
+      <div className="joinbytespace-outerdiv">
          <h1>Join Bytestreams</h1>
-         <select value={selectedValue} onChange={valueChange}>
-            <option value="">Select a bytestream</option>
-            {nonJoinedBytestreamsToDisplay.map((bytestream) => (
-               <option key={bytestream.id} value={bytestream.id}>
-                  {bytestream.name}
-               </option>
-            ))}
-         </select>
-         <button onClick={joinBytestream} disabled={selectedValue == ""}>
+         <label className="joinbytespace-label">
+            Choose a Bytestream:
+            <select
+               className="joinbytespace-input"
+               value={selectedValue}
+               onChange={valueChange}
+            >
+               <option value="">Select a bytestream</option>
+               {nonJoinedBytestreamsToDisplay.map((bytestream) => (
+                  <option key={bytestream.id} value={bytestream.id}>
+                     {bytestream.name}
+                  </option>
+               ))}
+            </select>
+         </label>
+         <button
+            className="joinbytespace-button"
+            onClick={joinBytestream}
+            disabled={selectedValue == ""}
+         >
             Join Bytestream
          </button>
       </div>

@@ -10,6 +10,7 @@ import { thunkGetAllMembers } from "../../../store/bytespace_members";
 
 function BytespaceNameDropdown() {
    const dispatch = useDispatch();
+   const ulRefSingleBytespace = useRef();
    const [showMenu, setShowMenu] = useState(false);
    const { userId, bytespaceId } = useParams();
 
@@ -23,8 +24,6 @@ function BytespaceNameDropdown() {
       (bytespace) => bytespace.id == bytespaceId
    );
    const bytespaceObj = singleBytespace[0];
-
-   const ulRefSingleBytespace = useRef();
 
    const openMenu = () => {
       if (showMenu) return;
@@ -67,9 +66,6 @@ function BytespaceNameDropdown() {
          </h1>
 
          <ul className={ulClassNameSingleBytespace} ref={ulRefSingleBytespace}>
-            <li>{bytespaceObj.name}</li>
-            <li>{bytespaceObj.dateCreated}</li>
-
             {userId == bytespaceObj.ownerId && (
                <div>
                   <li>

@@ -10,27 +10,39 @@ function CreateBytestreamModal({ bytespaceId }) {
    const { closeModal } = useModal();
    const { push } = useHistory();
    const [name, setName] = useState("");
+   const [errors, setErrors] = useState("");
 
    const createBytestream = async () => {
-      const bytestreamId = await dispatch(
+      const errors = await dispatch(
          thunkCreateBytestream({ name: name }, bytespaceId)
       );
-      dispatch(thunkAddToBytestream(bytestreamId, bytespaceId));
-      closeModal();
+
+      if (typeof errors == "number") {
+         await dispatch(thunkAddToBytestream(errors, bytespaceId));
+         closeModal();
+      } else {
+         setErrors(errors.errors);
+      }
    };
 
    return (
-      <div>
+      <div className="createbytespace-outerdiv">
          <h1>Create a Bytestream</h1>
-         <label>
-            Bytestream Name
+         <p className="createbytespace-errors">{errors}</p>
+         <label className="createbytespace-label">
+            Bytestream Name: Must be between 6-25 characters
             <input
+               className="createbytespace-input"
                type="text"
                value={name}
                onChange={(e) => setName(e.target.value)}
             ></input>
          </label>
-         <button onClick={createBytestream} disabled={name.length < 6}>
+         <button
+            className="createbytespace-button"
+            onClick={createBytestream}
+            disabled={name.length < 6 || name.length > 25}
+         >
             Create Bytestream
          </button>
       </div>

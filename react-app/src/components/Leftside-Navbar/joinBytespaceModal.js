@@ -6,6 +6,7 @@ import { thunkAddToBytespace } from "../../store/bytespace_members";
 import { thunkGetAllMembers } from "../../store/bytespace_members";
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom";
+import "./joinbytespace.css";
 
 function JoinBytespaceModal() {
    const dispatch = useDispatch();
@@ -64,17 +65,28 @@ function JoinBytespaceModal() {
    };
 
    return (
-      <div>
+      <div className="joinbytespace-outerdiv">
          <h1>Join Bytespaces</h1>
-         <select value={selectedValue} onChange={valueChange}>
-            <option value="">Select a bytespace</option>
-            {bytespacesToDisplay.map((bytespace) => (
-               <option key={bytespace.id} value={bytespace.id}>
-                  {bytespace.name}
-               </option>
-            ))}
-         </select>
-         <button onClick={joinBytespace} disabled={selectedValue == ""}>
+         <label className="joinbytespace-label">
+            Choose a Bytespace:
+            <select
+               className="joinbytespace-input"
+               value={selectedValue}
+               onChange={valueChange}
+            >
+               <option value="">Select a bytespace</option>
+               {bytespacesToDisplay.map((bytespace) => (
+                  <option key={bytespace.id} value={bytespace.id}>
+                     {bytespace.name}
+                  </option>
+               ))}
+            </select>
+         </label>
+         <button
+            className="joinbytespace-button"
+            onClick={joinBytespace}
+            disabled={selectedValue == ""}
+         >
             Join Bytespace
          </button>
       </div>

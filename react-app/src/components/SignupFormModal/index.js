@@ -42,13 +42,14 @@ function SignupFormModal() {
             </h5>
          </div>
          <form className="signup-modal-form" onSubmit={handleSubmit}>
-            <ul>
+            <ul className="signup-errors">
                {errors.map((error, idx) => (
                   <li key={idx}>{error}</li>
                ))}
             </ul>
             <div className="signup-modal-inputdiv">
                <label className="signup-modal-form-labels">
+                  First Name: Must be 2-30 characters
                   <input
                      className="signup-modal-form-inputs"
                      type="text"
@@ -61,6 +62,7 @@ function SignupFormModal() {
             </div>
             <div className="signup-modal-inputdiv">
                <label className="signup-modal-form-labels">
+                  Last Name: Must be 2-30 characters
                   <input
                      className="signup-modal-form-inputs"
                      type="text"
@@ -73,6 +75,7 @@ function SignupFormModal() {
             </div>
             <div className="signup-modal-inputdiv">
                <label className="signup-modal-form-labels">
+                  Email: Must be 6-30 characters
                   <input
                      className="signup-modal-form-inputs"
                      type="text"
@@ -85,6 +88,7 @@ function SignupFormModal() {
             </div>
             <div className="signup-modal-inputdiv">
                <label className="signup-modal-form-labels">
+                  Username: Must be 6-30 characters
                   <input
                      className="signup-modal-form-inputs"
                      type="text"
@@ -97,6 +101,7 @@ function SignupFormModal() {
             </div>
             <div className="signup-modal-inputdiv">
                <label className="signup-modal-form-labels">
+                  Password: Must be 6-30 characters
                   <input
                      className="signup-modal-form-inputs"
                      type="password"
@@ -109,6 +114,7 @@ function SignupFormModal() {
             </div>
             <div className="signup-modal-inputdiv">
                <label className="signup-modal-form-labels">
+                  Confirm Password: Must match your password above
                   <input
                      className="signup-modal-form-inputs"
                      type="password"
@@ -119,7 +125,20 @@ function SignupFormModal() {
                   />
                </label>
             </div>
-            <button className="signup-modal-form-submitbutton" type="submit">
+            <button
+               className="signup-modal-form-submitbutton"
+               type="submit"
+               disabled={
+                  firstName.length < 2 ||
+                  firstName.length > 30 ||
+                  lastName.length < 2 ||
+                  lastName.length > 30 ||
+                  email.length < 6 ||
+                  email.length > 30 ||
+                  username.length < 6 ||
+                  username.length > 30
+               }
+            >
                Sign Up
             </button>
          </form>
