@@ -78,3 +78,7 @@
    line-height: 22px;
    outline: none;
 }
+
+.signup-errors {
+   color: red;
+}

@@ -47,40 +47,74 @@ function BytestreamNameDropdown() {
       Object.values(bytestreamsMembershipRosters).length === 0
    )
       return null;
+   console.log(
+      "🚀 ~ file: bytestreamDropDown.js:47 ~ BytestreamNameDropdown ~ bytestreamsMembershipRosters:",
+      bytestreamsMembershipRosters
+   );
    if (bytestreams == undefined || Object.values(bytestreams).length === 0) {
       return null;
    }
+   console.log(
+      "🚀 ~ file: bytestreamDropDown.js:55 ~ BytestreamNameDropdown ~ bytestreams:",
+      bytestreams
+   );
 
-   // filter for the bytestream data specific to the bytespace we are currently in
-
+   // filter for the bytestream objects specific to the bytespace we are currently in
    const bytespaceBytestreams = bytestreams[bytespaceId];
+   console.log(
+      "🚀 ~ file: bytestreamDropDown.js:65 ~ BytestreamNameDropdown ~ bytespaceBytestreams:",
+      bytespaceBytestreams
+   );
 
-   // const bytespaceBytestreamsArr = Object.values(bytespaceBytestreams);
+   // creating an array of the bytestream objects within a bytespace
    const bytespaceBytestreamsArr = Object.values(bytespaceBytestreams ?? {});
+   console.log(
+      "🚀 ~ file: bytestreamDropDown.js:72 ~ BytestreamNameDropdown ~ bytespaceBytestreamsArr:",
+      bytespaceBytestreamsArr
+   );
 
    // retrieve all of the bytestream ids of the bytestreams in this bytespace
-   // const allBytestreamIdsInThisBytespaceArr = Object.keys(bytespaceBytestreams);
    const allBytestreamIdsInThisBytespaceArr = bytespaceBytestreams
       ? Object.keys(bytespaceBytestreams)
       : [];
+   console.log(
+      "🚀 ~ file: bytestreamDropDown.js:79 ~ BytestreamNameDropdown ~ allBytestreamIdsInThisBytespaceArr:",
+      allBytestreamIdsInThisBytespaceArr
+   );
 
+   // create an array of the non-joined bytestream Ids so that I can filter the bytestream object arrays for the entire array.
+   // there is an opportunity to do this wihtout this step or in a faster way (not for captstone but for after)
    const nonJoinedBytestreamIdArr = [];
+
+   // create an array of the joined bytestream Ids so that I can filter the bytestream object arrays for the entire array.
+   // there is an opportunity to do this wihtout this step or in a faster way (not for captstone but for after)
    const joinedBytestreamIdArr = [];
+
+   // create an array to hold the bytestream objects of the bytestreams which the user has already joined
+   // there is an opportunity to do this wihtout this step or in a faster way (not for captstone but for after)
    const joinedBytestreamsToDisplay = [];
 
+   // create an array to hold the bytestream objects of the bytestreams which the user has NOT already joined.
+   // there is an opportunity to do this wihtout this step or in a faster way (not for captstone but for after)
    const nonJoinedBytestreamsToDisplay = [];
 
-   // obtain all of the membership rosters for the various bytestreams
-
-   // obtain just the membership rosters of the bytestreams in this bytespace.
-
+   // because I already have the list of arrays which includes the bytestreams from this particular bytespace, I am filtering for all of the bytestreams membership rosters. I will further filter this to check just the bytestreams from this bytespace by using that array.
    const allBytespacesBytestreamsMembers = Object.values(
       bytestreamsMembershipRosters ?? {}
+   );
+   console.log(
+      "🚀 ~ file: bytestreamDropDown.js:108 ~ BytestreamNameDropdown ~ allBytespacesBytestreamsMembers:",
+      allBytespacesBytestreamsMembers
    );
 
    const thisBytespacesBytestreamsMembers = [];
 
+   //up to here in DEBUGGING
    for (let bytestreamObj of allBytespacesBytestreamsMembers) {
+      console.log(
+         "🚀 ~ file: bytestreamDropDown.js:114 ~ BytestreamNameDropdown ~ bytestreamObj:",
+         bytestreamObj
+      );
       if (
          allBytestreamIdsInThisBytespaceArr.includes(
             Object.keys(bytestreamObj)[0]
