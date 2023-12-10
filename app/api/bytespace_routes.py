@@ -47,12 +47,14 @@ def update_bytespace(id):
     form = CreateUpdateBytespaceForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        new_name = form.data['name']
-        print('this is the new name', new_name)
-        bytespace_to_update.name = new_name
-
-        db.session.commit()
-        return bytespace_to_update.to_dict()
+        try:
+            new_name = form.data['name']
+            bytespace_to_update.name = new_name
+            db.session.commit()
+            return bytespace_to_update.to_dict()
+        except IntegrityError:
+            db.session.rollback()
+            return {'errors': 'A bytespace with this name already exists'}, 400
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 @bytespace_routes.route('/<int:id>/delete', methods=['DELETE'])

@@ -31,6 +31,27 @@
    cursor: pointer;
 }
 
+.left-nav-bytespace-dropdown-button {
+   list-style-type: none;
+   padding-bottom: 10px;
+}
+.left-nav-bytespace-dropdown-button button {
+   cursor: pointer;
+   width: 100%;
+   height: 20px;
+   padding: 0px 8px;
+   border: 0;
+   box-sizing: border-box;
+   border-radius: 24px;
+   background-color: #8e25eb;
+   color: #ffffff;
+   font-size: 12px;
+   font-family: "Source Sans Pro";
+   font-weight: 700;
+   line-height: 22px;
+   outline: none;
+}
+
 .personicon {
    cursor: pointer;
    height: 40px;

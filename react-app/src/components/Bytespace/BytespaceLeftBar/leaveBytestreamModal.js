@@ -16,11 +16,13 @@ function LeaveBytestreamModal({ idToDelete }) {
       return closeModal();
    };
    return (
-      <div>
+      <div className="delete-outerdiv">
          <h2>Are you sure you want to leave this Bytestream</h2>
          <h4>This action cannot be reversed.</h4>
-         <button onClick={leaveBytestream}>Yes</button>
-         <button onClick={() => closeModal()}>No</button>
+         <div className="delete-button-div">
+            <button onClick={leaveBytestream}>Yes</button>
+            <button onClick={() => closeModal()}>No</button>
+         </div>
       </div>
    );
 }

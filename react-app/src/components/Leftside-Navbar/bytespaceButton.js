@@ -45,16 +45,14 @@ function ByteSpaceDropdown() {
             className="left-nav-bytespace-dropdown"
          />
          <ul className={ulClassNameBytespace} ref={ulRefBytespace}>
-            <li>{"Placeholder for current space name"}</li>
-            <li>{"Placeholder for links to other spaces"}</li>
-            <li>
+            <li className="left-nav-bytespace-dropdown-button">
                <OpenModalButton
                   buttonText="Join new bytespace"
                   onItemClick={closeMenu}
                   modalComponent={<JoinBytespaceModal userId={user.id} />}
                />
             </li>
-            <li>
+            <li className="left-nav-bytespace-dropdown-button">
                <OpenModalButton
                   buttonText="Create new bytespace"
                   onItemClick={closeMenu}

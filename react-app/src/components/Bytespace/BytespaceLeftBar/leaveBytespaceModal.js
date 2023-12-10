@@ -12,14 +12,17 @@ function LeaveBytespaceModal({ idToDelete }) {
    const leaveBytespace = () => {
       dispatch(thunkRemoveFromBytespace(idToDelete));
       closeModal();
-      return push("/bytespaces");
+      return push("/");
    };
    return (
-      <div>
+      <div className="delete-outerdiv">
          <h2>Are you sure you want to leave this Bytespace</h2>
          <h4>This action cannot be reversed.</h4>
-         <button onClick={leaveBytespace}>Yes</button>
-         <button onClick={() => closeModal()}>No</button>
+
+         <div className="delete-button-div">
+            <button onClick={leaveBytespace}>Yes</button>
+            <button onClick={() => closeModal()}>No</button>
+         </div>
       </div>
    );
 }

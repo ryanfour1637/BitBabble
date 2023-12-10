@@ -11,12 +11,15 @@ import { thunkGetAllBytestreams } from "../../../store/bytestream";
 import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
 import { NavLink } from "react-router-dom";
 import { useRightClickMenu } from "../../../context/rightClick";
+import xmark from "../../../images/xmark.png";
 
 function BytestreamNameDropdown() {
    const dispatch = useDispatch();
    const [showMenu, setShowMenu] = useState(false);
+   const [showRightClickMenu, setShowRightClickMenu] = useState(false);
    const { userId, bytespaceId } = useParams();
    const ulRefAllBytestreams = useRef();
+   const ulRefRightClick = useRef();
    const { openRightClickMenu, closeRightClickMenu } = useRightClickMenu();
    const bytestreams = useSelector((state) => state.bytestreams);
    const bytestreamsMembershipRosters = useSelector(
@@ -26,21 +29,20 @@ function BytestreamNameDropdown() {
    useEffect(() => {
       dispatch(thunkGetAllBytestreams());
       dispatch(thunkGetAllBytestreamMembers());
-      if (!showMenu) return;
 
-      const closeMenu = (e) => {
-         if (
-            ulRefAllBytestreams.current &&
-            !ulRefAllBytestreams.current.contains(e.target)
-         ) {
-            setShowMenu(false);
-         }
-      };
-
-      document.addEventListener("click", closeMenu);
-
-      return () => document.removeEventListener("click", closeMenu);
-   }, [showMenu, dispatch]);
+      if (showMenu) {
+         const closeMenu = (e) => {
+            if (
+               ulRefAllBytestreams.current &&
+               !ulRefAllBytestreams.current.contains(e.target)
+            ) {
+               setShowMenu(false);
+            }
+         };
+         document.addEventListener("click", closeMenu);
+         return () => document.removeEventListener("click", closeMenu);
+      }
+   }, [showMenu, showRightClickMenu, dispatch]);
 
    if (
       bytestreamsMembershipRosters == undefined ||
@@ -167,7 +169,13 @@ function BytestreamNameDropdown() {
          thisBytespacesBytestreamsMembers[0][bytestream.id][userId];
 
       const menuContent = (
-         <div>
+         <div className="parent-element-context">
+            <img
+               src={xmark}
+               alt="close menu"
+               onClick={closeRightClickMenu}
+               className="small-x"
+            />
             <OpenModalButton
                buttonText="Update Bytestream"
                onButtonClick={closeRightClickMenu}
@@ -197,8 +205,9 @@ function BytestreamNameDropdown() {
          x: e.pageX,
          y: e.pageY,
       };
-
+      closeMenu();
       openRightClickMenu(menuContent, position);
+      setShowRightClickMenu(true);
    };
 
    const ulClassNameAllBytestreams =

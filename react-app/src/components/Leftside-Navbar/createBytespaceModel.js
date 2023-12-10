@@ -15,11 +15,6 @@ function CreateBytespaceModal({ userId }) {
 
    const createBytespace = async () => {
       const errors = await dispatch(thunkCreateBytespace({ name: name }));
-      console.log(
-         "🚀 ~ file: createBytespaceModel.js:18 ~ createBytespace ~ errors:",
-         errors
-      );
-      console.log("what is the type", typeof errors);
 
       if (typeof errors == "number") {
          await dispatch(thunkAddToBytespace(errors));
@@ -36,11 +31,11 @@ function CreateBytespaceModal({ userId }) {
          <p className="createbytespace-errors">{errors}</p>
 
          <label className="createbytespace-label">
-            Bytespace Name
+            Bytespace Name: Must be between 6-25 characters
             <input
                className="createbytespace-input"
                type="text"
-               placeholder="Name must be between 6-25 characters"
+               placeholder="Name"
                value={name}
                onChange={(e) => setName(e.target.value)}
             ></input>
