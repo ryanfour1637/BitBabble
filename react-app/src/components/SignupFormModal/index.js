@@ -49,7 +49,12 @@ function SignupFormModal() {
             </ul>
             <div className="signup-modal-inputdiv">
                <label className="signup-modal-form-labels">
-                  First Name: Must be 2-30 characters
+                  <div className="signup-modal-labels-div">
+                     <h4>First Name:</h4>
+                     {firstName.length < 2 || firstName.length > 30 ? (
+                        <p>Must be 2-30 characters</p>
+                     ) : null}
+                  </div>
                   <input
                      className="signup-modal-form-inputs"
                      type="text"
@@ -62,7 +67,12 @@ function SignupFormModal() {
             </div>
             <div className="signup-modal-inputdiv">
                <label className="signup-modal-form-labels">
-                  Last Name: Must be 2-30 characters
+                  <div className="signup-modal-labels-div">
+                     <h4>Last Name:</h4>
+                     {lastName.length < 2 || lastName.length > 30 ? (
+                        <p>Must be 2-30 characters</p>
+                     ) : null}
+                  </div>
                   <input
                      className="signup-modal-form-inputs"
                      type="text"
@@ -75,7 +85,12 @@ function SignupFormModal() {
             </div>
             <div className="signup-modal-inputdiv">
                <label className="signup-modal-form-labels">
-                  Email: Must be 6-30 characters
+                  <div className="signup-modal-labels-div">
+                     <h4>Email:</h4>
+                     {email.length < 6 || email.length > 30 ? (
+                        <p>Must be 6-30 characters</p>
+                     ) : null}
+                  </div>
                   <input
                      className="signup-modal-form-inputs"
                      type="text"
@@ -88,7 +103,12 @@ function SignupFormModal() {
             </div>
             <div className="signup-modal-inputdiv">
                <label className="signup-modal-form-labels">
-                  Username: Must be 6-30 characters
+                  <div className="signup-modal-labels-div">
+                     <h4>Username:</h4>
+                     {username.length < 6 || username.length > 30 ? (
+                        <p>Must be 6-30 characters</p>
+                     ) : null}
+                  </div>
                   <input
                      className="signup-modal-form-inputs"
                      type="text"
@@ -101,7 +121,12 @@ function SignupFormModal() {
             </div>
             <div className="signup-modal-inputdiv">
                <label className="signup-modal-form-labels">
-                  Password: Must be 6-30 characters
+                  <div className="signup-modal-labels-div">
+                     <h4>Password:</h4>
+                     {password.length < 6 || password.length > 30 ? (
+                        <p>Must be 6-30 characters</p>
+                     ) : null}
+                  </div>
                   <input
                      className="signup-modal-form-inputs"
                      type="password"
@@ -114,7 +139,12 @@ function SignupFormModal() {
             </div>
             <div className="signup-modal-inputdiv">
                <label className="signup-modal-form-labels">
-                  Confirm Password: Must match your password above
+                  <div className="signup-modal-labels-div">
+                     <h4>Confirm password:</h4>
+                     {password !== confirmPassword ? (
+                        <p>Must match password above</p>
+                     ) : null}
+                  </div>
                   <input
                      className="signup-modal-form-inputs"
                      type="password"

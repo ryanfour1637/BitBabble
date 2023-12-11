@@ -19,7 +19,6 @@ function BytestreamNameDropdown() {
    const [showRightClickMenu, setShowRightClickMenu] = useState(false);
    const { userId, bytespaceId } = useParams();
    const ulRefAllBytestreams = useRef();
-   const ulRefRightClick = useRef();
    const { openRightClickMenu, closeRightClickMenu } = useRightClickMenu();
    const bytestreams = useSelector((state) => state.bytestreams);
    const bytestreamsMembershipRosters = useSelector(
