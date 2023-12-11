@@ -15,38 +15,49 @@
 .signup-modal-topdiv {
    display: flex;
    flex-direction: column;
-   height: 100px;
+   height: 50px;
    justify-content: space-evenly;
 }
 .signup-modal-signupwords {
    color: #ffffff;
-   font-size: 48px;
+   font-size: 36px;
    font-family: "Source Sans Pro";
    font-weight: 700;
-   line-height: 56px;
    text-align: center;
-   margin-bottom: 0;
+   margin-bottom: 5px;
 }
 
 .signup-modal-startingwords {
    color: #ffffff;
    font-size: 14px;
    font-family: "Source Sans Pro";
-   line-height: 18px;
    text-align: center;
-   margin-top: 15px;
+   margin: 0;
 }
 
 .signup-modal-inputdiv {
    height: 90px;
+   margin-bottom: 5px;
 }
 
 .signup-modal-form-labels {
    display: block;
    color: #bebebe;
    font-family: "Source Sans Pro";
-   margin-bottom: 5px;
 }
+
+.signup-modal-labels-div {
+   display: flex;
+   justify-content: flex-start;
+   align-items: center;
+   height: 40px;
+}
+
+.signup-modal-labels-div p {
+   color: red;
+   padding-left: 25px;
+}
+
 .signup-modal-form-inputs {
    display: block;
    width: 450px;
@@ -84,6 +95,7 @@
    font-weight: 700;
    line-height: 22px;
    outline: none;
+   margin-top: 20px;
 }
 
 .signup-errors {
