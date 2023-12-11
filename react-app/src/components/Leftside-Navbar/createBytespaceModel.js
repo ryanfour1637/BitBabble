@@ -27,11 +27,20 @@ function CreateBytespaceModal({ userId }) {
 
    return (
       <div className="createbytespace-outerdiv">
-         <h1>Create a Bytespace</h1>
-         <p className="createbytespace-errors">{errors}</p>
+         <div>
+            <h1>Create a Bytespace</h1>
+            <p className="createbytespace-errors">{errors}</p>
+         </div>
 
          <label className="createbytespace-label">
-            Bytespace Name: Must be between 6-25 characters
+            <div className="createbytespace-label-div">
+               <h4>Bytespace Name:</h4>
+               {name.length < 6 || name.length > 25 ? (
+                  <p className="createbytespace-label-errors">
+                     Must be between 6-25 characters
+                  </p>
+               ) : null}
+            </div>
             <input
                className="createbytespace-input"
                type="text"

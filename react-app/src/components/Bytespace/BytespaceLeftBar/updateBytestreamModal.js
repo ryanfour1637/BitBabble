@@ -26,10 +26,19 @@ function UpdateBytestreamModal({ bytestream }) {
    };
    return (
       <div className="createbytespace-outerdiv">
-         <h1>Update your Bytestream</h1>
-         <p className="createbytespace-errors">{errors}</p>
+         <div>
+            <h1>Update your Bytestream</h1>
+            <p className="createbytespace-errors">{errors}</p>
+         </div>
          <label className="createbytespace-label">
-            Bytestream Name
+            <div className="createbytespace-label-div">
+               <h4>Update Bytestream name:</h4>
+               {name.length < 6 || name.length > 25 ? (
+                  <p className="createbytespace-label-errors">
+                     Must be between 6-25 characters
+                  </p>
+               ) : null}
+            </div>
             <input
                className="createbytespace-input"
                type="text"
