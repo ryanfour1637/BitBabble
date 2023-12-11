@@ -37,7 +37,7 @@
 }
 
 .bytespace-name-words {
-   padding-left: 4px;
+   padding-left: 10px;
    white-space: nowrap;
    overflow: hidden;
    text-overflow: ellipsis;
