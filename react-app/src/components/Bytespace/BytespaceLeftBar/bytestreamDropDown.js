@@ -43,118 +43,35 @@ function BytestreamNameDropdown() {
       }
    }, [showMenu, showRightClickMenu, dispatch]);
 
+   // Null check for bytestreams and bytestreamsMembershipRosters
+   if (bytestreams == undefined || Object.values(bytestreams).length === 0)
+      return null;
    if (
       bytestreamsMembershipRosters == undefined ||
       Object.values(bytestreamsMembershipRosters).length === 0
    )
       return null;
-   console.log(
-      "🚀 ~ file: bytestreamDropDown.js:47 ~ BytestreamNameDropdown ~ bytestreamsMembershipRosters:",
-      bytestreamsMembershipRosters
-   );
-   if (bytestreams == undefined || Object.values(bytestreams).length === 0) {
-      return null;
-   }
-   console.log(
-      "🚀 ~ file: bytestreamDropDown.js:55 ~ BytestreamNameDropdown ~ bytestreams:",
-      bytestreams
-   );
 
-   // filter for the bytestream objects specific to the bytespace we are currently in
-   const bytespaceBytestreams = bytestreams[bytespaceId];
-   console.log(
-      "🚀 ~ file: bytestreamDropDown.js:65 ~ BytestreamNameDropdown ~ bytespaceBytestreams:",
-      bytespaceBytestreams
-   );
+   const joinedBytestreams = [];
+   const nonJoinedBytestreams = [];
 
-   // creating an array of the bytestream objects within a bytespace
-   const bytespaceBytestreamsArr = Object.values(bytespaceBytestreams ?? {});
-   console.log(
-      "🚀 ~ file: bytestreamDropDown.js:72 ~ BytestreamNameDropdown ~ bytespaceBytestreamsArr:",
-      bytespaceBytestreamsArr
-   );
+   const thisBytespacesBytestreams = bytestreams[bytespaceId];
+   Object.keys(thisBytespacesBytestreams).forEach((bytestreamId) => {
+      const bytestream = bytestreams[bytespaceId][bytestreamId];
 
-   // retrieve all of the bytestream ids of the bytestreams in this bytespace
-   const allBytestreamIdsInThisBytespaceArr = bytespaceBytestreams
-      ? Object.keys(bytespaceBytestreams)
-      : [];
-   console.log(
-      "🚀 ~ file: bytestreamDropDown.js:79 ~ BytestreamNameDropdown ~ allBytestreamIdsInThisBytespaceArr:",
-      allBytestreamIdsInThisBytespaceArr
-   );
-
-   // create an array of the non-joined bytestream Ids so that I can filter the bytestream object arrays for the entire array.
-   // there is an opportunity to do this wihtout this step or in a faster way (not for captstone but for after)
-   const nonJoinedBytestreamIdArr = [];
-
-   // create an array of the joined bytestream Ids so that I can filter the bytestream object arrays for the entire array.
-   // there is an opportunity to do this wihtout this step or in a faster way (not for captstone but for after)
-   const joinedBytestreamIdArr = [];
-
-   // create an array to hold the bytestream objects of the bytestreams which the user has already joined
-   // there is an opportunity to do this wihtout this step or in a faster way (not for captstone but for after)
-   const joinedBytestreamsToDisplay = [];
-
-   // create an array to hold the bytestream objects of the bytestreams which the user has NOT already joined.
-   // there is an opportunity to do this wihtout this step or in a faster way (not for captstone but for after)
-   const nonJoinedBytestreamsToDisplay = [];
-
-   // because I already have the list of arrays which includes the bytestreams from this particular bytespace, I am filtering for all of the bytestreams membership rosters. I will further filter this to check just the bytestreams from this bytespace by using that array.
-   const allBytespacesBytestreamsMembers = Object.values(
-      bytestreamsMembershipRosters ?? {}
-   );
-   console.log(
-      "🚀 ~ file: bytestreamDropDown.js:108 ~ BytestreamNameDropdown ~ allBytespacesBytestreamsMembers:",
-      allBytespacesBytestreamsMembers
-   );
-
-   const thisBytespacesBytestreamsMembers = [];
-
-   //up to here in DEBUGGING
-   for (let bytestreamObj of allBytespacesBytestreamsMembers) {
-      console.log(
-         "🚀 ~ file: bytestreamDropDown.js:114 ~ BytestreamNameDropdown ~ bytestreamObj:",
-         bytestreamObj
-      );
+      // Check if the current user is a member of the bytestream
       if (
-         allBytestreamIdsInThisBytespaceArr.includes(
-            Object.keys(bytestreamObj)[0]
-         )
+         bytestreamsMembershipRosters[bytespaceId] &&
+         bytestreamsMembershipRosters[bytespaceId][bytestreamId] &&
+         bytestreamsMembershipRosters[bytespaceId][bytestreamId][userId]
       ) {
-         thisBytespacesBytestreamsMembers.push(bytestreamObj);
-      }
-   }
-
-   if (Object.values(thisBytespacesBytestreamsMembers).length > 0) {
-      for (let rosterData of Object.values(thisBytespacesBytestreamsMembers)) {
-         const bytestreamId = Object.keys(rosterData)[0];
-         const roster = Object.values(rosterData)[0];
-
-         const membershipArr = Object.keys(roster);
-
-         for (let memberUserId of membershipArr) {
-            if (memberUserId == userId) {
-               joinedBytestreamIdArr.push(bytestreamId);
-            } else {
-               nonJoinedBytestreamIdArr.push(bytestreamId);
-            }
-         }
-      }
-   } else {
-      for (let id of allBytestreamIdsInThisBytespaceArr) {
-         nonJoinedBytestreamIdArr.push(id);
-      }
-   }
-
-   // create two buckets. One to display the bytestreams this particular user is already in and the other to pass as a prop to the join bytestream modal.
-
-   for (let bytestream of bytespaceBytestreamsArr) {
-      if (!nonJoinedBytestreamIdArr.includes(bytestream.id.toString())) {
-         joinedBytestreamsToDisplay.push(bytestream);
+         // Add to joinedBytestreams if user is a member
+         joinedBytestreams.push(bytestream);
       } else {
-         nonJoinedBytestreamsToDisplay.push(bytestream);
+         // Add to nonJoinedBytestreams if user is not a member
+         nonJoinedBytestreams.push(bytestream);
       }
-   }
+   });
 
    const openMenu = () => {
       if (showMenu) return;
@@ -165,7 +82,9 @@ function BytestreamNameDropdown() {
       e.preventDefault();
 
       const bytestreamMemberId =
-         thisBytespacesBytestreamsMembers[0][bytestream.id][userId];
+         bytestreamsMembershipRosters[bytestream.bytespaceId][bytestream.id][
+            userId
+         ];
 
       const menuContent = (
          <div className="parent-element-context">
@@ -234,16 +153,14 @@ function BytestreamNameDropdown() {
                      onButtonClick={closeMenu}
                      modalComponent={
                         <JoinBytestreamModal
-                           nonJoinedBytestreamsToDisplay={
-                              nonJoinedBytestreamsToDisplay
-                           }
+                           nonJoinedBytestreamsToDisplay={nonJoinedBytestreams}
                            bytespaceId={bytespaceId}
                         />
                      }
                   />
                </li>
-               {joinedBytestreamsToDisplay.length > 0 &&
-                  joinedBytestreamsToDisplay.map((bytestream) => (
+               {joinedBytestreams.length > 0 &&
+                  joinedBytestreams.map((bytestream) => (
                      <li
                         key={bytestream.id}
                         onContextMenu={(e) => handleRightClick(e, bytestream)}
