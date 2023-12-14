@@ -56,6 +56,8 @@ function BytestreamNameDropdown() {
    const nonJoinedBytestreams = [];
 
    const thisBytespacesBytestreams = bytestreams[bytespaceId];
+
+  
    Object.keys(thisBytespacesBytestreams).forEach((bytestreamId) => {
       const bytestream = bytestreams[bytespaceId][bytestreamId];
 
