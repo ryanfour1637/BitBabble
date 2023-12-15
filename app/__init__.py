@@ -146,7 +146,7 @@ def handle_connect():
 
 @socketio.on('disconnect')
 def handle_disconnect():
-    user_id = b 
+    user_id = get_user_id()
     user = User.query.get(user_id)
     if user:
         user.is_online = False
