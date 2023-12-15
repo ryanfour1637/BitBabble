@@ -1,4 +1,5 @@
 from flask import Blueprint, request
+from datetime import datetime
 from flask_login import login_required, current_user
 from .auth_routes import validation_errors_to_error_messages
 from ..models import Message
@@ -18,3 +19,18 @@ def get_messages(bytestream_id=None):
     if len(messages) == 0:
         return []
     return [message.to_dict() for message in messages]
+
+@message_routes.route('/create', methods=['POST'])
+def create_message(bytestream_id=None):
+    """Create a message and return the message dictionary"""
+    data = request.json
+
+    message = Message(
+        bytestream_id=data['bytestreamId'],
+        user_id=current_user.id,
+        message=data['message']
+    )
+
+    db.session.add(message)
+    db.session.commit()
+    return message.to_dict()
