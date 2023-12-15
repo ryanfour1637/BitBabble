@@ -17,6 +17,7 @@ function BytestreamNameDropdown() {
    const dispatch = useDispatch();
    const [showMenu, setShowMenu] = useState(false);
    const [showRightClickMenu, setShowRightClickMenu] = useState(false);
+   const [renderBytestreamId, setRenderBytestreamId] = useState(null);
    const { userId, bytespaceId } = useParams();
    const ulRefAllBytestreams = useRef();
    const { openRightClickMenu, closeRightClickMenu } = useRightClickMenu();
@@ -57,7 +58,6 @@ function BytestreamNameDropdown() {
 
    const thisBytespacesBytestreams = bytestreams[bytespaceId];
 
-  
    Object.keys(thisBytespacesBytestreams).forEach((bytestreamId) => {
       const bytestream = bytestreams[bytespaceId][bytestreamId];
 
@@ -78,6 +78,10 @@ function BytestreamNameDropdown() {
    const openMenu = () => {
       if (showMenu) return;
       setShowMenu(true);
+   };
+
+   const onBytestreamClick = (e, bytestreamId) => {
+      setRenderBytestreamId(bytestreamId);
    };
 
    const handleRightClick = (e, bytestream) => {
@@ -135,43 +139,52 @@ function BytestreamNameDropdown() {
    const closeMenu = () => setShowMenu(false);
 
    return (
-      <div className="bytestream-name-dropdown">
-         <h1 className="bytestream-name-words" onClick={openMenu}>
-            Bytestreams
-         </h1>
+      <div className="bytestream_and_messages_div">
+         <div className="bytestream-name-dropdown">
+            <h1 className="bytestream-name-words" onClick={openMenu}>
+               Bytestreams
+            </h1>
 
-         <ul className={ulClassNameAllBytestreams} ref={ulRefAllBytestreams}>
-            <div className="joined-bytestreams-to-display">
-               <li>
-                  <OpenModalButton
-                     buttonText="Create"
-                     onButtonClick={closeMenu}
-                     modalComponent={
-                        <CreateBytestreamModal bytespaceId={bytespaceId} />
-                     }
-                  />
-                  <OpenModalButton
-                     buttonText="Join"
-                     onButtonClick={closeMenu}
-                     modalComponent={
-                        <JoinBytestreamModal
-                           nonJoinedBytestreamsToDisplay={nonJoinedBytestreams}
-                           bytespaceId={bytespaceId}
-                        />
-                     }
-                  />
-               </li>
-               {joinedBytestreams.length > 0 &&
-                  joinedBytestreams.map((bytestream) => (
-                     <li
-                        key={bytestream.id}
-                        onContextMenu={(e) => handleRightClick(e, bytestream)}
-                     >
-                        {bytestream.name}{" "}
-                     </li>
-                  ))}
-            </div>
-         </ul>
+            <ul className={ulClassNameAllBytestreams} ref={ulRefAllBytestreams}>
+               <div className="joined-bytestreams-to-display">
+                  <li>
+                     <OpenModalButton
+                        buttonText="Create"
+                        onButtonClick={closeMenu}
+                        modalComponent={
+                           <CreateBytestreamModal bytespaceId={bytespaceId} />
+                        }
+                     />
+                     <OpenModalButton
+                        buttonText="Join"
+                        onButtonClick={closeMenu}
+                        modalComponent={
+                           <JoinBytestreamModal
+                              nonJoinedBytestreamsToDisplay={
+                                 nonJoinedBytestreams
+                              }
+                              bytespaceId={bytespaceId}
+                           />
+                        }
+                     />
+                  </li>
+                  {joinedBytestreams.length > 0 &&
+                     joinedBytestreams.map((bytestream) => (
+                        <li
+                           key={bytestream.id}
+                           onContextMenu={(e) =>
+                              handleRightClick(e, bytestream)
+                           }
+                        >
+                           {bytestream.name}{" "}
+                        </li>
+                     ))}
+               </div>
+            </ul>
+         </div>
+         {renderBytestreamId && (
+            //create bytestream chat component
+         )}
       </div>
    );
 }

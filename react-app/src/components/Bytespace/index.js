@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, NavLink } from "react-router-dom";
-import ByteSpaceLeftBar from "./BytespaceLeftBar";
 import BytestreamNameDropdown from "./BytespaceLeftBar/bytestreamDropDown";
 import BytespaceNameDropdown from "./BytespaceLeftBar/nameDropDown";
 import Navigation from "../Navigation";

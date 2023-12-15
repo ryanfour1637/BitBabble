@@ -29,6 +29,9 @@ class User(db.Model, UserMixin):
     ## BytespaceUser Relationships
     bytespacemembers_user = db.relationship('BytespaceMember', back_populates='user_bytespacemembers', cascade='all, delete-orphan')
 
+    ## Message Relationships
+    message_user = db.relationship('Message', back_populates='user_message', cascade='all, delete-orphan')
+
 
 
     @property

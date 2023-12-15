@@ -101,29 +101,22 @@ def not_found(e):
 
 socketio = SocketIO(app)
 
-@socketio.on('join_bytestream')
+@socketio.on('ws_join_bytestream')
 def handle_join_bytestream(data):
     join_room(data['bytestream_id'])
-    emit('join_stream', data, room=data['bytestream_id'])
+    emit('ws_join_stream', data, room=data['bytestream_id'])
 
-@socketio.on('leave_bytestream')
+@socketio.on('ws_leave_bytestream')
 def handle_leave_bytestream(data):
     leave_room(data['bytestream_id'])
-    emit('leave_stream', data, room=data['bytestream_id'])
+    emit('ws_leave_stream', data, room=data['bytestream_id'])
 
-@socketio.on('send_message')
+@socketio.on('ws_send_message')
 def handle_send_message(data):
     bytestream = data['bytestream_id']
     message = data['message']
-    emit('receive_message', {'message': message}, room=bytestream)
+    emit('wreceive_message', {'message': message}, room=bytestream)
 
-@socketio.on('connect')
-def handle_connect():
-    print('Client connected')
-
-@socketio.on('disconnect')
-def handle_disconnect():
-    print('Client disconnected')
 
 @socketio.on('typing')
 def handle_typing(data):
@@ -137,7 +130,7 @@ def handle_error(e):
 
 @socketio.on('connect')
 def handle_connect():
-    user_id = get_user_id()  # Your method to identify the connected user
+    user_id = current_user.id
     user = User.query.get(user_id)
     if user:
         user.is_online = True
@@ -146,12 +139,15 @@ def handle_connect():
 
 @socketio.on('disconnect')
 def handle_disconnect():
-    user_id = get_user_id()
+    user_id = current_user.id
     user = User.query.get(user_id)
     if user:
         user.is_online = False
         db.session.commit()
         emit('user_status_change', {'user_id': user_id, 'status': 'offline'}, broadcast=True)
+
+
+
 
 
 # @socketio.on('send_file')

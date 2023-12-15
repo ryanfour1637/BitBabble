@@ -22,6 +22,9 @@ class Bytestream(db.Model):
     ## BytestreamUser Relationship
     bytestreammembers_bytestream = db.relationship('BytestreamMember', back_populates='bytestream_bytestreammembers', cascade='all, delete-orphan')
 
+    ## Message Relationships
+    message_bytestream = db.relationship('Message', back_populates='bytestream_message', cascade='all, delete-orphan')
+
 
     def to_dict(self):
         return {
