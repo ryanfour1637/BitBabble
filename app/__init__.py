@@ -12,6 +12,7 @@ from .api.bytespace_routes import bytespace_routes
 from .api.bytespace_members import bytespace_members_routes
 from .api.bytestream_members import bytestream_members_routes
 from .api.bytestream_routes import bytestream_routes
+from .api.messages_routes import message_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -37,6 +38,7 @@ app.register_blueprint(bytespace_routes, url_prefix='/api/bytespaces')
 app.register_blueprint(bytestream_routes, url_prefix='/api/bytestreams')
 app.register_blueprint(bytespace_members_routes, url_prefix='/api/bytespace_members')
 app.register_blueprint(bytestream_members_routes, url_prefix='/api/bytestream_members')
+app.register_blueprint(message_routes, url_prefix='/api/messages')
 db.init_app(app)
 Migrate(app, db)
 
