@@ -34,3 +34,20 @@ def create_message(bytestream_id=None):
     db.session.add(message)
     db.session.commit()
     return message.to_dict()
+
+@message_routes.route('/<int:messageId>/edit', methods=['PUT'])
+def edit_message(messageId):
+    """Edit a message"""
+    data = request.json
+    message = Message.query.get(messageId)
+    message.message = data['message']
+    db.session.commit()
+    return message.to_dict()
+
+@message_routes.route('/<int:messageId>/delete', methods=['DELETE'])
+def delete_message(messageId):
+    """Delete a message"""
+    message = Message.query.get(messageId)
+    db.session.delete(message)
+    db.session.commit()
+    return {'message': 'message deleted'}
