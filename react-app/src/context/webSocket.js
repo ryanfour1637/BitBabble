@@ -16,7 +16,7 @@ export function WebSocketProvider({ children, user }) {
       return () => {
          if (socket) socket.close();
       };
-   }, [user, socket]);
+   }, [user]);
 
    return (
       <WebSocketContext.Provider value={socket}>

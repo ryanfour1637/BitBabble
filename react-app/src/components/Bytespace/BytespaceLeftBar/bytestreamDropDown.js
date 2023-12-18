@@ -7,13 +7,14 @@ import JoinBytestreamModal from "./joinBytestreamModal";
 import UpdateBytestreamModal from "./updateBytestreamModal";
 import LeaveBytestreamModal from "./leaveBytestreamModal";
 import DeleteBytestreamModal from "./deleteBytestreamModal";
+import { useWebSocket } from "../../../context/webSocket";
 import { thunkGetAllBytestreams } from "../../../store/bytestream";
 import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
 import { NavLink } from "react-router-dom";
 import { useRightClickMenu } from "../../../context/rightClick";
 import xmark from "../../../images/xmark.png";
 
-function BytestreamNameDropdown() {
+function BytestreamNameDropdown({ setBytestreamId }) {
    const dispatch = useDispatch();
    const [showMenu, setShowMenu] = useState(false);
    const [showRightClickMenu, setShowRightClickMenu] = useState(false);
@@ -42,7 +43,7 @@ function BytestreamNameDropdown() {
          document.addEventListener("click", closeMenu);
          return () => document.removeEventListener("click", closeMenu);
       }
-   }, [showMenu, showRightClickMenu, dispatch]);
+   }, [showMenu, showRightClickMenu, dispatch, renderBytestreamId]);
 
    // Null check for bytestreams and bytestreamsMembershipRosters
    if (bytestreams == undefined || Object.values(bytestreams).length === 0)
@@ -81,7 +82,12 @@ function BytestreamNameDropdown() {
    };
 
    const onBytestreamClick = (e, bytestreamId) => {
-      setRenderBytestreamId(bytestreamId);
+      e.preventDefault();
+      console.log(
+         "🚀 ~ file: bytestreamDropDown.js:85 ~ onBytestreamClick ~ bytestreamId:",
+         bytestreamId
+      );
+      setBytestreamId(bytestreamId);
    };
 
    const handleRightClick = (e, bytestream) => {
@@ -175,6 +181,7 @@ function BytestreamNameDropdown() {
                            onContextMenu={(e) =>
                               handleRightClick(e, bytestream)
                            }
+                           onClick={(e) => onBytestreamClick(e, bytestream.id)}
                         >
                            {bytestream.name}{" "}
                         </li>
@@ -182,9 +189,6 @@ function BytestreamNameDropdown() {
                </div>
             </ul>
          </div>
-         {renderBytestreamId && (
-            //create bytestream chat component
-         )}
       </div>
    );
 }
