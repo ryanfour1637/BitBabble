@@ -17,10 +17,12 @@ class Message(db.Model):
     bytestream_message = db.relationship('Bytestream', back_populates='message_bytestream')
 
     def to_dict(self):
+        user_info = self.user_message.to_dict() if self.user_message else None
         return {
             'id': self.id,
             'bytestreamId': self.bytestream_id,
             'userId': self.user_id,
             'message': self.message,
-            'timestamp': self.timestamp.isoformat()
+            'timestamp': self.timestamp.isoformat(),
+            'user': user_info
         }

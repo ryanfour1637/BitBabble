@@ -23,19 +23,17 @@ const actionDeleteMessage = (messageObj) => ({
 
 // Thunks
 
-export const thunkGetOneBytestreamsMessages =
-   (bytestreamId) => async (dispatch) => {
-      const response = await fetch(`/api/messages/${bytestreamId}`);
-      console.log("🚀 ~ file: messages.js:30 ~ response:", response);
-      if (response.ok) {
-         const data = await response.json();
-         dispatch(actionGetOneBytestreamsMessages(data));
-         return data;
-      } else {
-         const errors = await response.json();
-         return errors;
-      }
-   };
+export const thunkGetOneBytestreamsMessages = () => async (dispatch) => {
+   const response = await fetch(`/api/messages`);
+   if (response.ok) {
+      const data = await response.json();
+      dispatch(actionGetOneBytestreamsMessages(data));
+      return data;
+   } else {
+      const errors = await response.json();
+      return errors;
+   }
+};
 
 // export const thunkAddNewMessage = (messageObj) => async (dispatch) => {
 //    const response = await fetch(`/api/messages/create`, {

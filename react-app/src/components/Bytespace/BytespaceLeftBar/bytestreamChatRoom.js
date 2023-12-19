@@ -9,11 +9,11 @@ function BytestreamChatRoom({ messages, bytestreamId }) {
    const socket = useWebSocket();
    const [message, setMessage] = useState("");
 
-   console.log(
-      "🚀 ~ file: bytestreamChatRoom.js:10 ~ BytestreamChatRoom ~ socket:",
-      socket
-   );
    useEffect(() => {
+      console.log(
+         "🚀 ~ file: bytestreamChatRoom.js:15 ~ useEffect ~ socket:",
+         socket
+      );
       if (socket) {
          socket.on("ws_receive_message", (newMessage) => {
             console.log(
@@ -58,17 +58,20 @@ function BytestreamChatRoom({ messages, bytestreamId }) {
       setMessage("");
    };
 
+   if (Object.keys(messages).length === 0) return null;
+   const bytestreamMessages = Object.values(messages[bytestreamId]);
    return (
-      <div className="bytestreamChatRoom">
-         <div className="bytestreamChatRoom__messages">
-            {messages?.map((message) => (
-               <div key={message.id} className="bytestreamChatRoom__message">
-                  <p>{message.message}</p>
+      <>
+         <div className="bytestreamChatRoom-messagesdiv">
+            {bytestreamMessages?.map((messageObj) => (
+               <div key={messageObj.id} className="bytestreamChatRoom-message">
+                  <p>{messageObj.message}</p>
                </div>
             ))}
          </div>
-         <div className="bytestreamChatRoom__input">
+         <div className="bytestreamChatRoom-input">
             <input
+               value={message}
                type="text"
                placeholder="Type a message"
                onChange={(e) => setMessage(e.target.value)}
@@ -77,7 +80,7 @@ function BytestreamChatRoom({ messages, bytestreamId }) {
                Send
             </button>
          </div>
-      </div>
+      </>
    );
 }
 

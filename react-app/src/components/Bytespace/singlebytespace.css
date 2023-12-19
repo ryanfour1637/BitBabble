@@ -8,6 +8,27 @@
    background-color: #323232;
 }
 
+.bytespace-messagesdiv {
+   /* need to make this div scrollable when messages go beyond.  */
+   display: grid;
+   grid-template-rows: 85% 15%;
+   width: 100%;
+   background-color: #ffffff;
+}
+
+.bytestreamChatRoom-messagesdiv {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   width: 100%;
+   height: 100%;
+   overflow-y: auto;
+}
+
+.bytestreamChatRoom-message {
+
+}
+
 .bytespace-leftbar-topdiv {
    display: flex;
    justify-content: space-around;
@@ -34,6 +55,8 @@
 .joined-bytestreams-to-display li {
    list-style-type: none;
    margin-top: 10px;
+   color: #bebebe;
+   font-weight: 700;
 }
 
 .bytespace-name-words {
