@@ -4,11 +4,13 @@ import { useHistory, useParams, NavLink } from "react-router-dom";
 import BytestreamNameDropdown from "./BytespaceLeftBar/bytestreamDropDown";
 import BytespaceNameDropdown from "./BytespaceLeftBar/nameDropDown";
 import BytestreamChatRoom from "./BytespaceLeftBar/bytestreamChatRoom";
+import { thunkGetOneBytestreamsMessages } from "../../store/messages";
 import Navigation from "../Navigation";
 import addmessage from "../../images/addmessage.png";
 import "./singlebytespace.css";
 
 function SingleBytespaceLandingPage() {
+   const dispatch = useDispatch();
    const [bytestreamId, setBytestreamId] = useState(null);
    const messages = useSelector((state) => state.messages);
    const handleMessageClick = () => {
@@ -16,12 +18,12 @@ function SingleBytespaceLandingPage() {
    };
 
    useEffect(() => {
-      console.log(
-         "🚀 ~ file: index.js:13 ~ SingleBytespaceLandingPage ~ bytestreamId:",
-         bytestreamId
-      );
-   }, [bytestreamId]);
+      if (bytestreamId) {
+         dispatch(thunkGetOneBytestreamsMessages(bytestreamId));
+      }
+   }, [bytestreamId, dispatch]);
 
+   
    return (
       <div className="single-bytespace-outerdiv">
          <div>

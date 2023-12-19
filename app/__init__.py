@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from flask import Flask, render_template, request, session, redirect
 from flask_cors import CORS
 from flask_migrate import Migrate
@@ -13,6 +14,7 @@ from .api.bytespace_members import bytespace_members_routes
 from .api.bytestream_members import bytestream_members_routes
 from .api.bytestream_routes import bytestream_routes
 from .api.messages_routes import message_routes
+from .models import User, Message
 from .seeds import seed_commands
 from .config import Config
 
@@ -115,9 +117,18 @@ def handle_leave_bytestream(data):
 
 @socketio.on('ws_send_message')
 def handle_send_message(data):
-    bytestream = data['bytestream_id']
+    print(data)
+    bytestream = data['bytestreamId']
     message = data['message']
-    emit('wreceive_message', {'message': message}, room=bytestream)
+    new_message = Message(
+        bytestream_id=bytestream,
+        user_id=current_user.id,
+        message=message,
+        timestamp=datetime.utcnow()
+    )
+    db.session.add(new_message)
+    db.session.commit()
+    emit('ws_receive_message', {'message': message}, room=bytestream)
 
 
 @socketio.on('typing')

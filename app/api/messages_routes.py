@@ -7,17 +7,17 @@ from ..models.db import db
 
 message_routes = Blueprint('messages', __name__)
 
-@message_routes.route('/<int:id>')
+@message_routes.route('/<int:bytestream_id>')
 def get_messages(bytestream_id=None):
     """Query for all messages and returns them in a list of message dictionaries"""
     if bytestream_id is not None:
-        messages = Message.query.filter_by(Message.bytestream_id == bytestream_id).all().order_by(Message.timestamp).all()
+        messages = Message.query.filter(Message.bytestream_id == bytestream_id).order_by(Message.timestamp).all()
     else:
         messages = Message.query.all().order_by(Message.timestamp).all()
 
     ## handle cases where a bytestream has no messages
     if len(messages) == 0:
-        return []
+        return [], 200
     return [message.to_dict() for message in messages]
 
 @message_routes.route('/create', methods=['POST'])

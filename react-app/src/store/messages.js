@@ -11,7 +11,7 @@ const actionGetOneBytestreamsMessages = (messagesObjsArr) => ({
    messagesObjsArr,
 });
 
-const actionAddNewMessage = (messageObj) => ({
+export const actionAddNewMessage = (messageObj) => ({
    type: ADD_NEW_MESSAGE,
    messageObj,
 });
@@ -26,6 +26,7 @@ const actionDeleteMessage = (messageObj) => ({
 export const thunkGetOneBytestreamsMessages =
    (bytestreamId) => async (dispatch) => {
       const response = await fetch(`/api/messages/${bytestreamId}`);
+      console.log("🚀 ~ file: messages.js:30 ~ response:", response);
       if (response.ok) {
          const data = await response.json();
          dispatch(actionGetOneBytestreamsMessages(data));
@@ -36,24 +37,24 @@ export const thunkGetOneBytestreamsMessages =
       }
    };
 
-export const thunkAddNewMessage = (messageObj) => async (dispatch) => {
-   const response = await fetch(`/api/messages/create`, {
-      method: "POST",
-      headers: {
-         "Content-Type": "application/json",
-      },
-      body: JSON.stringify(messageObj),
-   });
+// export const thunkAddNewMessage = (messageObj) => async (dispatch) => {
+//    const response = await fetch(`/api/messages/create`, {
+//       method: "POST",
+//       headers: {
+//          "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(messageObj),
+//    });
 
-   if (response.ok) {
-      const data = await response.json();
-      dispatch(actionAddNewMessage(data));
-      return data;
-   } else {
-      const errors = await response.json();
-      return errors;
-   }
-};
+//    if (response.ok) {
+//       const data = await response.json();
+//       dispatch(actionAddNewMessage(data));
+//       return data;
+//    } else {
+//       const errors = await response.json();
+//       return errors;
+//    }
+// };
 
 export const thunkUpdateMessage = (messageObj) => async (dispatch) => {
    const response = await fetch(`/api/messages/${messageObj.id}/update`, {
