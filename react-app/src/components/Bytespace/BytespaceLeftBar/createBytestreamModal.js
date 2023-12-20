@@ -5,7 +5,7 @@ import { thunkCreateBytestream } from "../../../store/bytestream";
 import { thunkAddToBytestream } from "../../../store/bytestream_members";
 import { useHistory } from "react-router-dom";
 
-function CreateBytestreamModal({ bytespaceId }) {
+function CreateBytestreamModal({ bytespaceId, socket }) {
    const dispatch = useDispatch();
    const { closeModal } = useModal();
    const { push } = useHistory();
@@ -19,6 +19,7 @@ function CreateBytestreamModal({ bytespaceId }) {
 
       if (typeof errors == "number") {
          await dispatch(thunkAddToBytestream(errors, bytespaceId));
+         socket.emit("join_room", { bytestream_id: errors });
          closeModal();
       } else {
          setErrors(errors.errors);

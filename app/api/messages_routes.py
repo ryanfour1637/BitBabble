@@ -17,20 +17,7 @@ def get_messages():
         return [], 200
     return [message.to_dict() for message in messages]
 
-@message_routes.route('/create', methods=['POST'])
-def create_message(bytestream_id=None):
-    """Create a message and return the message dictionary"""
-    data = request.json
 
-    message = Message(
-        bytestream_id=data['bytestreamId'],
-        user_id=current_user.id,
-        message=data['message']
-    )
-
-    db.session.add(message)
-    db.session.commit()
-    return message.to_dict()
 
 @message_routes.route('/<int:messageId>/edit', methods=['PUT'])
 def edit_message(messageId):

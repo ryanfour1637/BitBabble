@@ -160,7 +160,10 @@ function BytestreamNameDropdown({ setBytestreamId }) {
                         buttonText="Create"
                         onButtonClick={closeMenu}
                         modalComponent={
-                           <CreateBytestreamModal bytespaceId={bytespaceId} />
+                           <CreateBytestreamModal
+                              bytespaceId={bytespaceId}
+                              socket={socket}
+                           />
                         }
                      />
                      <OpenModalButton

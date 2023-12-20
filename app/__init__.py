@@ -110,10 +110,10 @@ def handle_join_room(data):
     join_room(data['bytestream_id'])
     emit('join_room_confirm', data, room=data['bytestream_id'])
 
-@socketio.on('')
+@socketio.on('leave_room')
 def handle_leave_bytestream(data):
     leave_room(data['bytestream_id'])
-    emit('ws_leave_bytestream', data, room=data['bytestream_id'])
+    emit('leave_room_confirmation', data, room=data['bytestream_id'])
 
 
 @socketio.on('ws_send_message')
