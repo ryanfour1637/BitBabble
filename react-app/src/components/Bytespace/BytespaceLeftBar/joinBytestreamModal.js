@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { login } from "../../../store/session";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+
+import { useDispatch } from "react-redux";
 import { thunkAddToBytestream } from "../../../store/bytestream_members";
 import { useModal } from "../../../context/Modal";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-function JoinBytestreamModal({ nonJoinedBytestreamsToDisplay, bytespaceId }) {
+function JoinBytestreamModal({
+   nonJoinedBytestreamsToDisplay,
+   bytespaceId,
+   socket,
+}) {
    const dispatch = useDispatch();
+
    const { push } = useHistory();
    const { closeModal } = useModal();
    const [errors, setErrors] = useState([]);
@@ -24,6 +29,9 @@ function JoinBytestreamModal({ nonJoinedBytestreamsToDisplay, bytespaceId }) {
 
    const joinBytestream = () => {
       dispatch(thunkAddToBytestream(selectedId, bytespaceId));
+      console.log("socket connected?", socket.connected);
+      socket.emit("join_room", { bytestream_id: selectedId });
+      console.log("joined room");
       closeModal();
    };
 

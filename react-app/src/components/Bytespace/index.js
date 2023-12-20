@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams, NavLink } from "react-router-dom";
-import ByteSpaceLeftBar from "./BytespaceLeftBar";
+import React, { useState } from "react";
 import BytestreamNameDropdown from "./BytespaceLeftBar/bytestreamDropDown";
 import BytespaceNameDropdown from "./BytespaceLeftBar/nameDropDown";
+import BytestreamChatRoom from "./BytespaceLeftBar/bytestreamChatRoom";
+import { WebSocketProvider } from "../../context/webSocket";
 import Navigation from "../Navigation";
 import addmessage from "../../images/addmessage.png";
 import "./singlebytespace.css";
 
-function SingleBytespaceLandingPage() {
+function SingleBytespaceLandingPage({ user }) {
+   const [bytestreamId, setBytestreamId] = useState(null);
+
    const handleMessageClick = () => {
       alert("Feature coming soon!");
    };
+
    return (
       <div className="single-bytespace-outerdiv">
          <div>
@@ -27,9 +29,13 @@ function SingleBytespaceLandingPage() {
                   onClick={handleMessageClick}
                />
             </div>
-            <BytestreamNameDropdown />
+            <BytestreamNameDropdown setBytestreamId={setBytestreamId} />
          </div>
-         <div>Placeholder for future messages</div>
+         {bytestreamId && (
+            <div className="bytespace-messagesdiv">
+               <BytestreamChatRoom bytestreamId={bytestreamId} />
+            </div>
+         )}
       </div>
    );
 }

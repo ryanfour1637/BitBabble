@@ -7,22 +7,29 @@ import JoinBytestreamModal from "./joinBytestreamModal";
 import UpdateBytestreamModal from "./updateBytestreamModal";
 import LeaveBytestreamModal from "./leaveBytestreamModal";
 import DeleteBytestreamModal from "./deleteBytestreamModal";
+import { useWebSocket } from "../../../context/webSocket";
 import { thunkGetAllBytestreams } from "../../../store/bytestream";
 import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
 import { NavLink } from "react-router-dom";
 import { useRightClickMenu } from "../../../context/rightClick";
 import xmark from "../../../images/xmark.png";
 
-function BytestreamNameDropdown() {
+function BytestreamNameDropdown({ setBytestreamId }) {
    const dispatch = useDispatch();
    const [showMenu, setShowMenu] = useState(false);
    const [showRightClickMenu, setShowRightClickMenu] = useState(false);
+   const [renderBytestreamId, setRenderBytestreamId] = useState(null);
    const { userId, bytespaceId } = useParams();
    const ulRefAllBytestreams = useRef();
    const { openRightClickMenu, closeRightClickMenu } = useRightClickMenu();
    const bytestreams = useSelector((state) => state.bytestreams);
    const bytestreamsMembershipRosters = useSelector(
       (state) => state.bytestreamMembers
+   );
+   const socket = useWebSocket();
+   console.log(
+      "🚀 ~ file: bytestreamDropDown.js:30 ~ BytestreamNameDropdown ~ socket :",
+      socket
    );
 
    useEffect(() => {
@@ -41,7 +48,7 @@ function BytestreamNameDropdown() {
          document.addEventListener("click", closeMenu);
          return () => document.removeEventListener("click", closeMenu);
       }
-   }, [showMenu, showRightClickMenu, dispatch]);
+   }, [showMenu, showRightClickMenu, dispatch, renderBytestreamId]);
 
    // Null check for bytestreams and bytestreamsMembershipRosters
    if (bytestreams == undefined || Object.values(bytestreams).length === 0)
@@ -57,7 +64,6 @@ function BytestreamNameDropdown() {
 
    const thisBytespacesBytestreams = bytestreams[bytespaceId];
 
-  
    Object.keys(thisBytespacesBytestreams).forEach((bytestreamId) => {
       const bytestream = bytestreams[bytespaceId][bytestreamId];
 
@@ -78,6 +84,12 @@ function BytestreamNameDropdown() {
    const openMenu = () => {
       if (showMenu) return;
       setShowMenu(true);
+   };
+
+   const onBytestreamClick = (e, bytestreamId) => {
+      e.preventDefault();
+
+      setBytestreamId(bytestreamId);
    };
 
    const handleRightClick = (e, bytestream) => {
@@ -135,43 +147,51 @@ function BytestreamNameDropdown() {
    const closeMenu = () => setShowMenu(false);
 
    return (
-      <div className="bytestream-name-dropdown">
-         <h1 className="bytestream-name-words" onClick={openMenu}>
-            Bytestreams
-         </h1>
+      <div className="bytestream_and_messages_div">
+         <div className="bytestream-name-dropdown">
+            <h1 className="bytestream-name-words" onClick={openMenu}>
+               Bytestreams
+            </h1>
 
-         <ul className={ulClassNameAllBytestreams} ref={ulRefAllBytestreams}>
-            <div className="joined-bytestreams-to-display">
-               <li>
-                  <OpenModalButton
-                     buttonText="Create"
-                     onButtonClick={closeMenu}
-                     modalComponent={
-                        <CreateBytestreamModal bytespaceId={bytespaceId} />
-                     }
-                  />
-                  <OpenModalButton
-                     buttonText="Join"
-                     onButtonClick={closeMenu}
-                     modalComponent={
-                        <JoinBytestreamModal
-                           nonJoinedBytestreamsToDisplay={nonJoinedBytestreams}
-                           bytespaceId={bytespaceId}
-                        />
-                     }
-                  />
-               </li>
-               {joinedBytestreams.length > 0 &&
-                  joinedBytestreams.map((bytestream) => (
-                     <li
-                        key={bytestream.id}
-                        onContextMenu={(e) => handleRightClick(e, bytestream)}
-                     >
-                        {bytestream.name}{" "}
-                     </li>
-                  ))}
-            </div>
-         </ul>
+            <ul className={ulClassNameAllBytestreams} ref={ulRefAllBytestreams}>
+               <div className="joined-bytestreams-to-display">
+                  <li>
+                     <OpenModalButton
+                        buttonText="Create"
+                        onButtonClick={closeMenu}
+                        modalComponent={
+                           <CreateBytestreamModal bytespaceId={bytespaceId} />
+                        }
+                     />
+                     <OpenModalButton
+                        buttonText="Join"
+                        onButtonClick={closeMenu}
+                        modalComponent={
+                           <JoinBytestreamModal
+                              nonJoinedBytestreamsToDisplay={
+                                 nonJoinedBytestreams
+                              }
+                              bytespaceId={bytespaceId}
+                              socket={socket}
+                           />
+                        }
+                     />
+                  </li>
+                  {joinedBytestreams.length > 0 &&
+                     joinedBytestreams.map((bytestream) => (
+                        <li
+                           key={bytestream.id}
+                           onContextMenu={(e) =>
+                              handleRightClick(e, bytestream)
+                           }
+                           onClick={(e) => onBytestreamClick(e, bytestream.id)}
+                        >
+                           {bytestream.name}{" "}
+                        </li>
+                     ))}
+               </div>
+            </ul>
+         </div>
       </div>
    );
 }

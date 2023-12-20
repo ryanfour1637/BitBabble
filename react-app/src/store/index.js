@@ -5,6 +5,7 @@ import bytespaceReducer from "./bytespace";
 import bytespaceMembersReducer from "./bytespace_members";
 import bytestreamsReducer from "./bytestream";
 import bytestreamMembersReducer from "./bytestream_members";
+import messagesReducer from "./messages";
 
 const rootReducer = combineReducers({
    session,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
    bytespaceMembers: bytespaceMembersReducer,
    bytestreams: bytestreamsReducer,
    bytestreamMembers: bytestreamMembersReducer,
+   messages: messagesReducer,
 });
 
 let enhancer;
