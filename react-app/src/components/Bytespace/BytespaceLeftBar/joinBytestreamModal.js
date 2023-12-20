@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
-
+import { actionAddNewMessage } from "../../../store/messages";
 import { useDispatch } from "react-redux";
 import { thunkAddToBytestream } from "../../../store/bytestream_members";
 import { useModal } from "../../../context/Modal";
 import { useHistory } from "react-router-dom";
+import { useWebSocket } from "../../../context/webSocket";
 
 function JoinBytestreamModal({
    nonJoinedBytestreamsToDisplay,
    bytespaceId,
+   user,
    socket,
 }) {
    const dispatch = useDispatch();
-
    const { push } = useHistory();
    const { closeModal } = useModal();
    const [errors, setErrors] = useState([]);
    const [selectedValue, setSelectedValue] = useState("");
    const [selectedId, setSelectedId] = useState(null);
-
    const selectedBytestream = nonJoinedBytestreamsToDisplay.find(
       (bytestream) => bytestream.id == selectedId
    );
@@ -28,10 +28,10 @@ function JoinBytestreamModal({
    };
 
    const joinBytestream = () => {
+      if (!socket) return;
       dispatch(thunkAddToBytestream(selectedId, bytespaceId));
-      console.log("socket connected?", socket.connected);
       socket.emit("join_room", { bytestream_id: selectedId });
-      console.log("joined room");
+
       closeModal();
    };
 

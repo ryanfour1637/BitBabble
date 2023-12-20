@@ -14,7 +14,7 @@ import { NavLink } from "react-router-dom";
 import { useRightClickMenu } from "../../../context/rightClick";
 import xmark from "../../../images/xmark.png";
 
-function BytestreamNameDropdown({ setBytestreamId }) {
+function BytestreamNameDropdown({ setBytestreamId, user }) {
    const dispatch = useDispatch();
    const [showMenu, setShowMenu] = useState(false);
    const [showRightClickMenu, setShowRightClickMenu] = useState(false);
@@ -119,7 +119,11 @@ function BytestreamNameDropdown({ setBytestreamId }) {
                buttonText="Leave Bytestream"
                onButtonClick={closeRightClickMenu}
                modalComponent={
-                  <LeaveBytestreamModal idToDelete={bytestreamMemberId} />
+                  <LeaveBytestreamModal
+                     idToDelete={bytestreamMemberId}
+                     socket={socket}
+                     user={user}
+                  />
                }
             />
             {bytestream.ownerId == userId && (
@@ -142,6 +146,26 @@ function BytestreamNameDropdown({ setBytestreamId }) {
       setShowRightClickMenu(true);
    };
 
+   const renderModal = (modalType) => {
+      if (!socket) return <div>Loading...</div>;
+
+      switch (modalType) {
+         case "create":
+            return <CreateBytestreamModal bytespaceId={bytespaceId} />;
+         case "join":
+            return (
+               <JoinBytestreamModal
+                  nonJoinedBytestreamsToDisplay={nonJoinedBytestreams}
+                  bytespaceId={bytespaceId}
+                  user={user}
+                  socket={socket}
+               />
+            );
+         // ... other cases
+         default:
+            return null;
+      }
+   };
    const ulClassNameAllBytestreams =
       "profile-dropdown" + (showMenu ? "" : " hidden");
    const closeMenu = () => setShowMenu(false);
@@ -159,25 +183,12 @@ function BytestreamNameDropdown({ setBytestreamId }) {
                      <OpenModalButton
                         buttonText="Create"
                         onButtonClick={closeMenu}
-                        modalComponent={
-                           <CreateBytestreamModal
-                              bytespaceId={bytespaceId}
-                              socket={socket}
-                           />
-                        }
+                        modalComponent={renderModal("create")}
                      />
                      <OpenModalButton
                         buttonText="Join"
                         onButtonClick={closeMenu}
-                        modalComponent={
-                           <JoinBytestreamModal
-                              nonJoinedBytestreamsToDisplay={
-                                 nonJoinedBytestreams
-                              }
-                              bytespaceId={bytespaceId}
-                              socket={socket}
-                           />
-                        }
+                        modalComponent={renderModal("join")}
                      />
                   </li>
                   {joinedBytestreams.length > 0 &&

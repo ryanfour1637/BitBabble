@@ -5,7 +5,7 @@ import { thunkCreateBytestream } from "../../../store/bytestream";
 import { thunkAddToBytestream } from "../../../store/bytestream_members";
 import { useHistory } from "react-router-dom";
 
-function CreateBytestreamModal({ bytespaceId, socket }) {
+function CreateBytestreamModal({ bytespaceId, socket, user }) {
    const dispatch = useDispatch();
    const { closeModal } = useModal();
    const { push } = useHistory();

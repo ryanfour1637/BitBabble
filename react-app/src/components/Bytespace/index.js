@@ -29,7 +29,10 @@ function SingleBytespaceLandingPage({ user }) {
                   onClick={handleMessageClick}
                />
             </div>
-            <BytestreamNameDropdown setBytestreamId={setBytestreamId} />
+            <BytestreamNameDropdown
+               setBytestreamId={setBytestreamId}
+               user={user}
+            />
          </div>
          {bytestreamId && (
             <div className="bytespace-messagesdiv">

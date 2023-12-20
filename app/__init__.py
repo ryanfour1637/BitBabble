@@ -107,8 +107,9 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 @socketio.on('join_room')
 def handle_join_room(data):
+    print('this is the current_user', current_user)
     join_room(data['bytestream_id'])
-    emit('join_room_confirm', data, room=data['bytestream_id'])
+    emit('join_room_confirm', {'bytestreamId': data['bytestream_id'], 'user': current_user.to_dict()}, room=data['bytestream_id'])
 
 @socketio.on('leave_room')
 def handle_leave_bytestream(data):
