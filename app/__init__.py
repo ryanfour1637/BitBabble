@@ -1,9 +1,11 @@
 import os
+from datetime import datetime
 from flask import Flask, render_template, request, session, redirect
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
-from flask_login import LoginManager
+from flask_login import LoginManager, login_required, current_user
+from flask_socketio import SocketIO, send, emit, join_room, leave_room
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
@@ -11,6 +13,8 @@ from .api.bytespace_routes import bytespace_routes
 from .api.bytespace_members import bytespace_members_routes
 from .api.bytestream_members import bytestream_members_routes
 from .api.bytestream_routes import bytestream_routes
+from .api.messages_routes import message_routes
+from .models import User, Message
 from .seeds import seed_commands
 from .config import Config
 
@@ -36,6 +40,7 @@ app.register_blueprint(bytespace_routes, url_prefix='/api/bytespaces')
 app.register_blueprint(bytestream_routes, url_prefix='/api/bytestreams')
 app.register_blueprint(bytespace_members_routes, url_prefix='/api/bytespace_members')
 app.register_blueprint(bytestream_members_routes, url_prefix='/api/bytestream_members')
+app.register_blueprint(message_routes, url_prefix='/api/messages')
 db.init_app(app)
 Migrate(app, db)
 
@@ -97,3 +102,95 @@ def react_root(path):
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
+
+socketio = SocketIO(app, cors_allowed_origins="*")
+
+@socketio.on('join_room')
+def handle_join_room(data):
+    join_room(data['bytestream_id'])
+    emit('join_room_confirm', data, room=data['bytestream_id'])
+
+@socketio.on('')
+def handle_leave_bytestream(data):
+    leave_room(data['bytestream_id'])
+    emit('ws_leave_bytestream', data, room=data['bytestream_id'])
+
+
+@socketio.on('ws_send_message')
+def handle_send_message(data):
+    print(data)
+    bytestream = data['bytestreamId']
+    message = data['message']
+
+    try:
+        new_message = Message(
+            bytestream_id=bytestream,
+            user_id=current_user.id,
+            message=message,
+            timestamp=datetime.utcnow()
+        )
+        db.session.add(new_message)
+        db.session.commit()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+    # Emit a message indicating success and data details
+    emit("ws_receive_message", new_message.to_dict(), broadcast=True)
+
+
+
+@socketio.on('typing')
+def handle_typing(data):
+    bytestream = data['bytestream_id']
+    user=data['user']
+    emit('user_typing', {'user': user}, room=bytestream)
+
+@socketio.on('error')
+def handle_error(e):
+    print(e)
+
+@socketio.on('connect')
+def handle_connect():
+    user_id = current_user.id
+    user = User.query.get(user_id)
+    if user:
+        user.is_online = True
+        db.session.commit()
+        emit('user_status_change', {'user_id': user_id, 'status': 'online'}, broadcast=True)
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    user_id = current_user.id
+    user = User.query.get(user_id)
+    if user:
+        user.is_online = False
+        db.session.commit()
+        emit('user_status_change', {'user_id': user_id, 'status': 'offline'}, broadcast=True)
+
+
+
+
+
+# @socketio.on('send_file')
+# def handle_send_file(data):
+#     bytestream = data['bytestream_id']
+#     file = data['file']
+#     emit('receive_file', {'file': file}, room=bytestream)
+
+# @socketio.on('send_image')
+# def handle_send_image(data):
+#     bytestream = data['bytestream_id']
+#     image = data['image']
+#     emit('receive_image', {'image': image}, room=bytestream)
+
+# @socketio.on('send_video')
+# def handle_send_video(data):
+#     bytestream = data['bytestream_id']
+#     video = data['video']
+#     emit('receive_video', {'video': video}, room=bytestream)
+
+# @socketio.on('send_audio')
+# def handle_send_audio(data):
+#     bytestream = data['bytestream_id']
+#     audio = data['audio']
+#     emit('receive_audio', {'audio': audio}, room=bytestream)

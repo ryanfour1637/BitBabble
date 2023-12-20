@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-
 import { ModalProvider, Modal } from "./context/Modal";
 import { RightClickMenuProvider, RightClickMenu } from "./context/rightClick";
 import configureStore from "./store";

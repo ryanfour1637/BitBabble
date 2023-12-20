@@ -15,6 +15,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    is_online = db.Column(db.Boolean, nullable=False, default=False)
 
     ## Bytespace Relationships
     bytespace_user = db.relationship('Bytespace', back_populates='user_bytespace', cascade='all, delete-orphan')
@@ -27,6 +28,9 @@ class User(db.Model, UserMixin):
 
     ## BytespaceUser Relationships
     bytespacemembers_user = db.relationship('BytespaceMember', back_populates='user_bytespacemembers', cascade='all, delete-orphan')
+
+    ## Message Relationships
+    message_user = db.relationship('Message', back_populates='user_message', cascade='all, delete-orphan')
 
 
 

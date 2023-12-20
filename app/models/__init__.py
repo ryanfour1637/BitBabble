@@ -4,3 +4,4 @@ from .bytespace import Bytespace
 from .bytespace_members import BytespaceMember
 from .bytestream import Bytestream
 from .bytestream_members import BytestreamMember
+from .messages import Message
