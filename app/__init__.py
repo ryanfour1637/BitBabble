@@ -103,32 +103,40 @@ def react_root(path):
 def not_found(e):
     return app.send_static_file('index.html')
 
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
-@socketio.on('ws_join_bytestream')
-def handle_join_bytestream(data):
+@socketio.on('join_room')
+def handle_join_room(data):
     join_room(data['bytestream_id'])
-    emit('ws_join_stream', data, room=data['bytestream_id'])
+    emit('join_room_confirm', data, room=data['bytestream_id'])
 
-@socketio.on('ws_leave_bytestream')
+@socketio.on('')
 def handle_leave_bytestream(data):
     leave_room(data['bytestream_id'])
-    emit('ws_leave_stream', data, room=data['bytestream_id'])
+    emit('ws_leave_bytestream', data, room=data['bytestream_id'])
+
 
 @socketio.on('ws_send_message')
 def handle_send_message(data):
     print(data)
     bytestream = data['bytestreamId']
     message = data['message']
-    new_message = Message(
-        bytestream_id=bytestream,
-        user_id=current_user.id,
-        message=message,
-        timestamp=datetime.utcnow()
-    )
-    db.session.add(new_message)
-    db.session.commit()
-    emit('ws_receive_message', {'message': message}, room=bytestream)
+
+    try:
+        new_message = Message(
+            bytestream_id=bytestream,
+            user_id=current_user.id,
+            message=message,
+            timestamp=datetime.utcnow()
+        )
+        db.session.add(new_message)
+        db.session.commit()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+    # Emit a message indicating success and data details
+    emit("ws_receive_message", new_message.to_dict(), broadcast=True)
+
 
 
 @socketio.on('typing')

@@ -26,6 +26,11 @@ function BytestreamNameDropdown({ setBytestreamId }) {
    const bytestreamsMembershipRosters = useSelector(
       (state) => state.bytestreamMembers
    );
+   const socket = useWebSocket();
+   console.log(
+      "🚀 ~ file: bytestreamDropDown.js:30 ~ BytestreamNameDropdown ~ socket :",
+      socket
+   );
 
    useEffect(() => {
       dispatch(thunkGetAllBytestreams());
@@ -83,10 +88,7 @@ function BytestreamNameDropdown({ setBytestreamId }) {
 
    const onBytestreamClick = (e, bytestreamId) => {
       e.preventDefault();
-      console.log(
-         "🚀 ~ file: bytestreamDropDown.js:85 ~ onBytestreamClick ~ bytestreamId:",
-         bytestreamId
-      );
+
       setBytestreamId(bytestreamId);
    };
 
@@ -170,6 +172,7 @@ function BytestreamNameDropdown({ setBytestreamId }) {
                                  nonJoinedBytestreams
                               }
                               bytespaceId={bytespaceId}
+                              socket={socket}
                            />
                         }
                      />

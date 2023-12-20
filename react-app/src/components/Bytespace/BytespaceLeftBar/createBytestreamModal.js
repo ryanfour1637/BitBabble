@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { thunkCreateBytestream } from "../../../store/bytestream";
 import { thunkAddToBytestream } from "../../../store/bytestream_members";

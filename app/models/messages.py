@@ -8,8 +8,8 @@ class Message(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    bytestream_id = db.Column(db.Integer, db.ForeignKey('bytestreams.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    bytestream_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('bytestreams.id')))
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
     message = db.Column(db.String, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
@@ -17,12 +17,11 @@ class Message(db.Model):
     bytestream_message = db.relationship('Bytestream', back_populates='message_bytestream')
 
     def to_dict(self):
-        user_info = self.user_message.to_dict() if self.user_message else None
+
         return {
             'id': self.id,
             'bytestreamId': self.bytestream_id,
             'userId': self.user_id,
             'message': self.message,
             'timestamp': self.timestamp.isoformat(),
-            'user': user_info
         }

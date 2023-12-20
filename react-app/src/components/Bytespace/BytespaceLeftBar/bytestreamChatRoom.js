@@ -2,47 +2,39 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useWebSocket } from "../../../context/webSocket";
 import { actionAddNewMessage } from "../../../store/messages";
+import { thunkGetAllMessages } from "../../../store/messages";
 import { useDispatch } from "react-redux";
 
-function BytestreamChatRoom({ messages, bytestreamId }) {
+function BytestreamChatRoom({ bytestreamId }) {
    const dispatch = useDispatch();
    const socket = useWebSocket();
+   const messages = useSelector((state) => state.messages);
    const [message, setMessage] = useState("");
+   const [typing, setTyping] = useState(false);
+
+   // need to figure out why the messages will not send back. it seems it has something to do with the data I am sending back from the backend to the front end bc its getting in the db, its just not getting to the front end to call the dispatch to add the new message to the store or its bc the socket isnt on.
+
+   // may need to figure out when it is best to connect to the socket, might be better to do it earlier in the process.
 
    useEffect(() => {
-      console.log(
-         "🚀 ~ file: bytestreamChatRoom.js:15 ~ useEffect ~ socket:",
-         socket
-      );
-      if (socket) {
-         socket.on("ws_receive_message", (newMessage) => {
-            console.log(
-               "🚀 ~ file: bytestreamChatRoom.js:19 ~ socket.on ~ newMessage:",
-               newMessage
-            );
-            dispatch(actionAddNewMessage(newMessage));
-         });
+      console.log("made it into the useEffect in bytestreamChatRoom.js");
+      if (!socket) return;
+      console.log("this is the connected key", socket.connected);
 
-         socket.on("user_typing", (data) => {
-            console.log(data);
-            //may have to set a class or something here to display the typing message via css
-         });
+      socket.on("ws_receive_message", (messageData) => {
+         dispatch(actionAddNewMessage(messageData));
+      });
 
-         socket.on("user_status_change", (data) => {
-            // figure out how to handle this to turn a users status to online or offline
-         });
+      return () => {
+         socket.off("ws_send_message");
+         socket.off("ws_receive_message"); // Remove the test listener
+      };
 
-         return () => {
-            socket.off("ws_receive_message");
-            socket.off("user_typing");
-            socket.off("user_status_change");
-         };
-      }
+      // maybe add messages to the dependency array
    }, [socket, dispatch, bytestreamId]);
 
    const sendMessage = (e) => {
       e.preventDefault();
-      if (message === "") return;
 
       const messageObj = {
          bytestreamId: bytestreamId,
@@ -50,20 +42,21 @@ function BytestreamChatRoom({ messages, bytestreamId }) {
       };
 
       // Send message to backend
-      if (socket) {
-         socket.emit("ws_send_message", messageObj);
-      }
+      console.log("socket on??", socket.connected);
+      socket.emit("ws_send_message", messageObj);
 
       // Clear input field
       setMessage("");
    };
 
-   if (Object.keys(messages).length === 0) return null;
-   const bytestreamMessages = Object.values(messages[bytestreamId]);
+   const allMessagesArr =
+      messages[bytestreamId] && Object.values(messages[bytestreamId]).length > 0
+         ? Object.values(messages[bytestreamId])
+         : [];
    return (
       <>
          <div className="bytestreamChatRoom-messagesdiv">
-            {bytestreamMessages?.map((messageObj) => (
+            {allMessagesArr.map((messageObj) => (
                <div key={messageObj.id} className="bytestreamChatRoom-message">
                   <p>{messageObj.message}</p>
                </div>
