@@ -12,12 +12,11 @@ function BytestreamChatRoom({ bytestreamId }) {
    const [message, setMessage] = useState("");
    const [typing, setTyping] = useState(false);
 
-   // need to figure out why the messages will not send back. it seems it has something to do with the data I am sending back from the backend to the front end bc its getting in the db, its just not getting to the front end to call the dispatch to add the new message to the store or its bc the socket isnt on.
-
-   // may need to figure out when it is best to connect to the socket, might be better to do it earlier in the process.
+   useEffect(() => {
+      dispatch(thunkGetAllMessages());
+   }, [dispatch]);
 
    useEffect(() => {
-      console.log("made it into the useEffect in bytestreamChatRoom.js");
       if (!socket) return;
       console.log("this is the connected key", socket.connected);
 
@@ -26,8 +25,7 @@ function BytestreamChatRoom({ bytestreamId }) {
       });
 
       return () => {
-         socket.off("ws_send_message");
-         socket.off("ws_receive_message"); // Remove the test listener
+         socket.off("ws_receive_message");
       };
 
       // maybe add messages to the dependency array
