@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { actionAddNewMessage } from "../../../store/messages";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { thunkAddToBytestream } from "../../../store/bytestream_members";
 import { useModal } from "../../../context/Modal";
 import { useHistory } from "react-router-dom";
-import { useWebSocket } from "../../../context/webSocket";
 
 function JoinBytestreamModal({
    nonJoinedBytestreamsToDisplay,
@@ -13,9 +11,7 @@ function JoinBytestreamModal({
    setBytestreamId,
 }) {
    const dispatch = useDispatch();
-   const { push } = useHistory();
    const { closeModal } = useModal();
-   const [errors, setErrors] = useState([]);
    const [selectedValue, setSelectedValue] = useState("");
    const [selectedId, setSelectedId] = useState(null);
    const selectedBytestream = nonJoinedBytestreamsToDisplay.find(
@@ -34,6 +30,8 @@ function JoinBytestreamModal({
       setBytestreamId(selectedId);
 
       closeModal();
+
+     
    };
 
    return (
