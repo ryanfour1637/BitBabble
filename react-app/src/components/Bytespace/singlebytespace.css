@@ -69,12 +69,29 @@
    padding-bottom: 10px;
 }
 
+.joined-bytestreams-to-display {
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+   margin-left: 10px;
+   margin-top: 30px;
+}
+
 .joined-bytestreams-to-display li {
    list-style-type: none;
    color: #fffdd0;
    font-weight: 700;
-   margin-top: 10px;
-   padding-left: 20px;
+   margin-top: 12.5px;
+   padding-right: 15px;
+   padding-left: 15px;
+   transition: all 0.3s ease;
+}
+
+.joined-bytestreams-to-display li:hover {
+   background-color: #007bff;
+   border-radius: 10px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   cursor: pointer;
 }
 
 .create-join-div {
