@@ -13,7 +13,12 @@ import { useRightClickMenu } from "../../../context/rightClick";
 import xmark from "../../../images/xmark.png";
 import dropdown from "../../../images/dropdown.png";
 
-function BytestreamNameDropdown({ setBytestreamId, socket }) {
+function BytestreamNameDropdown({
+   setBytestreamId,
+   socket,
+   bytestreamId,
+   user,
+}) {
    const dispatch = useDispatch();
    const [showMenu, setShowMenu] = useState(false);
    const [showRightClickMenu, setShowRightClickMenu] = useState(false);
@@ -109,6 +114,8 @@ function BytestreamNameDropdown({ setBytestreamId, socket }) {
                      idToDelete={bytestreamMemberId}
                      socket={socket}
                      setBytestreamId={setBytestreamId}
+                     bytestreamId={bytestreamId}
+                     user={user}
                   />
                }
             />

@@ -11,16 +11,6 @@ function BytestreamChatRoom({ bytestreamId, socket }) {
    const [message, setMessage] = useState("");
    const messagesContainerRef = useRef(null);
    const [loading, setLoading] = useState(true);
-   useEffect(() => {
-      if (!loading) {
-         scrollToBottom();
-      }
-   }, [messages, loading]);
-
-   useEffect(() => {
-      dispatch(thunkGetAllMessages()).then(() => setLoading(false));
-   }, [dispatch]);
-
    function scrollToBottom() {
       if (messagesContainerRef.current) {
          const { scrollHeight, clientHeight } = messagesContainerRef.current;
@@ -29,21 +19,22 @@ function BytestreamChatRoom({ bytestreamId, socket }) {
    }
 
    useEffect(() => {
+      dispatch(thunkGetAllMessages()).then(() => setLoading(false));
+   }, [dispatch]);
+
+   useEffect(() => {
+      if (!loading) {
+         scrollToBottom();
+      }
+   }, [messages, loading]);
+
+   useEffect(() => {
       if (!socket) return;
 
       socket.on("ws_receive_message", (messageData) => {
          dispatch(actionAddNewMessage(messageData));
       });
 
-      console.log("this is the connected key in join stream", socket.connected);
-      socket.on("leave_room_confirm", (data) => {
-         console.log("inside leave room");
-         const notification = {
-            bytestreamId: data.bytestreamId,
-            message: `${data.user.username} has left the room`,
-         };
-         socket.emit("ws_send_message", notification);
-      });
       socket.on("join_room_confirm", (data) => {
          const notification = {
             bytestreamId: data.bytestreamId,

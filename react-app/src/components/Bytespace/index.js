@@ -23,6 +23,8 @@ function SingleBytespaceLandingPage({ user }) {
             <BytestreamNameDropdown
                setBytestreamId={setBytestreamId}
                socket={socket}
+               bytestreamId={bytestreamId}
+               user={user}
             />
          </div>
          <div className="bytespace-messagesdiv">
