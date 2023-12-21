@@ -124,7 +124,10 @@ function BytestreamNameDropdown({
                   buttonText="Delete Bytestream"
                   onButtonClick={closeRightClickMenu}
                   modalComponent={
-                     <DeleteBytestreamModal bytestream={bytestream} />
+                     <DeleteBytestreamModal
+                        bytestream={bytestream}
+                        setBytestreamId={setBytestreamId}
+                     />
                   }
                />
             )}
