@@ -7,29 +7,21 @@ import JoinBytestreamModal from "./joinBytestreamModal";
 import UpdateBytestreamModal from "./updateBytestreamModal";
 import LeaveBytestreamModal from "./leaveBytestreamModal";
 import DeleteBytestreamModal from "./deleteBytestreamModal";
-import { useWebSocket } from "../../../context/webSocket";
 import { thunkGetAllBytestreams } from "../../../store/bytestream";
 import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
-import { NavLink } from "react-router-dom";
 import { useRightClickMenu } from "../../../context/rightClick";
 import xmark from "../../../images/xmark.png";
 
-function BytestreamNameDropdown({ setBytestreamId, user }) {
+function BytestreamNameDropdown({ setBytestreamId, user, socket }) {
    const dispatch = useDispatch();
    const [showMenu, setShowMenu] = useState(false);
    const [showRightClickMenu, setShowRightClickMenu] = useState(false);
-   const [renderBytestreamId, setRenderBytestreamId] = useState(null);
    const { userId, bytespaceId } = useParams();
    const ulRefAllBytestreams = useRef();
    const { openRightClickMenu, closeRightClickMenu } = useRightClickMenu();
    const bytestreams = useSelector((state) => state.bytestreams);
    const bytestreamsMembershipRosters = useSelector(
       (state) => state.bytestreamMembers
-   );
-   const socket = useWebSocket();
-   console.log(
-      "🚀 ~ file: bytestreamDropDown.js:30 ~ BytestreamNameDropdown ~ socket :",
-      socket
    );
 
    useEffect(() => {
@@ -48,7 +40,7 @@ function BytestreamNameDropdown({ setBytestreamId, user }) {
          document.addEventListener("click", closeMenu);
          return () => document.removeEventListener("click", closeMenu);
       }
-   }, [showMenu, showRightClickMenu, dispatch, renderBytestreamId]);
+   }, [showMenu, showRightClickMenu, dispatch]);
 
    // Null check for bytestreams and bytestreamsMembershipRosters
    if (bytestreams == undefined || Object.values(bytestreams).length === 0)
@@ -146,26 +138,6 @@ function BytestreamNameDropdown({ setBytestreamId, user }) {
       setShowRightClickMenu(true);
    };
 
-   const renderModal = (modalType) => {
-      if (!socket) return <div>Loading...</div>;
-
-      switch (modalType) {
-         case "create":
-            return <CreateBytestreamModal bytespaceId={bytespaceId} />;
-         case "join":
-            return (
-               <JoinBytestreamModal
-                  nonJoinedBytestreamsToDisplay={nonJoinedBytestreams}
-                  bytespaceId={bytespaceId}
-                  user={user}
-                  socket={socket}
-               />
-            );
-         // ... other cases
-         default:
-            return null;
-      }
-   };
    const ulClassNameAllBytestreams =
       "profile-dropdown" + (showMenu ? "" : " hidden");
    const closeMenu = () => setShowMenu(false);
@@ -183,12 +155,25 @@ function BytestreamNameDropdown({ setBytestreamId, user }) {
                      <OpenModalButton
                         buttonText="Create"
                         onButtonClick={closeMenu}
-                        modalComponent={renderModal("create")}
+                        modalComponent={
+                           <CreateBytestreamModal
+                              bytespaceId={bytespaceId}
+                              socket={socket}
+                           />
+                        }
                      />
                      <OpenModalButton
                         buttonText="Join"
                         onButtonClick={closeMenu}
-                        modalComponent={renderModal("join")}
+                        modalComponent={
+                           <JoinBytestreamModal
+                              nonJoinedBytestreamsToDisplay={
+                                 nonJoinedBytestreams
+                              }
+                              bytespaceId={bytespaceId}
+                              socket={socket}
+                           />
+                        }
                      />
                   </li>
                   {joinedBytestreams.length > 0 &&
