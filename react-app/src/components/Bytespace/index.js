@@ -32,7 +32,6 @@ function SingleBytespaceLandingPage({ user }) {
             </div>
             <BytestreamNameDropdown
                setBytestreamId={setBytestreamId}
-               user={user}
                socket={socket}
             />
          </div>

@@ -5,17 +5,19 @@ import { useModal } from "../../../context/Modal";
 import { thunkRemoveFromBytestream } from "../../../store/bytestream_members";
 import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
 
-function LeaveBytestreamModal({ idToDelete, socket, user }) {
+function LeaveBytestreamModal({ idToDelete, socket }) {
    const dispatch = useDispatch();
    const { push } = useHistory();
    const { closeModal } = useModal();
 
-   const leaveBytestream = async () => {
-      await dispatch(thunkRemoveFromBytestream(idToDelete));
-      await dispatch(thunkGetAllBytestreamMembers());
-      socket.emit("leave_room", { bytestream_id: idToDelete, user: user });
-      return closeModal();
+   const leaveBytestream = () => {
+      if (!socket) return;
+      dispatch(thunkRemoveFromBytestream(idToDelete));
+      dispatch(thunkGetAllBytestreamMembers());
+      socket.emit("leave_room", { bytestream_id: idToDelete });
+      closeModal();
    };
+
    return (
       <div className="delete-outerdiv">
          <h2>Are you sure you want to leave this Bytestream</h2>
