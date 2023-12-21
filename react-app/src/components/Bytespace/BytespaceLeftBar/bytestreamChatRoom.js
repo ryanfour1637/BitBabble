@@ -22,14 +22,6 @@ function BytestreamChatRoom({ bytestreamId, socket }) {
       });
 
       console.log("this is the connected key in join stream", socket.connected);
-      socket.on("join_room_confirm", (data) => {
-         const notification = {
-            bytestreamId: data.bytestreamId,
-            message: `${data.user.username} has joined the room`,
-         };
-         socket.emit("ws_send_message", notification);
-      });
-
       socket.on("leave_room_confirm", (data) => {
          console.log("inside leave room");
          const notification = {
@@ -38,6 +30,14 @@ function BytestreamChatRoom({ bytestreamId, socket }) {
          };
          socket.emit("ws_send_message", notification);
       });
+      socket.on("join_room_confirm", (data) => {
+         const notification = {
+            bytestreamId: data.bytestreamId,
+            message: `${data.user.username} has joined the room`,
+         };
+         socket.emit("ws_send_message", notification);
+      });
+
 
       return () => {
          socket.off("ws_receive_message");

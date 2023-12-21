@@ -1,4 +1,10 @@
-body {
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+.loggedout-wholepage {
    background-color: #8e25eb;
 }
 
@@ -81,7 +87,6 @@ body {
    font-weight: 700;
    line-height: 50px;
    margin-bottom: 0px;
-   margin-left: 90px;
 }
 
 .loggedout-bottompage-leftside-paragraph {
@@ -90,7 +95,7 @@ body {
    font-size: 20px;
    font-family: "Source Sans Pro";
    line-height: 25px;
-   margin-left: 240px;
+   margin-left: 218px;
 }
 
 .loggedout-bottompage-rightside {

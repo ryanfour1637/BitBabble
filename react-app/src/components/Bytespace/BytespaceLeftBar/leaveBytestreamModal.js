@@ -13,8 +13,10 @@ function LeaveBytestreamModal({ idToDelete, socket }) {
    const leaveBytestream = () => {
       if (!socket) return;
       dispatch(thunkRemoveFromBytestream(idToDelete));
-      dispatch(thunkGetAllBytestreamMembers());
+      console.log("get to emit");
       socket.emit("leave_room", { bytestream_id: idToDelete });
+      console.log("past emit");
+      dispatch(thunkGetAllBytestreamMembers());
       closeModal();
    };
 

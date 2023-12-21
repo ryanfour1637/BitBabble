@@ -3,7 +3,8 @@
    flex-direction: column;
    align-items: center;
    justify-content: space-evenly;
-   height: 800px;
+   height: 900px;
+   background-color: #8e25eb;
 }
 
 .loginlp-topdiv {
