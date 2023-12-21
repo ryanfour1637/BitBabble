@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useWebSocket } from "../../../context/webSocket";
 import { actionAddNewMessage } from "../../../store/messages";
 import { thunkGetAllMessages } from "../../../store/messages";
 import { useDispatch } from "react-redux";
 
-function BytestreamChatRoom({ bytestreamId }) {
+function BytestreamChatRoom({ bytestreamId, socket }) {
    const dispatch = useDispatch();
-   const socket = useWebSocket();
+
    const messages = useSelector((state) => state.messages);
    const [message, setMessage] = useState("");
-   const [typing, setTyping] = useState(false);
 
    useEffect(() => {
       dispatch(thunkGetAllMessages());
@@ -25,11 +23,6 @@ function BytestreamChatRoom({ bytestreamId }) {
 
       console.log("this is the connected key in join stream", socket.connected);
       socket.on("join_room_confirm", (data) => {
-         console.log(
-            "🚀 ~ file: bytestreamChatRoom.js:29 ~ socket.on ~ data:",
-            data
-         );
-
          const notification = {
             bytestreamId: data.bytestreamId,
             message: `${data.user.username} has joined the room`,
@@ -37,9 +30,19 @@ function BytestreamChatRoom({ bytestreamId }) {
          socket.emit("ws_send_message", notification);
       });
 
+      socket.on("leave_room_confirm", (data) => {
+         console.log("inside leave room");
+         const notification = {
+            bytestreamId: data.bytestreamId,
+            message: `${data.user.username} has left the room`,
+         };
+         socket.emit("ws_send_message", notification);
+      });
+
       return () => {
          socket.off("ws_receive_message");
          socket.off("join_room_confirm");
+         socket.off("leave_room_confirm");
       };
 
       // maybe add messages to the dependency array
@@ -67,7 +70,7 @@ function BytestreamChatRoom({ bytestreamId }) {
          : [];
 
    if (bytestreamId == null) {
-      return <>Loading...</>;
+      return <></>;
    } else {
       return (
          <>

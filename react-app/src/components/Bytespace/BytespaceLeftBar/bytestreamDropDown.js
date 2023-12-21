@@ -12,7 +12,7 @@ import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members"
 import { useRightClickMenu } from "../../../context/rightClick";
 import xmark from "../../../images/xmark.png";
 
-function BytestreamNameDropdown({ setBytestreamId, user, socket }) {
+function BytestreamNameDropdown({ setBytestreamId, socket }) {
    const dispatch = useDispatch();
    const [showMenu, setShowMenu] = useState(false);
    const [showRightClickMenu, setShowRightClickMenu] = useState(false);
@@ -114,7 +114,6 @@ function BytestreamNameDropdown({ setBytestreamId, user, socket }) {
                   <LeaveBytestreamModal
                      idToDelete={bytestreamMemberId}
                      socket={socket}
-                     user={user}
                   />
                }
             />

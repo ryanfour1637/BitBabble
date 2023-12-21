@@ -9,7 +9,6 @@ import { useWebSocket } from "../../../context/webSocket";
 function JoinBytestreamModal({
    nonJoinedBytestreamsToDisplay,
    bytespaceId,
-   user,
    socket,
 }) {
    const dispatch = useDispatch();
