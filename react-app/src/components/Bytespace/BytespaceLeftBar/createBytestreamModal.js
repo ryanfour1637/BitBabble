@@ -18,6 +18,7 @@ function CreateBytestreamModal({ bytespaceId, socket, user }) {
       );
 
       if (typeof errors == "number") {
+         if (!socket) return;
          await dispatch(thunkAddToBytestream(errors, bytespaceId));
          socket.emit("join_room", { bytestream_id: errors });
          closeModal();
