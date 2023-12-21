@@ -12,6 +12,7 @@ class Message(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
     message = db.Column(db.String, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    system = db.Column(db.Boolean, nullable=False, default=False)
 
     user_message = db.relationship('User', back_populates='message_user')
     bytestream_message = db.relationship('Bytestream', back_populates='message_bytestream')
@@ -25,5 +26,6 @@ class Message(db.Model):
             'userId': self.user_id,
             'message': self.message,
             'timestamp': self.timestamp.isoformat(),
+            'system': self.system,
             'userInfo': user_info  # Include user info here
         }

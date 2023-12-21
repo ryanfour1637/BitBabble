@@ -32,13 +32,23 @@ function BytestreamChatRoom({ bytestreamId, socket }) {
       if (!socket) return;
 
       socket.on("ws_receive_message", (messageData) => {
-         dispatch(actionAddNewMessage(messageData));
+         console.log(
+            "🚀 ~ file: bytestreamChatRoom.js:35 ~ socket.on ~ messageData:",
+            messageData
+         );
+         if (messageData.system === true) {
+            messageData.userInfo.username = "BitBabble Bot";
+            dispatch(actionAddNewMessage(messageData));
+         } else {
+            dispatch(actionAddNewMessage(messageData));
+         }
       });
 
       socket.on("join_room_confirm", (data) => {
          const notification = {
             bytestreamId: data.bytestreamId,
             message: `${data.user.username} has joined the room`,
+            system: true,
          };
          socket.emit("ws_send_message", notification);
       });
