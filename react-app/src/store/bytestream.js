@@ -82,6 +82,10 @@ export const thunkDeleteBytestream = (bytestreamObj) => async (dispatch) => {
    const response = await fetch(`/api/bytestreams/${bytestreamObj.id}/delete`, {
       method: "DELETE",
    });
+   console.log(
+      "🚀 ~ file: bytestream.js:84 ~ thunkDeleteBytestream ~ response:",
+      response
+   );
 
    dispatch(actionDeleteBytestream(bytestreamObj));
 

@@ -5,16 +5,17 @@ import { useModal } from "../../../context/Modal";
 import { thunkDeleteBytestream } from "../../../store/bytestream";
 import { thunkGetAllBytestreams } from "../../../store/bytestream";
 import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
+import { thunkRemoveFromBytestream } from "../../../store/bytestream_members";
 import "./delete.css";
 
-function DeleteBytestreamModal({ bytestream, setBytestreamId }) {
+function DeleteBytestreamModal({ bytestream, setBytestreamId, idToDelete }) {
    const dispatch = useDispatch();
    const { push } = useHistory();
    const { closeModal } = useModal();
 
    const deleteBytestream = async () => {
       await dispatch(thunkDeleteBytestream(bytestream));
-      await dispatch(thunkGetAllBytestreamMembers());
+      await dispatch(thunkGetAllBytestreams());
       setBytestreamId(null);
       return closeModal();
    };

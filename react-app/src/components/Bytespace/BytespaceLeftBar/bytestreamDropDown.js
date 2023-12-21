@@ -127,6 +127,7 @@ function BytestreamNameDropdown({
                      <DeleteBytestreamModal
                         bytestream={bytestream}
                         setBytestreamId={setBytestreamId}
+                        idToDelete={bytestreamMemberId}
                      />
                   }
                />

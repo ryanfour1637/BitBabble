@@ -48,6 +48,7 @@ export const thunkRemoveFromBytestream =
             method: "DELETE",
          }
       );
+      console.log("🚀 ~ file: bytestream_members.js:51 ~ response:", response);
       const bytestreamMemberObj = await response.json();
 
       dispatch(actionRemoveFromBytestream(bytestreamMemberObj));
