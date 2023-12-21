@@ -5,7 +5,7 @@ import { useModal } from "../../../context/Modal";
 import { thunkRemoveFromBytestream } from "../../../store/bytestream_members";
 import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
 
-function LeaveBytestreamModal({ idToDelete }) {
+function LeaveBytestreamModal({ idToDelete, socket, user }) {
    const dispatch = useDispatch();
    const { push } = useHistory();
    const { closeModal } = useModal();
@@ -13,6 +13,7 @@ function LeaveBytestreamModal({ idToDelete }) {
    const leaveBytestream = async () => {
       await dispatch(thunkRemoveFromBytestream(idToDelete));
       await dispatch(thunkGetAllBytestreamMembers());
+      socket.emit("leave_room", { bytestream_id: idToDelete, user: user });
       return closeModal();
    };
    return (

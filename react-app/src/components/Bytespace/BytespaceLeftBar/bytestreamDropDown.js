@@ -7,29 +7,21 @@ import JoinBytestreamModal from "./joinBytestreamModal";
 import UpdateBytestreamModal from "./updateBytestreamModal";
 import LeaveBytestreamModal from "./leaveBytestreamModal";
 import DeleteBytestreamModal from "./deleteBytestreamModal";
-import { useWebSocket } from "../../../context/webSocket";
 import { thunkGetAllBytestreams } from "../../../store/bytestream";
 import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
-import { NavLink } from "react-router-dom";
 import { useRightClickMenu } from "../../../context/rightClick";
 import xmark from "../../../images/xmark.png";
 
-function BytestreamNameDropdown({ setBytestreamId }) {
+function BytestreamNameDropdown({ setBytestreamId, user, socket }) {
    const dispatch = useDispatch();
    const [showMenu, setShowMenu] = useState(false);
    const [showRightClickMenu, setShowRightClickMenu] = useState(false);
-   const [renderBytestreamId, setRenderBytestreamId] = useState(null);
    const { userId, bytespaceId } = useParams();
    const ulRefAllBytestreams = useRef();
    const { openRightClickMenu, closeRightClickMenu } = useRightClickMenu();
    const bytestreams = useSelector((state) => state.bytestreams);
    const bytestreamsMembershipRosters = useSelector(
       (state) => state.bytestreamMembers
-   );
-   const socket = useWebSocket();
-   console.log(
-      "🚀 ~ file: bytestreamDropDown.js:30 ~ BytestreamNameDropdown ~ socket :",
-      socket
    );
 
    useEffect(() => {
@@ -48,7 +40,7 @@ function BytestreamNameDropdown({ setBytestreamId }) {
          document.addEventListener("click", closeMenu);
          return () => document.removeEventListener("click", closeMenu);
       }
-   }, [showMenu, showRightClickMenu, dispatch, renderBytestreamId]);
+   }, [showMenu, showRightClickMenu, dispatch]);
 
    // Null check for bytestreams and bytestreamsMembershipRosters
    if (bytestreams == undefined || Object.values(bytestreams).length === 0)
@@ -119,7 +111,11 @@ function BytestreamNameDropdown({ setBytestreamId }) {
                buttonText="Leave Bytestream"
                onButtonClick={closeRightClickMenu}
                modalComponent={
-                  <LeaveBytestreamModal idToDelete={bytestreamMemberId} />
+                  <LeaveBytestreamModal
+                     idToDelete={bytestreamMemberId}
+                     socket={socket}
+                     user={user}
+                  />
                }
             />
             {bytestream.ownerId == userId && (
@@ -160,7 +156,10 @@ function BytestreamNameDropdown({ setBytestreamId }) {
                         buttonText="Create"
                         onButtonClick={closeMenu}
                         modalComponent={
-                           <CreateBytestreamModal bytespaceId={bytespaceId} />
+                           <CreateBytestreamModal
+                              bytespaceId={bytespaceId}
+                              socket={socket}
+                           />
                         }
                      />
                      <OpenModalButton

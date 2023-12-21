@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import BytestreamNameDropdown from "./BytespaceLeftBar/bytestreamDropDown";
 import BytespaceNameDropdown from "./BytespaceLeftBar/nameDropDown";
 import BytestreamChatRoom from "./BytespaceLeftBar/bytestreamChatRoom";
-import { WebSocketProvider } from "../../context/webSocket";
+import { useWebSocket } from "../../context/webSocket";
 import Navigation from "../Navigation";
 import addmessage from "../../images/addmessage.png";
 import "./singlebytespace.css";
 
 function SingleBytespaceLandingPage({ user }) {
    const [bytestreamId, setBytestreamId] = useState(null);
+   const socket = useWebSocket();
 
    const handleMessageClick = () => {
       alert("Feature coming soon!");
@@ -29,13 +30,15 @@ function SingleBytespaceLandingPage({ user }) {
                   onClick={handleMessageClick}
                />
             </div>
-            <BytestreamNameDropdown setBytestreamId={setBytestreamId} />
+            <BytestreamNameDropdown
+               setBytestreamId={setBytestreamId}
+               user={user}
+               socket={socket}
+            />
          </div>
-         {bytestreamId && (
-            <div className="bytespace-messagesdiv">
-               <BytestreamChatRoom bytestreamId={bytestreamId} />
-            </div>
-         )}
+         <div className="bytespace-messagesdiv">
+            <BytestreamChatRoom bytestreamId={bytestreamId} socket={socket} />
+         </div>
       </div>
    );
 }

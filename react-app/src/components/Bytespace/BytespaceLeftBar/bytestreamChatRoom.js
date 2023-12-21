@@ -18,14 +18,28 @@ function BytestreamChatRoom({ bytestreamId }) {
 
    useEffect(() => {
       if (!socket) return;
-      console.log("this is the connected key", socket.connected);
 
       socket.on("ws_receive_message", (messageData) => {
          dispatch(actionAddNewMessage(messageData));
       });
 
+      console.log("this is the connected key in join stream", socket.connected);
+      socket.on("join_room_confirm", (data) => {
+         console.log(
+            "🚀 ~ file: bytestreamChatRoom.js:29 ~ socket.on ~ data:",
+            data
+         );
+
+         const notification = {
+            bytestreamId: data.bytestreamId,
+            message: `${data.user.username} has joined the room`,
+         };
+         socket.emit("ws_send_message", notification);
+      });
+
       return () => {
          socket.off("ws_receive_message");
+         socket.off("join_room_confirm");
       };
 
       // maybe add messages to the dependency array
@@ -51,28 +65,36 @@ function BytestreamChatRoom({ bytestreamId }) {
       messages[bytestreamId] && Object.values(messages[bytestreamId]).length > 0
          ? Object.values(messages[bytestreamId])
          : [];
-   return (
-      <>
-         <div className="bytestreamChatRoom-messagesdiv">
-            {allMessagesArr.map((messageObj) => (
-               <div key={messageObj.id} className="bytestreamChatRoom-message">
-                  <p>{messageObj.message}</p>
-               </div>
-            ))}
-         </div>
-         <div className="bytestreamChatRoom-input">
-            <input
-               value={message}
-               type="text"
-               placeholder="Type a message"
-               onChange={(e) => setMessage(e.target.value)}
-            />
-            <button type="submit" onClick={sendMessage}>
-               Send
-            </button>
-         </div>
-      </>
-   );
+
+   if (bytestreamId == null) {
+      return <>Loading...</>;
+   } else {
+      return (
+         <>
+            <div className="bytestreamChatRoom-messagesdiv">
+               {allMessagesArr.map((messageObj) => (
+                  <div
+                     key={messageObj.id}
+                     className="bytestreamChatRoom-message"
+                  >
+                     <p>{messageObj.message}</p>
+                  </div>
+               ))}
+            </div>
+            <div className="bytestreamChatRoom-input">
+               <input
+                  value={message}
+                  type="text"
+                  placeholder="Type a message"
+                  onChange={(e) => setMessage(e.target.value)}
+               />
+               <button type="submit" onClick={sendMessage}>
+                  Send
+               </button>
+            </div>
+         </>
+      );
+   }
 }
 
 export default BytestreamChatRoom;
