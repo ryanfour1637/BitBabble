@@ -6,6 +6,7 @@
 
 .loggedout-wholepage {
    background-color: #8e25eb;
+   height: 898px;
 }
 
 .loggedout-topdiv {
@@ -118,6 +119,7 @@
    width: 100%;
    background-color: #323232;
    margin: 0;
+   height: 54px;
 }
 
 .bottom-footer-tags {

@@ -110,6 +110,7 @@
 .loginlp-bottom-divs-left {
    display: flex;
    width: 400px;
+   align-items: center;
 }
 
 .loginlp-bottom-divs button {
