@@ -5,7 +5,13 @@ import { useModal } from "../../../context/Modal";
 import { thunkRemoveFromBytestream } from "../../../store/bytestream_members";
 import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
 
-function LeaveBytestreamModal({ idToDelete, socket, setBytestreamId }) {
+function LeaveBytestreamModal({
+   idToDelete,
+   socket,
+   setBytestreamId,
+   bytestreamId,
+   user,
+}) {
    const dispatch = useDispatch();
    const { push } = useHistory();
    const { closeModal } = useModal();
@@ -17,6 +23,12 @@ function LeaveBytestreamModal({ idToDelete, socket, setBytestreamId }) {
       socket.emit("leave_room", { bytestream_id: idToDelete });
       console.log("past emit");
       dispatch(thunkGetAllBytestreamMembers());
+      const notification = {
+         bytestreamId: bytestreamId,
+         message: `${user.username} has left the room`,
+      };
+      socket.emit("ws_send_message", notification);
+
       setBytestreamId(null);
       closeModal();
    };
