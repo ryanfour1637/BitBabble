@@ -11,6 +11,7 @@ import { thunkGetAllBytestreams } from "../../../store/bytestream";
 import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
 import { useRightClickMenu } from "../../../context/rightClick";
 import xmark from "../../../images/xmark.png";
+import dropdown from "../../../images/dropdown.png";
 
 function BytestreamNameDropdown({ setBytestreamId, socket }) {
    const dispatch = useDispatch();
@@ -32,7 +33,7 @@ function BytestreamNameDropdown({ setBytestreamId, socket }) {
          const closeMenu = (e) => {
             if (
                ulRefAllBytestreams.current &&
-               !ulRefAllBytestreams.current.contains(e.target)
+               ulRefAllBytestreams.current.contains(e.target)
             ) {
                setShowMenu(false);
             }
@@ -55,27 +56,37 @@ function BytestreamNameDropdown({ setBytestreamId, socket }) {
    const nonJoinedBytestreams = [];
 
    const thisBytespacesBytestreams = bytestreams[bytespaceId];
+   console.log(
+      "🚀 ~ file: bytestreamDropDown.js:58 ~ BytestreamNameDropdown ~ thisBytespacesBytestreams:",
+      thisBytespacesBytestreams
+   );
 
-   Object.keys(thisBytespacesBytestreams).forEach((bytestreamId) => {
-      const bytestream = bytestreams[bytespaceId][bytestreamId];
+   if (thisBytespacesBytestreams !== undefined) {
+      Object.keys(thisBytespacesBytestreams).forEach((bytestreamId) => {
+         const bytestream = bytestreams[bytespaceId][bytestreamId];
 
-      // Check if the current user is a member of the bytestream
-      if (
-         bytestreamsMembershipRosters[bytespaceId] &&
-         bytestreamsMembershipRosters[bytespaceId][bytestreamId] &&
-         bytestreamsMembershipRosters[bytespaceId][bytestreamId][userId]
-      ) {
-         // Add to joinedBytestreams if user is a member
-         joinedBytestreams.push(bytestream);
-      } else {
-         // Add to nonJoinedBytestreams if user is not a member
-         nonJoinedBytestreams.push(bytestream);
-      }
-   });
+         // Check if the current user is a member of the bytestream
+         if (
+            bytestreamsMembershipRosters[bytespaceId] &&
+            bytestreamsMembershipRosters[bytespaceId][bytestreamId] &&
+            bytestreamsMembershipRosters[bytespaceId][bytestreamId][userId]
+         ) {
+            // Add to joinedBytestreams if user is a member
+            joinedBytestreams.push(bytestream);
+         } else {
+            // Add to nonJoinedBytestreams if user is not a member
+            nonJoinedBytestreams.push(bytestream);
+         }
+      });
+   }
 
    const openMenu = () => {
-      if (showMenu) return;
-      setShowMenu(true);
+      console.log("this is show menut", showMenu);
+      if (showMenu) {
+         setShowMenu(false);
+      } else {
+         setShowMenu(true);
+      }
    };
 
    const onBytestreamClick = (e, bytestreamId) => {
@@ -132,7 +143,6 @@ function BytestreamNameDropdown({ setBytestreamId, socket }) {
          x: e.pageX,
          y: e.pageY,
       };
-      closeMenu();
       openRightClickMenu(menuContent, position);
       setShowRightClickMenu(true);
    };
@@ -142,40 +152,42 @@ function BytestreamNameDropdown({ setBytestreamId, socket }) {
    const closeMenu = () => setShowMenu(false);
 
    return (
-      <div className="bytestream_and_messages_div">
+      <>
          <div className="bytestream-name-dropdown">
-            <h1 className="bytestream-name-words" onClick={openMenu}>
-               Bytestreams
-            </h1>
-
+            <div className="bytestream-dropdown-div">
+               <img
+                  src={dropdown}
+                  alt="dropdown"
+                  className="dropdown-logo"
+                  onClick={showMenu ? closeMenu : openMenu}
+               />
+               <h1 className="bytestream-name-words">Bytestreams</h1>
+            </div>
+            <div className="create-join-div">
+               <OpenModalButton
+                  buttonText="Create"
+                  modalComponent={
+                     <CreateBytestreamModal
+                        bytespaceId={bytespaceId}
+                        socket={socket}
+                     />
+                  }
+               />
+               <OpenModalButton
+                  buttonText="Join"
+                  modalComponent={
+                     <JoinBytestreamModal
+                        nonJoinedBytestreamsToDisplay={nonJoinedBytestreams}
+                        bytespaceId={bytespaceId}
+                        socket={socket}
+                     />
+                  }
+               />
+            </div>
             <ul className={ulClassNameAllBytestreams} ref={ulRefAllBytestreams}>
                <div className="joined-bytestreams-to-display">
-                  <li>
-                     <OpenModalButton
-                        buttonText="Create"
-                        onButtonClick={closeMenu}
-                        modalComponent={
-                           <CreateBytestreamModal
-                              bytespaceId={bytespaceId}
-                              socket={socket}
-                           />
-                        }
-                     />
-                     <OpenModalButton
-                        buttonText="Join"
-                        onButtonClick={closeMenu}
-                        modalComponent={
-                           <JoinBytestreamModal
-                              nonJoinedBytestreamsToDisplay={
-                                 nonJoinedBytestreams
-                              }
-                              bytespaceId={bytespaceId}
-                              socket={socket}
-                           />
-                        }
-                     />
-                  </li>
                   {joinedBytestreams.length > 0 &&
+                     showMenu &&
                      joinedBytestreams.map((bytestream) => (
                         <li
                            key={bytestream.id}
@@ -190,7 +202,7 @@ function BytestreamNameDropdown({ setBytestreamId, socket }) {
                </div>
             </ul>
          </div>
-      </div>
+      </>
    );
 }
 

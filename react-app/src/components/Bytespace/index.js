@@ -23,12 +23,6 @@ function SingleBytespaceLandingPage({ user }) {
          <div className="bytespace-leftbar">
             <div className="bytespace-leftbar-topdiv">
                <BytespaceNameDropdown />
-               <img
-                  src={addmessage}
-                  alt="add message"
-                  className="addmessagebutton"
-                  onClick={handleMessageClick}
-               />
             </div>
             <BytestreamNameDropdown
                setBytestreamId={setBytestreamId}
