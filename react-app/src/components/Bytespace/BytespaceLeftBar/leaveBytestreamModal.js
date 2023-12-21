@@ -19,13 +19,14 @@ function LeaveBytestreamModal({
    const leaveBytestream = () => {
       if (!socket) return;
       dispatch(thunkRemoveFromBytestream(idToDelete));
-      console.log("get to emit");
+
       socket.emit("leave_room", { bytestream_id: idToDelete });
-      console.log("past emit");
+
       dispatch(thunkGetAllBytestreamMembers());
       const notification = {
          bytestreamId: bytestreamId,
          message: `${user.username} has left the room`,
+         system: true,
       };
       socket.emit("ws_send_message", notification);
 

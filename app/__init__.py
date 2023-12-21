@@ -124,18 +124,32 @@ def handle_send_message(data):
     print(data)
     bytestream = data['bytestreamId']
     message = data['message']
-
-    try:
-        new_message = Message(
-            bytestream_id=bytestream,
-            user_id=current_user.id,
-            message=message,
-            timestamp=datetime.utcnow()
-        )
-        db.session.add(new_message)
-        db.session.commit()
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    if data['system'] == True:
+        try:
+            new_message = Message(
+                bytestream_id=bytestream,
+                user_id=current_user.id,
+                message=message,
+                timestamp=datetime.utcnow(),
+                system=True
+            )
+            db.session.add(new_message)
+            db.session.commit()
+        except Exception as e:
+            print(f"An error occurred: {e}")
+    else:
+        try:
+            new_message = Message(
+                bytestream_id=bytestream,
+                user_id=current_user.id,
+                message=message,
+                timestamp=datetime.utcnow(),
+                system=False
+            )
+            db.session.add(new_message)
+            db.session.commit()
+        except Exception as e:
+            print(f"An error occurred: {e}")
 
     # Emit a message indicating success and data details
     emit("ws_receive_message", new_message.to_dict(), broadcast=True)
