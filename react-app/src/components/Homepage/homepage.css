@@ -1,5 +1,7 @@
-body {
-   background-color: #8e25eb;
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
 }
 
 .loggedout-topdiv {

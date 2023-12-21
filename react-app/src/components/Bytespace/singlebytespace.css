@@ -1,11 +1,17 @@
 .single-bytespace-outerdiv {
    display: grid;
+   height: 898px;
+   width: 100%;
    grid-template-columns: 5% 15% 80%;
+   margin: 0;
+   padding: 0;
+   border: 5px #8e25eb solid;
 }
 
 .bytespace-leftbar {
    width: 100%;
    background-color: #323232;
+   border-left: 5px #8e25eb solid;
 }
 
 .bytespace-messagesdiv {
@@ -14,11 +20,13 @@
    grid-template-rows: 85% 15%;
    width: 100%;
    background-color: #ffffff;
+   border-left: 5px #8e25eb solid;
 }
 
 .bytestream-name-dropdown {
    display: flex;
    flex-direction: row;
+   align-items: center;
 }
 .profile-dropdown {
    margin-top: 50px;
@@ -57,6 +65,8 @@
 .bytespace-leftbar-topdiv {
    display: flex;
    justify-content: space-around;
+   padding-top: 7px;
+   padding-bottom: 10px;
 }
 
 .joined-bytestreams-to-display li {
@@ -64,12 +74,13 @@
    color: #bebebe;
    font-weight: 700;
    margin-top: 10px;
+   padding-left: 20px;
 }
 
 .create-join-div {
    width: 35%;
-   margin: 0 auto;
-   margin-bottom: 15px;
+   margin-left: auto;
+   margin-right: auto;
 }
 
 .bytespace-name-words {
@@ -100,7 +111,6 @@
    font-size: 17px;
    width: 17px;
    height: 17px;
-   margin-top: 9px;
 }
 .bytestream-name-words {
    cursor: pointer;
