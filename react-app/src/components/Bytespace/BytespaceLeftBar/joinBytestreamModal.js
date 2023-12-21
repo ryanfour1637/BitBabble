@@ -10,6 +10,7 @@ function JoinBytestreamModal({
    nonJoinedBytestreamsToDisplay,
    bytespaceId,
    socket,
+   setBytestreamId,
 }) {
    const dispatch = useDispatch();
    const { push } = useHistory();
@@ -30,6 +31,7 @@ function JoinBytestreamModal({
       if (!socket) return;
       dispatch(thunkAddToBytestream(selectedId, bytespaceId));
       socket.emit("join_room", { bytestream_id: selectedId });
+      setBytestreamId(selectedId);
 
       closeModal();
    };
