@@ -108,6 +108,7 @@ function BytestreamNameDropdown({ setBytestreamId, socket }) {
                   <LeaveBytestreamModal
                      idToDelete={bytestreamMemberId}
                      socket={socket}
+                     setBytestreamId={setBytestreamId}
                   />
                }
             />
@@ -163,6 +164,7 @@ function BytestreamNameDropdown({ setBytestreamId, socket }) {
                         nonJoinedBytestreamsToDisplay={nonJoinedBytestreams}
                         bytespaceId={bytespaceId}
                         socket={socket}
+                        setBytestreamId={setBytestreamId}
                      />
                   }
                />
