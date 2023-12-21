@@ -28,20 +28,7 @@ function BytestreamNameDropdown({ setBytestreamId, socket }) {
    useEffect(() => {
       dispatch(thunkGetAllBytestreams());
       dispatch(thunkGetAllBytestreamMembers());
-
-      if (showMenu) {
-         const closeMenu = (e) => {
-            if (
-               ulRefAllBytestreams.current &&
-               ulRefAllBytestreams.current.contains(e.target)
-            ) {
-               setShowMenu(false);
-            }
-         };
-         document.addEventListener("click", closeMenu);
-         return () => document.removeEventListener("click", closeMenu);
-      }
-   }, [showMenu, showRightClickMenu, dispatch]);
+   }, [dispatch]);
 
    // Null check for bytestreams and bytestreamsMembershipRosters
    if (bytestreams == undefined || Object.values(bytestreams).length === 0)
@@ -56,10 +43,6 @@ function BytestreamNameDropdown({ setBytestreamId, socket }) {
    const nonJoinedBytestreams = [];
 
    const thisBytespacesBytestreams = bytestreams[bytespaceId];
-   console.log(
-      "🚀 ~ file: bytestreamDropDown.js:58 ~ BytestreamNameDropdown ~ thisBytespacesBytestreams:",
-      thisBytespacesBytestreams
-   );
 
    if (thisBytespacesBytestreams !== undefined) {
       Object.keys(thisBytespacesBytestreams).forEach((bytestreamId) => {
@@ -187,7 +170,6 @@ function BytestreamNameDropdown({ setBytestreamId, socket }) {
             <ul className={ulClassNameAllBytestreams} ref={ulRefAllBytestreams}>
                <div className="joined-bytestreams-to-display">
                   {joinedBytestreams.length > 0 &&
-                     showMenu &&
                      joinedBytestreams.map((bytestream) => (
                         <li
                            key={bytestream.id}
