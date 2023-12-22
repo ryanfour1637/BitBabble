@@ -45,6 +45,10 @@ function BytestreamChatRoom({ bytestreamId, socket }) {
       });
 
       socket.on("join_room_confirm", (data) => {
+         console.log(
+            "🚀 ~ file: bytestreamChatRoom.js:48 ~ socket.on ~ data:",
+            data
+         );
          const notification = {
             bytestreamId: data.bytestreamId,
             message: `${data.user.username} has joined the room`,
