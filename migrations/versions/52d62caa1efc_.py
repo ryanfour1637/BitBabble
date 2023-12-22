@@ -1,16 +1,19 @@
 """empty message
 
-Revision ID: 52d62caa1efc
-Revises: 
-Create Date: 2023-12-21 17:59:23.150554
+Revision ID: 12aacbe3a375
+Revises:
+Create Date: 2023-12-20 09:06:14.648057
 
 """
 from alembic import op
 import sqlalchemy as sa
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
-revision = '52d62caa1efc'
+revision = '12aacbe3a375'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -30,6 +33,10 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+
     op.create_table('bytespaces',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
@@ -39,6 +46,10 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE bytespaces SET SCHEMA {SCHEMA};")
+
     op.create_table('bytespace_members',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('bytespace_id', sa.Integer(), nullable=True),
@@ -47,6 +58,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE bytespace_members SET SCHEMA {SCHEMA};")
+
     op.create_table('bytestreams',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
@@ -58,6 +73,11 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE bytestreams SET SCHEMA {SCHEMA};")
+
+
     op.create_table('bytestream_members',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('bytestream_id', sa.Integer(), nullable=True),
@@ -68,6 +88,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE bytestream_members SET SCHEMA {SCHEMA};")
+
     op.create_table('messages',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('bytestream_id', sa.Integer(), nullable=True),
@@ -79,6 +103,9 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE messages SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 
