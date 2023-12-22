@@ -165,6 +165,7 @@ function BytestreamNameDropdown({
                      <CreateBytestreamModal
                         bytespaceId={bytespaceId}
                         socket={socket}
+                        setBytestreamId={setBytestreamId}
                      />
                   }
                />
