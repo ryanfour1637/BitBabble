@@ -99,13 +99,15 @@ function BytestreamNameDropdown({
                onClick={closeRightClickMenu}
                className="small-x"
             />
-            <OpenModalButton
-               buttonText="Update Bytestream"
-               onButtonClick={closeRightClickMenu}
-               modalComponent={
-                  <UpdateBytestreamModal bytestream={bytestream} />
-               }
-            />
+            {bytestream.ownerId == userId && (
+               <OpenModalButton
+                  buttonText="Update Bytestream"
+                  onButtonClick={closeRightClickMenu}
+                  modalComponent={
+                     <UpdateBytestreamModal bytestream={bytestream} />
+                  }
+               />
+            )}
             <OpenModalButton
                buttonText="Leave Bytestream"
                onButtonClick={closeRightClickMenu}
@@ -165,6 +167,7 @@ function BytestreamNameDropdown({
                      <CreateBytestreamModal
                         bytespaceId={bytespaceId}
                         socket={socket}
+                        setBytestreamId={setBytestreamId}
                      />
                   }
                />
