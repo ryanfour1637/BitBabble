@@ -2,6 +2,7 @@
 const GET_MESSAGES = "messages/GET_ALL_MESSAGES";
 const ADD_NEW_MESSAGE = "messages/CREATE_MESSAGE";
 const DELETE_MESSAGE = "messages/DELETE_MESSAGE";
+const DELETE_BYTESTREAMS_MESSAGES = "messages/DELETE_BYTESTREAMS_MESSAGES";
 
 // Actions
 
@@ -14,6 +15,11 @@ const actionGetMessages = (messagesObjsArr) => ({
 export const actionAddNewMessage = (messageObj) => ({
    type: ADD_NEW_MESSAGE,
    messageObj,
+});
+
+export const actionDeleteBytestreamMessages = (bytestreamId) => ({
+   type: DELETE_BYTESTREAMS_MESSAGES,
+   bytestreamId,
 });
 
 const actionDeleteMessage = (messageObj) => ({
@@ -68,6 +74,11 @@ export default function messagesReducer(state = initialState, action) {
          messageId = action.messageObj.id;
          bytestreamId = action.messageObj.bytestreamId;
          delete newState[bytestreamId][messageId];
+         return newState;
+      case DELETE_BYTESTREAMS_MESSAGES:
+         newState = { ...state };
+         bytestreamId = action.bytestreamId;
+         delete newState[bytestreamId];
          return newState;
       default:
          return state;
