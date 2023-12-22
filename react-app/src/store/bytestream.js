@@ -122,8 +122,8 @@ export default function bytestreamsReducer(state = initialState, action) {
          }
          return newState;
       case DELETE_BYTESTREAM:
-         ({ bytespaceId, bytestreamId } = action.bytestreamObj);
          newState = { ...state };
+         ({ bytespaceId, bytestreamId } = action.bytestreamObj);
          delete newState[bytespaceId][bytestreamId];
          return newState;
       default:

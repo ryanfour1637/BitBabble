@@ -4,8 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
 import { thunkDeleteBytestream } from "../../../store/bytestream";
 import { thunkGetAllBytestreams } from "../../../store/bytestream";
-import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
-import { thunkRemoveFromBytestream } from "../../../store/bytestream_members";
+import { actionDeleteBytestreamMessages } from "../../../store/messages";
 import "./delete.css";
 
 function DeleteBytestreamModal({ bytestream, setBytestreamId, idToDelete }) {
@@ -16,6 +15,7 @@ function DeleteBytestreamModal({ bytestream, setBytestreamId, idToDelete }) {
    const deleteBytestream = async () => {
       await dispatch(thunkDeleteBytestream(bytestream));
       await dispatch(thunkGetAllBytestreams());
+      await dispatch(actionDeleteBytestreamMessages(bytestream.id));
       setBytestreamId(null);
       return closeModal();
    };

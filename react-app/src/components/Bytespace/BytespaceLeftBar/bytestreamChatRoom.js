@@ -19,7 +19,7 @@ function BytestreamChatRoom({ bytestreamId, socket }) {
    }
 
    useEffect(() => {
-      dispatch(thunkGetAllMessages()).then(() => setLoading(false));
+      dispatch(thunkGetAllMessages());
    }, [dispatch]);
 
    useEffect(() => {
@@ -76,6 +76,7 @@ function BytestreamChatRoom({ bytestreamId, socket }) {
       const messageObj = {
          bytestreamId: bytestreamId,
          message: message,
+         system: false,
       };
 
       // Send message to backend
@@ -93,7 +94,7 @@ function BytestreamChatRoom({ bytestreamId, socket }) {
          ? Object.values(messages[bytestreamId])
          : [];
 
-   console.log("all messages arr", allMessagesArr[0]);
+   console.log("all messages arr", allMessagesArr);
 
    if (bytestreamId == null) {
       return <></>;
