@@ -54,6 +54,10 @@ function BytestreamChatRoom({ bytestreamId, socket }) {
             message: `${data.user.username} has joined the room`,
             system: true,
          };
+         console.log(
+            "🚀 ~ file: bytestreamChatRoom.js:57 ~ socket.on ~ notification:",
+            notification
+         );
          socket.emit("ws_send_message", notification);
       });
 

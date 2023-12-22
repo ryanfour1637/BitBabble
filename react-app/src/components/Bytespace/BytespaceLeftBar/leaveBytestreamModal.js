@@ -16,19 +16,22 @@ function LeaveBytestreamModal({
    const { push } = useHistory();
    const { closeModal } = useModal();
 
-   const leaveBytestream = () => {
+   const leaveBytestream = async () => {
       if (!socket) return;
-      dispatch(thunkRemoveFromBytestream(idToDelete));
+      await dispatch(thunkRemoveFromBytestream(idToDelete));
 
-      socket.emit("leave_room", { bytestream_id: idToDelete });
+      await socket.emit("leave_room", { bytestream_id: idToDelete });
 
-      dispatch(thunkGetAllBytestreamMembers());
+      await dispatch(thunkGetAllBytestreamMembers());
+      console.log("bytestreamId", bytestreamId);
+      console.log("idtodelete", idToDelete);
       const notification = {
+         // something in here seems to be the issues
          bytestreamId: bytestreamId,
          message: `${user.username} has left the room`,
          system: true,
       };
-      socket.emit("ws_send_message", notification);
+      await socket.emit("ws_send_message", notification);
 
       setBytestreamId(null);
       closeModal();
