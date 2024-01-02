@@ -11,6 +11,7 @@ function BytestreamChatRoom({ bytestreamId, socket }) {
    const [message, setMessage] = useState("");
    const messagesContainerRef = useRef(null);
    const [loading, setLoading] = useState(true);
+
    function scrollToBottom() {
       if (messagesContainerRef.current) {
          const { scrollHeight, clientHeight } = messagesContainerRef.current;
@@ -86,9 +87,19 @@ function BytestreamChatRoom({ bytestreamId, socket }) {
       // Clear input field
       setMessage("");
    };
-   const formatTimestamp = (timestamp) => {
-      return new Date(timestamp).toLocaleTimeString();
+
+   const getTimeZone = () => {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone;
    };
+
+   const formatTimestamp = (timestamp) => {
+      const correctTimestamp = timestamp + "Z";
+      return new Date(correctTimestamp).toLocaleTimeString("en-US", {
+         timeZone: getTimeZone(),
+         hour12: true,
+      });
+   };
+
    const allMessagesArr =
       messages[bytestreamId] && Object.values(messages[bytestreamId]).length > 0
          ? Object.values(messages[bytestreamId])
