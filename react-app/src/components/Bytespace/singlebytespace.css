@@ -126,6 +126,7 @@
    font-size: 17px;
    width: 17px;
    height: 17px;
+   cursor: pointer;
 }
 .bytestream-name-words {
    width: 130px;
