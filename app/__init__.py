@@ -145,6 +145,12 @@ def handle_send_message(data):
 
     emit("ws_receive_message", new_message.to_dict(), broadcast=True)
 
+@socketio.on('ws_update_message')
+def handle_update_message(message_obj):
+    message = Message.query.get(message_obj['id'])
+    message.message = message_obj['message']
+    db.session.commit()
+    emit('update_message_confirm', message.to_dict(), broadcast=True)
 
 @socketio.on('ws_delete_message')
 def handle_delete_message(message_id):

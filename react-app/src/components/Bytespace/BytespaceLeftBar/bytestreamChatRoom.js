@@ -54,7 +54,10 @@ function BytestreamChatRoom({ bytestreamId, socket, user }) {
          socket.emit("ws_send_message", notification);
       });
 
-      console.log("socket on delete_message_confirm");
+      socket.on("update_message_confirm", (messageObj) => {
+         actionAddNewMessage(messageObj);
+      });
+
       socket.on("delete_message_confirm", (messageObj) => {
          dispatch(actionDeleteMessage(messageObj));
       });
@@ -63,6 +66,7 @@ function BytestreamChatRoom({ bytestreamId, socket, user }) {
          socket.off("ws_receive_message");
          socket.off("join_room_confirm");
          socket.off("delete_message_confirm");
+         socket.off("update_message_confirm");
       };
    }, [socket, dispatch, bytestreamId]);
 
@@ -80,6 +84,10 @@ function BytestreamChatRoom({ bytestreamId, socket, user }) {
       setMessage("");
    };
 
+   const updateMessage = (e) => {
+      e.preventDefault();
+      
+   };
    const deleteMessage = (e) => {
       e.preventDefault();
 
@@ -87,7 +95,6 @@ function BytestreamChatRoom({ bytestreamId, socket, user }) {
 
       socket.emit("ws_delete_message", messageId);
    };
-   const updateMessage = (e) => {};
 
    const getTimeZone = () => {
       return Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -140,6 +147,18 @@ function BytestreamChatRoom({ bytestreamId, socket, user }) {
                               onClick={deleteMessage}
                            >
                               Delete
+                           </button>
+                        </span>
+                     ) : null}
+                     {messageObj.userInfo.id == user.id &&
+                     messageObj.system !== true ? (
+                        <span>
+                           <button
+                              className="message-update"
+                              value={messageObj.id}
+                              onClick={updateMessage}
+                           >
+                              Update
                            </button>
                         </span>
                      ) : null}
