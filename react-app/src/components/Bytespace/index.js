@@ -28,7 +28,11 @@ function SingleBytespaceLandingPage({ user }) {
             />
          </div>
          <div className="bytespace-messagesdiv">
-            <BytestreamChatRoom bytestreamId={bytestreamId} socket={socket} />
+            <BytestreamChatRoom
+               bytestreamId={bytestreamId}
+               socket={socket}
+               user={user}
+            />
          </div>
       </div>
    );

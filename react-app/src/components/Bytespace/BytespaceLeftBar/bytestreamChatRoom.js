@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { actionAddNewMessage } from "../../../store/messages";
+import {
+   actionAddNewMessage,
+   actionDeleteMessage,
+} from "../../../store/messages";
 import { thunkGetAllMessages } from "../../../store/messages";
 import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
 
-function BytestreamChatRoom({ bytestreamId, socket }) {
+function BytestreamChatRoom({ bytestreamId, socket, user }) {
    const dispatch = useDispatch();
 
    const messages = useSelector((state) => state.messages);
@@ -33,10 +37,6 @@ function BytestreamChatRoom({ bytestreamId, socket }) {
       if (!socket) return;
 
       socket.on("ws_receive_message", (messageData) => {
-         console.log(
-            "🚀 ~ file: bytestreamChatRoom.js:35 ~ socket.on ~ messageData:",
-            messageData
-         );
          if (messageData.system === true) {
             messageData.userInfo.username = "BitBabble Bot";
             dispatch(actionAddNewMessage(messageData));
@@ -46,29 +46,24 @@ function BytestreamChatRoom({ bytestreamId, socket }) {
       });
 
       socket.on("join_room_confirm", (data) => {
-         console.log(
-            "🚀 ~ file: bytestreamChatRoom.js:48 ~ socket.on ~ data:",
-            data
-         );
          const notification = {
             bytestreamId: data.bytestreamId,
             message: `${data.user.username} has joined the room`,
             system: true,
          };
-         console.log(
-            "🚀 ~ file: bytestreamChatRoom.js:57 ~ socket.on ~ notification:",
-            notification
-         );
          socket.emit("ws_send_message", notification);
+      });
+
+      console.log("socket on delete_message_confirm");
+      socket.on("delete_message_confirm", (messageObj) => {
+         dispatch(actionDeleteMessage(messageObj));
       });
 
       return () => {
          socket.off("ws_receive_message");
          socket.off("join_room_confirm");
-         socket.off("leave_room_confirm");
+         socket.off("delete_message_confirm");
       };
-
-      // maybe add messages to the dependency array
    }, [socket, dispatch, bytestreamId]);
 
    const sendMessage = (e) => {
@@ -80,13 +75,19 @@ function BytestreamChatRoom({ bytestreamId, socket }) {
          system: false,
       };
 
-      // Send message to backend
-      console.log("socket on??", socket.connected);
       socket.emit("ws_send_message", messageObj);
 
-      // Clear input field
       setMessage("");
    };
+
+   const deleteMessage = (e) => {
+      e.preventDefault();
+
+      const messageId = e.target.value;
+
+      socket.emit("ws_delete_message", messageId);
+   };
+   const updateMessage = (e) => {};
 
    const getTimeZone = () => {
       return Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -105,8 +106,6 @@ function BytestreamChatRoom({ bytestreamId, socket }) {
          ? Object.values(messages[bytestreamId])
          : [];
 
-   console.log("all messages arr", allMessagesArr);
-
    if (bytestreamId == null) {
       return <></>;
    } else {
@@ -121,13 +120,29 @@ function BytestreamChatRoom({ bytestreamId, socket }) {
                      key={messageObj.id}
                      className="bytestreamChatRoom-message"
                   >
-                     <span className="message-username">
-                        {messageObj.userInfo.username}:
-                     </span>
+                     {messageObj.system === true ? (
+                        <span className="message-username">BitBabble Bot:</span>
+                     ) : (
+                        <span className="message-username">
+                           {messageObj.userInfo.username}
+                        </span>
+                     )}
                      <span className="message-text">{messageObj.message}</span>
                      <span className="message-timestamp">
                         {formatTimestamp(messageObj.timestamp)}
                      </span>
+                     {messageObj.userInfo.id == user.id &&
+                     messageObj.system !== true ? (
+                        <span>
+                           <button
+                              className="message-delete"
+                              value={messageObj.id}
+                              onClick={deleteMessage}
+                           >
+                              Delete
+                           </button>
+                        </span>
+                     ) : null}
                   </div>
                ))}
             </div>
