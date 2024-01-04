@@ -7,9 +7,9 @@ function LeftsideNav() {
    // const sessionUser = useSelector((state) => state.session.user);
 
    return (
-      <div className="nav-container">
+      <>
          <ByteSpaceDropdown />
-      </div>
+      </>
    );
 }
 

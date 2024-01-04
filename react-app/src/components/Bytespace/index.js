@@ -12,14 +12,14 @@ function SingleBytespaceLandingPage({ user }) {
    const socket = useWebSocket();
 
    return (
-      <div className="single-bytespace-outerdiv">
-         <div>
+      <div className="container-fluid">
+         <div className="nav justify-content-start flex-column">
             <Navigation />
          </div>
          <div className="bytespace-leftbar">
-            <div className="bytespace-leftbar-topdiv">
+            <>
                <BytespaceNameDropdown />
-            </div>
+            </>
             <BytestreamNameDropdown
                setBytestreamId={setBytestreamId}
                socket={socket}

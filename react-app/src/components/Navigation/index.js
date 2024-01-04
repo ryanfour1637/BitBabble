@@ -18,15 +18,14 @@ function Navigation() {
    }, [dispatch]);
 
    return (
-      <div className="left-nav">
-         <div className="left-nav-topdiv">
-            <NavLink exact to="/">
-               <img src={homeicon} alt="home" />
-            </NavLink>
-            {sessionUser && <LeftsideNav />}
-         </div>
+      <>
+         <NavLink exact to="/">
+            <img src={homeicon} alt="home" />
+         </NavLink>
+         {sessionUser && <LeftsideNav />}
+
          {isLoaded && <ProfileButton user={sessionUser} />}
-      </div>
+      </>
    );
 }
 

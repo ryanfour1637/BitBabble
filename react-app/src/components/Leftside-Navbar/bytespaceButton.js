@@ -8,54 +8,55 @@ import CreateBytespaceModal from "./createBytespaceModel";
 import bytespaceimg from "../../images/bytespaceimage.png";
 
 function ByteSpaceDropdown() {
-   const [showMenu, setShowMenu] = useState(false);
+   // const [showMenu, setShowMenu] = useState(false);
    const user = useSelector((state) => state.session.user);
 
-   const ulRefBytespace = useRef();
+   // const ulRefBytespace = useRef();
 
-   const openMenu = () => {
-      if (showMenu) return;
-      setShowMenu(true);
-   };
+   // const openMenu = () => {
+   //    if (showMenu) return;
+   //    setShowMenu(true);
+   // };
 
-   useEffect(() => {
-      if (!showMenu) return;
+   // useEffect(() => {
+   //    if (!showMenu) return;
 
-      const closeMenu = (e) => {
-         if (!ulRefBytespace.current.contains(e.target)) {
-            setShowMenu(false);
-         }
-      };
+   //    const closeMenu = (e) => {
+   //       if (!ulRefBytespace.current.contains(e.target)) {
+   //          setShowMenu(false);
+   //       }
+   //    };
 
-      document.addEventListener("click", closeMenu);
+   //    document.addEventListener("click", closeMenu);
 
-      return () => document.removeEventListener("click", closeMenu);
-   }, [showMenu]);
+   //    return () => document.removeEventListener("click", closeMenu);
+   // }, [showMenu]);
 
-   const ulClassNameBytespace =
-      "profile-dropdown" + (showMenu ? "" : " hidden");
-   const closeMenu = () => setShowMenu(false);
+   // const ulClassNameBytespace =
+   //    "profile-dropdown" + (showMenu ? "" : " hidden");
+   // const closeMenu = () => setShowMenu(false);
 
    return (
-      <div>
+      <div className="dropdown">
          <img
-            onClick={openMenu}
             src={bytespaceimg}
             alt="logo"
-            className="left-nav-bytespace-dropdown"
+            className="dropdown-toggle"
+            id="imageDropdown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            role="button"
          />
-         <ul className={ulClassNameBytespace} ref={ulRefBytespace}>
-            <li className="left-nav-bytespace-dropdown-button">
+         <ul className="dropdown-menu" aria-labelledby="imageDropdown">
+            <li>
                <OpenModalButton
                   buttonText="Join new bytespace"
-                  onItemClick={closeMenu}
                   modalComponent={<JoinBytespaceModal userId={user.id} />}
                />
             </li>
-            <li className="left-nav-bytespace-dropdown-button">
+            <li>
                <OpenModalButton
                   buttonText="Create new bytespace"
-                  onItemClick={closeMenu}
                   modalComponent={<CreateBytespaceModal userId={user.id} />}
                />
             </li>
