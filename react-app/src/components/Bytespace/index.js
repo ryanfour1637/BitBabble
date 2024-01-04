@@ -4,7 +4,9 @@ import BytespaceNameDropdown from "./BytespaceLeftBar/nameDropDown";
 import BytestreamChatRoom from "./BytespaceLeftBar/bytestreamChatRoom";
 import { useWebSocket } from "../../context/webSocket";
 import Navigation from "../Navigation";
-import addmessage from "../../images/addmessage.png";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import "./singlebytespace.css";
 
 function SingleBytespaceLandingPage({ user }) {
@@ -12,29 +14,31 @@ function SingleBytespaceLandingPage({ user }) {
    const socket = useWebSocket();
 
    return (
-      <div className="container-fluid">
-         <div className="nav justify-content-start flex-column">
-            <Navigation />
-         </div>
-         <div className="bytespace-leftbar">
-            <>
-               <BytespaceNameDropdown />
-            </>
-            <BytestreamNameDropdown
-               setBytestreamId={setBytestreamId}
-               socket={socket}
-               bytestreamId={bytestreamId}
-               user={user}
-            />
-         </div>
-         <div className="bytespace-messagesdiv">
-            <BytestreamChatRoom
-               bytestreamId={bytestreamId}
-               socket={socket}
-               user={user}
-            />
-         </div>
-      </div>
+      <Container fluid>
+         <Row>
+            <Col>
+               <Navigation />
+            </Col>
+            <Col>
+               <div className="bytespace-leftbar">
+                  <BytespaceNameDropdown />
+                  <BytestreamNameDropdown
+                     setBytestreamId={setBytestreamId}
+                     socket={socket}
+                     bytestreamId={bytestreamId}
+                     user={user}
+                  />
+               </div>
+            </Col>
+            <Col>
+               <BytestreamChatRoom
+                  bytestreamId={bytestreamId}
+                  socket={socket}
+                  user={user}
+               />
+            </Col>
+         </Row>
+      </Container>
    );
 }
 
