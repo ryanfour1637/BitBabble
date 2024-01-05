@@ -14,12 +14,17 @@ function SingleBytespaceLandingPage({ user }) {
    const socket = useWebSocket();
 
    return (
-      <Container fluid className="full-height">
-         <Row>
-            <Col xxl={1}>
+      <Container fluid style={{ height: "100%" }}>
+         <Row
+            fluid
+            style={{ height: "40px" }}
+            className="searchbar-chatroom"
+         ></Row>
+         <Row style={{ height: "100%" }}>
+            <Col xxl={1} className="left-nav-bar">
                <Navigation />
             </Col>
-            <Col xxl={2}>
+            <Col xxl={2} className="workspace-channel">
                <BytespaceNameDropdown />
                <BytestreamNameDropdown
                   setBytestreamId={setBytestreamId}

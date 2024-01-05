@@ -4,6 +4,11 @@
    box-sizing: border-box;
 }
 
+#root {
+   height: 100vh;
+   width: 100vw;
+}
+
 .loggedout-wholepage {
    background-color: #8e25eb;
    height: 898px;

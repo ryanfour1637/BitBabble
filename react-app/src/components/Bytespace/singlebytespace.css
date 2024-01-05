@@ -1,3 +1,21 @@
+.left-nav-bar {
+   background-color: #732e79;
+}`
+
+.col-xxl-1 {
+   width: 76px !important;
+   flex: 0 0 76px !important;
+}
+
+.searchbar-chatroom {
+   background-color: #732e79;
+}
+
+.workspace-channel {
+   background-color: #371b3a;
+   width: 390px !important;
+   flex: 0 0 390px !important;
+}
 
 /*OLD CSS CODE WITHOUT BOOTSTRAP IF I NEED IT LATER*/
 /* .single-bytespace-outerdiv {
