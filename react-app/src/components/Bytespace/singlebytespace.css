@@ -17,6 +17,22 @@
    flex: 0 0 390px !important;
 }
 
+/*slack font is called slack-lato*/
+/* non feature text in left channel bar is #3c1e40 and featured is #391c3e*/
+
+.homeicon-css {
+   margin-left: 10px;
+}
+
+.dropdown {
+   margin-top: 10px;
+   margin-left: 10px;
+}
+
+.personicon {
+   margin-top: 725px;
+   margin-left: 10px;
+}
 /*OLD CSS CODE WITHOUT BOOTSTRAP IF I NEED IT LATER*/
 /* .single-bytespace-outerdiv {
    display: grid;

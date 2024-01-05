@@ -14,7 +14,7 @@ function SingleBytespaceLandingPage({ user }) {
    const socket = useWebSocket();
 
    return (
-      <Container fluid style={{ height: "100%" }}>
+      <Container fluid style={{ height: "100vh", width: "100vw" }}>
          <Row
             fluid
             style={{ height: "40px" }}

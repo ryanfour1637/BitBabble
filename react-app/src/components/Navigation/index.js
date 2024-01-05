@@ -21,23 +21,17 @@ function Navigation() {
    }, [dispatch]);
 
    return (
-      <Container fluid style={{ height: "100%" }}>
-         <Row style={{ height: "95%" }}>
-            <Col style={{ height: "10%" }}>
-               <NavLink exact to="/">
+      <>
+         <Row style={{ height: "100%" }}>
+            <Col>
+               <NavLink exact to="/" className="homeicon-css">
                   <img src={homeicon} alt="home" />
                </NavLink>
                {sessionUser ? <LeftsideNav /> : null}
+               {isLoaded ? <ProfileButton user={sessionUser} /> : null}
             </Col>
          </Row>
-         {isLoaded ? (
-            <Row>
-               <Col>
-                  <ProfileButton user={sessionUser} />
-               </Col>
-            </Row>
-         ) : null}
-      </Container>
+      </>
    );
 }
 
