@@ -20,6 +20,15 @@
 /*slack font is called slack-lato*/
 /* non feature text in left channel bar is #3c1e40 and featured is #391c3e*/
 
+.bytespace-name-words {
+   color: #d1d2d3;
+   font-size: 18px;
+   font-family: "Lato", sans-serif;
+   font-weight: 900;
+   margin-top: 10px;
+   margin-left: 10px;
+}
+
 .homeicon-css {
    margin-left: 10px;
 }
