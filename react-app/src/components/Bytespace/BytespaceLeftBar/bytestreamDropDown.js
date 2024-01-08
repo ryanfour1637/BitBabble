@@ -85,12 +85,14 @@ function BytestreamNameDropdown({
    }
 
    const onBytestreamClick = (e, bytestreamId) => {
+      e.preventDefault();
       e.stopPropagation();
       setBytestreamId(bytestreamId);
    };
 
    const toggleChannelDropdown = (e) => {
       e.stopPropagation();
+      e.preventDefault();
       setIsChannelOpen(!isChannelOpen);
    };
 
@@ -112,17 +114,21 @@ function BytestreamNameDropdown({
                <span onClick={toggleChannelDropdown}>Channels</span>
             </Dropdown.Toggle>
 
-            <Dropdown.Menu>
+            <Dropdown.Menu className="channel-dropdown-open">
                {joinedBytestreams.length > 0
                   ? joinedBytestreams.map((bytestream) => (
-                       <Dropdown.Item
-                          key={bytestream.id}
-                          className="channel-dropdown-item"
-                          onClick={(e) => onBytestreamClick(e, bytestream.id)}
-                       >
-                          <FaHashtag style={{ marginRight: "10px" }} />
-                          {bytestream.name}
-                       </Dropdown.Item>
+                       <div className="channel-dropdown-item-div">
+                          <Dropdown.Item
+                             key={bytestream.id}
+                             className="channel-dropdown-item"
+                             onClick={(e) =>
+                                onBytestreamClick(e, bytestream.id)
+                             }
+                          >
+                             <FaHashtag style={{ marginRight: "10px" }} />
+                             {bytestream.name}
+                          </Dropdown.Item>
+                       </div>
                     ))
                   : null}
                <Dropdown.Item>

@@ -50,12 +50,34 @@
    color: #d1d2d3;
    font-size: 15px;
    margin-left: 10px;
-   background-image: none;
 }
 
 .bytestream-name-dropdown::after {
    content: none !important;
 }
+
+.channel-dropdown-open {
+   background-color: #371b3a !important;
+   border: none !important;
+}
+
+.channel-dropdown-open a {
+   color: #b9babd;
+   background-color: #371b3a;
+}
+
+.channel-dropdown-open > .dropdown-item:hover {
+   background-color: #5f2565;
+   color: #b9babd;
+   border-radius: 20px;
+}
+
+.channel-dropdown-item-div > .dropdown-item:hover {
+   background-color: #5f2565;
+   color: #b9babd;
+   border-radius: 20px;
+}
+
 /*
 .stop-transforming {
    transform: translate3d(0px, 26px, 0px) !important;
