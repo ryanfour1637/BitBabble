@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import OpenModalButton from "../../OpenModalButton";
@@ -11,7 +11,10 @@ import { thunkGetAllBytestreams } from "../../../store/bytestream";
 import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
 import { useRightClickMenu } from "../../../context/rightClick";
 import xmark from "../../../images/xmark.png";
-import dropdown from "../../../images/dropdown.png";
+import Dropdown from "react-bootstrap/Dropdown";
+import { BsCaretRightFill, BsCaretDownFill } from "react-icons/bs";
+import { FaHashtag } from "react-icons/fa";
+import useDropdownToggle from "../../ReusableComponents/DropdownToggle";
 
 function BytestreamNameDropdown({
    setBytestreamId,
@@ -20,22 +23,38 @@ function BytestreamNameDropdown({
    user,
 }) {
    const dispatch = useDispatch();
-   const [showMenu, setShowMenu] = useState(false);
-   const [showRightClickMenu, setShowRightClickMenu] = useState(false);
    const { userId, bytespaceId } = useParams();
-   const ulRefAllBytestreams = useRef();
-   const { openRightClickMenu, closeRightClickMenu } = useRightClickMenu();
    const bytestreams = useSelector((state) => state.bytestreams);
    const bytestreamsMembershipRosters = useSelector(
       (state) => state.bytestreamMembers
    );
+   const [isOpen, toggle] = useDropdownToggle();
+   const dropdownRef = useRef(null);
+   const [isChannelOpen, setIsChannelOpen] = useState(false);
 
    useEffect(() => {
       dispatch(thunkGetAllBytestreams());
       dispatch(thunkGetAllBytestreamMembers());
    }, [dispatch]);
 
-   // Null check for bytestreams and bytestreamsMembershipRosters
+   const handleClickOutsideChannelsDropdown = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+         e.stopPropagation();
+      }
+   };
+   useEffect(() => {
+      document.addEventListener(
+         "mousedown",
+         handleClickOutsideChannelsDropdown
+      );
+      return () => {
+         document.removeEventListener(
+            "mousedown",
+            handleClickOutsideChannelsDropdown
+         );
+      };
+   }, []);
+
    if (bytestreams == undefined || Object.values(bytestreams).length === 0)
       return null;
    if (
@@ -53,126 +72,68 @@ function BytestreamNameDropdown({
       Object.keys(thisBytespacesBytestreams).forEach((bytestreamId) => {
          const bytestream = bytestreams[bytespaceId][bytestreamId];
 
-         // Check if the current user is a member of the bytestream
          if (
             bytestreamsMembershipRosters[bytespaceId] &&
             bytestreamsMembershipRosters[bytespaceId][bytestreamId] &&
             bytestreamsMembershipRosters[bytespaceId][bytestreamId][userId]
          ) {
-            // Add to joinedBytestreams if user is a member
             joinedBytestreams.push(bytestream);
          } else {
-            // Add to nonJoinedBytestreams if user is not a member
             nonJoinedBytestreams.push(bytestream);
          }
       });
    }
 
-   const openMenu = () => {
-      console.log("this is show menut", showMenu);
-      if (showMenu) {
-         setShowMenu(false);
-      } else {
-         setShowMenu(true);
-      }
-   };
-
    const onBytestreamClick = (e, bytestreamId) => {
-      e.preventDefault();
-
+      e.stopPropagation();
       setBytestreamId(bytestreamId);
    };
 
-   const handleRightClick = (e, bytestream) => {
-      e.preventDefault();
-
-      const bytestreamMemberId =
-         bytestreamsMembershipRosters[bytestream.bytespaceId][bytestream.id][
-            userId
-         ];
-
-      const menuContent = (
-         <div className="parent-element-context">
-            <img
-               src={xmark}
-               alt="close menu"
-               onClick={closeRightClickMenu}
-               className="small-x"
-            />
-            {bytestream.ownerId == userId && (
-               <OpenModalButton
-                  buttonText="Update Bytestream"
-                  onButtonClick={closeRightClickMenu}
-                  modalComponent={
-                     <UpdateBytestreamModal bytestream={bytestream} />
-                  }
-               />
-            )}
-            <OpenModalButton
-               buttonText="Leave Bytestream"
-               onButtonClick={closeRightClickMenu}
-               modalComponent={
-                  <LeaveBytestreamModal
-                     idToDelete={bytestreamMemberId}
-                     socket={socket}
-                     setBytestreamId={setBytestreamId}
-                     bytestreamId={bytestreamId}
-                     user={user}
-                  />
-               }
-            />
-            {bytestream.ownerId == userId && (
-               <OpenModalButton
-                  buttonText="Delete Bytestream"
-                  onButtonClick={closeRightClickMenu}
-                  modalComponent={
-                     <DeleteBytestreamModal
-                        bytestream={bytestream}
-                        setBytestreamId={setBytestreamId}
-                        idToDelete={bytestreamMemberId}
-                     />
-                  }
-               />
-            )}
-         </div>
-      );
-      const position = {
-         x: e.pageX,
-         y: e.pageY,
-      };
-      openRightClickMenu(menuContent, position);
-      setShowRightClickMenu(true);
+   const toggleChannelDropdown = (e) => {
+      e.stopPropagation();
+      setIsChannelOpen(!isChannelOpen);
    };
 
-   const ulClassNameAllBytestreams =
-      "profile-dropdown" + (showMenu ? "" : " hidden");
-   const closeMenu = () => setShowMenu(false);
-
    return (
-      <>
-         <div className="bytestream-name-dropdown">
-            <div className="bytestream-dropdown-div">
-               <img
-                  src={dropdown}
-                  alt="dropdown"
-                  className="dropdown-logo"
-                  onClick={showMenu ? closeMenu : openMenu}
-               />
-               <h1 className="bytestream-name-words">Bytestreams</h1>
-            </div>
-            <div className="create-join-div">
+      <div ref={dropdownRef}>
+         <Dropdown show={isOpen} onToggle={() => {}}>
+            <Dropdown.Toggle as="div" className="bytestream-name-dropdown">
+               {isOpen ? (
+                  <BsCaretDownFill
+                     style={{ marginRight: "10px" }}
+                     onClick={toggle}
+                  />
+               ) : (
+                  <BsCaretRightFill
+                     onClick={toggle}
+                     style={{ marginRight: "10px" }}
+                  />
+               )}
+               <span onClick={toggleChannelDropdown}>Channels</span>
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+               {joinedBytestreams.length > 0
+                  ? joinedBytestreams.map((bytestream) => (
+                       <Dropdown.Item
+                          key={bytestream.id}
+                          className="channel-dropdown-item"
+                          onClick={(e) => onBytestreamClick(e, bytestream.id)}
+                       >
+                          <FaHashtag style={{ marginRight: "10px" }} />
+                          {bytestream.name}
+                       </Dropdown.Item>
+                    ))
+                  : null}
+               <Dropdown.Item>
+                  <FaHashtag style={{ marginRight: "10px" }} />
+                  Add Channels
+               </Dropdown.Item>
+            </Dropdown.Menu>
+         </Dropdown>
+         {isChannelOpen && (
+            <div className="join-add-channel-dropdown">
                <OpenModalButton
-                  buttonText="Create"
-                  modalComponent={
-                     <CreateBytestreamModal
-                        bytespaceId={bytespaceId}
-                        socket={socket}
-                        setBytestreamId={setBytestreamId}
-                     />
-                  }
-               />
-               <OpenModalButton
-                  buttonText="Join"
                   modalComponent={
                      <JoinBytestreamModal
                         nonJoinedBytestreamsToDisplay={nonJoinedBytestreams}
@@ -181,26 +142,23 @@ function BytestreamNameDropdown({
                         setBytestreamId={setBytestreamId}
                      />
                   }
+                  buttonText="Join Channel"
+                  onButtonClick={toggleChannelDropdown}
+               />
+               <OpenModalButton
+                  modalComponent={
+                     <CreateBytestreamModal
+                        bytespaceId={bytespaceId}
+                        socket={socket}
+                        setBytestreamId={setBytestreamId}
+                     />
+                  }
+                  buttonText="Create Channel"
+                  onButtonClick={toggleChannelDropdown}
                />
             </div>
-            <ul className={ulClassNameAllBytestreams} ref={ulRefAllBytestreams}>
-               <div className="joined-bytestreams-to-display">
-                  {joinedBytestreams.length > 0 &&
-                     joinedBytestreams.map((bytestream) => (
-                        <li
-                           key={bytestream.id}
-                           onContextMenu={(e) =>
-                              handleRightClick(e, bytestream)
-                           }
-                           onClick={(e) => onBytestreamClick(e, bytestream.id)}
-                        >
-                           {bytestream.name}{" "}
-                        </li>
-                     ))}
-               </div>
-            </ul>
-         </div>
-      </>
+         )}
+      </div>
    );
 }
 

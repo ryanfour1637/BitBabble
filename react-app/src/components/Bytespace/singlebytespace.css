@@ -33,7 +33,7 @@
    margin-left: 10px;
 }
 
-.dropdown {
+.group-button-nav {
    margin-top: 10px;
    margin-left: 10px;
 }
@@ -42,6 +42,25 @@
    margin-top: 725px;
    margin-left: 10px;
 }
+
+.bytestream-name-dropdown {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   color: #d1d2d3;
+   font-size: 15px;
+   margin-left: 10px;
+   background-image: none;
+}
+
+.bytestream-name-dropdown::after {
+   content: none !important;
+}
+/*
+.stop-transforming {
+   transform: translate3d(0px, 26px, 0px) !important;
+} */
+
 /*OLD CSS CODE WITHOUT BOOTSTRAP IF I NEED IT LATER*/
 /* .single-bytespace-outerdiv {
    display: grid;
@@ -67,11 +86,7 @@
    border-left: 4px #7851a9 solid;
 } */
 
-/* .bytestream-name-dropdown {
-   display: flex;
-   flex-direction: row;
-   align-items: center;
-} */
+/* */
 /* .profile-dropdown {
    position: absolute;
    top: 60px;

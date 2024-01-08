@@ -19,6 +19,7 @@ function ByteSpaceDropdown() {
             alt="logo"
             id="imageDropdown"
             role="button"
+            className="group-button-nav"
          />
          <Dropdown.Menu>
             <Dropdown.Item as="button">
