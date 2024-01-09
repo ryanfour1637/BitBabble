@@ -6,9 +6,15 @@ import {
 } from "../../../store/messages";
 import { thunkGetAllMessages } from "../../../store/messages";
 import { useDispatch } from "react-redux";
-import PropTypes from "prop-types";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import { FaHashtag } from "react-icons/fa";
+import Dropdown from "react-bootstrap/Dropdown";
+import useDropdownToggle from "../../ReusableComponents/DropdownToggle";
+import { BsPersonCircle } from "react-icons/bs";
 
-function BytestreamChatRoom({ bytestreamId, socket, user }) {
+function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
    const dispatch = useDispatch();
 
    const messages = useSelector((state) => state.messages);
@@ -16,6 +22,7 @@ function BytestreamChatRoom({ bytestreamId, socket, user }) {
    const messagesContainerRef = useRef(null);
    const [loading, setLoading] = useState(true);
 
+   // understand this better so you can fix it bc its not working anymore and i cant figure out what I did.
    function scrollToBottom() {
       if (messagesContainerRef.current) {
          const { scrollHeight, clientHeight } = messagesContainerRef.current;
@@ -86,7 +93,6 @@ function BytestreamChatRoom({ bytestreamId, socket, user }) {
 
    const updateMessage = (e) => {
       e.preventDefault();
-      
    };
    const deleteMessage = (e) => {
       e.preventDefault();
@@ -118,6 +124,52 @@ function BytestreamChatRoom({ bytestreamId, socket, user }) {
    } else {
       return (
          <>
+            <Container fluid style={{ height: "100%", width: "100%" }}>
+               <Row fluid className="chatroom-topbar" xxl={1}>
+                  <Dropdown>
+                     <Dropdown.Toggle
+                        as="div"
+                        className="chatroom-channel-name-dropdown"
+                     >
+                        <FaHashtag style={{ marginRight: "10px" }} />
+                        {bytestreamName}
+                     </Dropdown.Toggle>
+                     <Dropdown.Menu className="chatroom-channel-name-dropdown-open">
+                        <Dropdown.Item>
+                           {"Placeholder for Edit Name"}
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                           {"Placeholder for Leave channel"}
+                        </Dropdown.Item>
+                     </Dropdown.Menu>
+                  </Dropdown>
+               </Row>
+               <Row fluid className="chatroom-display" xxl={9}>
+                  {allMessagesArr.map((messageObj) => (
+                     <Row className="chatroom-display-message-div">
+                        <Col className="message-user-icon-div">
+                           <BsPersonCircle className="message-user-icon" />
+                        </Col>
+                        <Col className="message-username-time-div">
+                           <Row className="username-time-div">
+                              <Col className="username-div">
+                                 {messageObj.userInfo.username}
+                              </Col>
+                              <Col className="time-div">
+                                 {formatTimestamp(messageObj.timestamp)}
+                              </Col>
+                           </Row>
+                           <Row className="message-div">
+                              {messageObj.message}
+                           </Row>
+                        </Col>
+                     </Row>
+                  ))}
+               </Row>
+               <Row fluid className="chatroom-input" xxl={2}>
+                  {"Placeholder for input box component"}
+               </Row>
+            </Container>
             <div
                className="bytestreamChatRoom-messagesdiv"
                ref={messagesContainerRef}

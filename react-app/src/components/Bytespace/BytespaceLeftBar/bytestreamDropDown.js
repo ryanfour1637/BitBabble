@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef, forwardRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import OpenModalButton from "../../OpenModalButton";
 import CreateBytestreamModal from "./createBytestreamModal";
 import JoinBytestreamModal from "./joinBytestreamModal";
@@ -9,7 +9,6 @@ import LeaveBytestreamModal from "./leaveBytestreamModal";
 import DeleteBytestreamModal from "./deleteBytestreamModal";
 import { thunkGetAllBytestreams } from "../../../store/bytestream";
 import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
-import { useRightClickMenu } from "../../../context/rightClick";
 import xmark from "../../../images/xmark.png";
 import Dropdown from "react-bootstrap/Dropdown";
 import { BsCaretRightFill, BsCaretDownFill } from "react-icons/bs";
@@ -21,6 +20,7 @@ function BytestreamNameDropdown({
    socket,
    bytestreamId,
    user,
+   setBytestreamName,
 }) {
    const dispatch = useDispatch();
    const { userId, bytespaceId } = useParams();
@@ -85,11 +85,12 @@ function BytestreamNameDropdown({
       });
    }
 
-   const onBytestreamClick = (e, bytestreamId) => {
+   const onBytestreamClick = (e, bytestream) => {
       e.preventDefault();
       e.stopPropagation();
-      setBytestreamId(bytestreamId);
-      setActiveBytestream(bytestreamId);
+      setBytestreamId(bytestream.id);
+      setActiveBytestream(bytestream.id);
+      setBytestreamName(bytestream.name);
    };
 
    const toggleChannelDropdown = (e) => {
@@ -104,13 +105,13 @@ function BytestreamNameDropdown({
             <Dropdown.Toggle as="div" className="bytestream-name-dropdown">
                {isOpen ? (
                   <BsCaretDownFill
-                     style={{ marginRight: "10px" }}
+                     style={{ marginRight: "10px", cursor: "pointer" }}
                      onClick={toggle}
                   />
                ) : (
                   <BsCaretRightFill
                      onClick={toggle}
-                     style={{ marginRight: "10px" }}
+                     style={{ marginRight: "10px", cursor: "pointer" }}
                   />
                )}
                <span onClick={toggleChannelDropdown}>Channels</span>
@@ -123,9 +124,7 @@ function BytestreamNameDropdown({
                           <Dropdown.Item
                              key={bytestream.id}
                              className="channel-dropdown-item"
-                             onClick={(e) =>
-                                onBytestreamClick(e, bytestream.id)
-                             }
+                             onClick={(e) => onBytestreamClick(e, bytestream)}
                              style={{
                                 backgroundColor:
                                    activeBytestream == bytestream.id

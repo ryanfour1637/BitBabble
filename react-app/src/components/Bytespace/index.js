@@ -11,6 +11,7 @@ import "./singlebytespace.css";
 
 function SingleBytespaceLandingPage({ user }) {
    const [bytestreamId, setBytestreamId] = useState(null);
+   const [bytestreamName, setBytestreamName] = useState(null);
    const socket = useWebSocket();
 
    return (
@@ -31,13 +32,15 @@ function SingleBytespaceLandingPage({ user }) {
                   socket={socket}
                   bytestreamId={bytestreamId}
                   user={user}
+                  setBytestreamName={setBytestreamName}
                />
             </Col>
-            <Col>
+            <Col className="chatroom-outer-div">
                <BytestreamChatRoom
                   bytestreamId={bytestreamId}
                   socket={socket}
                   user={user}
+                  bytestreamName={bytestreamName}
                />
             </Col>
          </Row>
