@@ -31,6 +31,7 @@ function BytestreamNameDropdown({
    const [isOpen, toggle] = useDropdownToggle();
    const dropdownRef = useRef(null);
    const [isChannelOpen, setIsChannelOpen] = useState(false);
+   const [activeBytestream, setActiveBytestream] = useState(null);
 
    useEffect(() => {
       dispatch(thunkGetAllBytestreams());
@@ -88,6 +89,7 @@ function BytestreamNameDropdown({
       e.preventDefault();
       e.stopPropagation();
       setBytestreamId(bytestreamId);
+      setActiveBytestream(bytestreamId);
    };
 
    const toggleChannelDropdown = (e) => {
@@ -124,6 +126,20 @@ function BytestreamNameDropdown({
                              onClick={(e) =>
                                 onBytestreamClick(e, bytestream.id)
                              }
+                             style={{
+                                backgroundColor:
+                                   activeBytestream == bytestream.id
+                                      ? "#5f2565"
+                                      : "#371b3a",
+                                color:
+                                   activeBytestream == bytestream.id
+                                      ? "#b9babd"
+                                      : "inherit",
+                                borderRadius:
+                                   activeBytestream == bytestream.id
+                                      ? "20px"
+                                      : "0px",
+                             }}
                           >
                              <FaHashtag style={{ marginRight: "10px" }} />
                              {bytestream.name}
@@ -131,10 +147,12 @@ function BytestreamNameDropdown({
                        </div>
                     ))
                   : null}
-               <Dropdown.Item>
-                  <FaHashtag style={{ marginRight: "10px" }} />
-                  Add Channels
-               </Dropdown.Item>
+               <div className="channel-dropdown-item-div">
+                  <Dropdown.Item className="channel-dropdown-item">
+                     <FaHashtag style={{ marginRight: "10px" }} />
+                     Add Channels
+                  </Dropdown.Item>
+               </div>
             </Dropdown.Menu>
          </Dropdown>
          {isChannelOpen && (
