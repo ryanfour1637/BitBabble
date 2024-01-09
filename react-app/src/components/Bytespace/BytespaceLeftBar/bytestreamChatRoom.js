@@ -125,49 +125,53 @@ function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
       return (
          <>
             <Container fluid style={{ height: "100%", width: "100%" }}>
-               <Row fluid className="chatroom-topbar" xxl={1}>
-                  <Dropdown>
-                     <Dropdown.Toggle
-                        as="div"
-                        className="chatroom-channel-name-dropdown"
-                     >
-                        <FaHashtag style={{ marginRight: "10px" }} />
-                        {bytestreamName}
-                     </Dropdown.Toggle>
-                     <Dropdown.Menu className="chatroom-channel-name-dropdown-open">
-                        <Dropdown.Item>
-                           {"Placeholder for Edit Name"}
-                        </Dropdown.Item>
-                        <Dropdown.Item>
-                           {"Placeholder for Leave channel"}
-                        </Dropdown.Item>
-                     </Dropdown.Menu>
-                  </Dropdown>
+               <Row className="chatroom-topbar">
+                  <Col xxl={12}>
+                     <Dropdown>
+                        <Dropdown.Toggle
+                           as="div"
+                           className="chatroom-channel-name-dropdown"
+                        >
+                           <FaHashtag style={{ marginRight: "10px" }} />
+                           {bytestreamName}
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu className="chatroom-channel-name-dropdown-open">
+                           <Dropdown.Item>
+                              {"Placeholder for Edit Name"}
+                           </Dropdown.Item>
+                           <Dropdown.Item>
+                              {"Placeholder for Leave channel"}
+                           </Dropdown.Item>
+                        </Dropdown.Menu>
+                     </Dropdown>
+                  </Col>
                </Row>
-               <Row fluid className="chatroom-display" xxl={9}>
-                  {allMessagesArr.map((messageObj) => (
-                     <Row className="chatroom-display-message-div">
-                        <Col className="message-user-icon-div">
-                           <BsPersonCircle className="message-user-icon" />
-                        </Col>
-                        <Col className="message-username-time-div">
-                           <Row className="username-time-div">
-                              <Col className="username-div">
-                                 {messageObj.userInfo.username}
-                              </Col>
-                              <Col className="time-div">
-                                 {formatTimestamp(messageObj.timestamp)}
-                              </Col>
-                           </Row>
-                           <Row className="message-div">
-                              {messageObj.message}
-                           </Row>
-                        </Col>
-                     </Row>
-                  ))}
+               <Row className="chatroom-display">
+                  <Col xxl={12}>
+                     {allMessagesArr.map((messageObj) => (
+                        <Row className="chatroom-display-message-div">
+                           <Col className="message-user-icon-div">
+                              <BsPersonCircle className="message-user-icon" />
+                           </Col>
+                           <Col className="message-username-time-div">
+                              <Row className="username-time-div">
+                                 <Col className="username-div">
+                                    {messageObj.userInfo.username}
+                                 </Col>
+                                 <Col className="time-div">
+                                    {formatTimestamp(messageObj.timestamp)}
+                                 </Col>
+                              </Row>
+                              <Row className="message-div">
+                                 {messageObj.message}
+                              </Row>
+                           </Col>
+                        </Row>
+                     ))}
+                  </Col>
                </Row>
-               <Row fluid className="chatroom-input" xxl={2}>
-                  {"Placeholder for input box component"}
+               <Row className="chatroom-input">
+                  <Col xxl={12}>{"Placeholder for input box component"}</Col>
                </Row>
             </Container>
             <div

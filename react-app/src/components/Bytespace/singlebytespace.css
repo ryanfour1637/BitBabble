@@ -86,7 +86,18 @@
 }
 
 .chatroom-topbar {
+   height: 5.5%;
+   border: 2px blue solid;
+}
 
+.chatroom-display {
+   height: 75%;
+   border: 2px red solid;
+}
+
+.chatroom-input {
+   height: 17%;
+   border: 2px green solid;
 }
 
 .chatroom-channel-name-dropdown {
@@ -98,42 +109,28 @@
 }
 
 .chatroom-channel-name-dropdown-open {
-
-}
-
-.chatroom-display {
-
 }
 
 .message-user-icon-div {
-
 }
 
 .message-user-icon {
-
 }
 
 .message-username-time-div {
-
 }
 
 .username-time-div {
-
 }
 
 .username-div {
-
 }
 
 .time-div {
-
 }
 
 .message-div {
-   
 }
-
-
 
 /*OLD CSS CODE WITHOUT BOOTSTRAP IF I NEED IT LATER*/
 /* .single-bytespace-outerdiv {
