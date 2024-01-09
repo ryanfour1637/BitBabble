@@ -6,13 +6,11 @@ import {
 } from "../../../store/messages";
 import { thunkGetAllMessages } from "../../../store/messages";
 import { useDispatch } from "react-redux";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { Container, Row, Col } from "react-bootstrap";
 import { FaHashtag, FaChevronDown } from "react-icons/fa";
 import Dropdown from "react-bootstrap/Dropdown";
-import useDropdownToggle from "../../ReusableComponents/DropdownToggle";
 import { BsPersonSquare } from "react-icons/bs";
+import ChatInputBox from "./chatInputBox";
 
 function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
    const dispatch = useDispatch();
@@ -25,20 +23,18 @@ function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
    // understand this better so you can fix it bc its not working anymore and i cant figure out what I did.
    function scrollToBottom() {
       if (messagesContainerRef.current) {
-         const { scrollHeight, clientHeight } = messagesContainerRef.current;
-         messagesContainerRef.current.scrollTop = scrollHeight - clientHeight;
+         messagesContainerRef.current.scrollTop = 0;
       }
    }
-
    useEffect(() => {
-      dispatch(thunkGetAllMessages());
+      dispatch(thunkGetAllMessages()).then(() => {
+         scrollToBottom();
+      });
    }, [dispatch]);
 
    useEffect(() => {
-      if (!loading) {
-         scrollToBottom();
-      }
-   }, [messages, loading]);
+      scrollToBottom();
+   }, [messages]);
 
    useEffect(() => {
       if (!socket) return;
@@ -89,6 +85,13 @@ function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
       socket.emit("ws_send_message", messageObj);
 
       setMessage("");
+   };
+
+   const sendWithEnter = (e) => {
+      if (e.key === "Enter") {
+         e.preventDefault();
+         sendMessage(e);
+      }
    };
 
    const updateMessage = (e) => {
@@ -190,7 +193,15 @@ function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
                   </Col>
                </Row>
                <Row className="chatroom-input">
-                  <Col xxl={12}>{"Placeholder for input box component"}</Col>
+                  <Col xxl={12} className="chatroom-input-column">
+                     <ChatInputBox
+                        message={message}
+                        setMessage={setMessage}
+                        sendMessage={sendMessage}
+                        bytestreamName={bytestreamName}
+                        sendWithEnter={sendWithEnter}
+                     />
+                  </Col>
                </Row>
             </Container>
          </>
