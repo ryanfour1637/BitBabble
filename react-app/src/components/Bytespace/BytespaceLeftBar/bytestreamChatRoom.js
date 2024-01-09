@@ -9,10 +9,10 @@ import { useDispatch } from "react-redux";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { FaHashtag } from "react-icons/fa";
+import { FaHashtag, FaChevronDown } from "react-icons/fa";
 import Dropdown from "react-bootstrap/Dropdown";
 import useDropdownToggle from "../../ReusableComponents/DropdownToggle";
-import { BsPersonCircle } from "react-icons/bs";
+import { BsPersonSquare } from "react-icons/bs";
 
 function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
    const dispatch = useDispatch();
@@ -111,7 +111,13 @@ function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
       return new Date(correctTimestamp).toLocaleTimeString("en-US", {
          timeZone: getTimeZone(),
          hour12: true,
+         hour: "2-digit",
+         minute: "2-digit",
       });
+   };
+
+   const toLowerCase = (string) => {
+      return string.toLowerCase();
    };
 
    const allMessagesArr =
@@ -132,8 +138,21 @@ function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
                            as="div"
                            className="chatroom-channel-name-dropdown"
                         >
-                           <FaHashtag style={{ marginRight: "10px" }} />
-                           {bytestreamName}
+                           <FaHashtag
+                              style={{
+                                 marginRight: "2px",
+                                 height: "14.45px",
+                                 width: "14.45px",
+                              }}
+                           />
+                           {toLowerCase(bytestreamName)}
+                           <FaChevronDown
+                              style={{
+                                 marginLeft: "3px",
+                                 width: "10px",
+                                 height: "10px",
+                              }}
+                           />
                         </Dropdown.Toggle>
                         <Dropdown.Menu className="chatroom-channel-name-dropdown-open">
                            <Dropdown.Item>
@@ -150,17 +169,17 @@ function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
                   <Col xxl={12}>
                      {allMessagesArr.map((messageObj) => (
                         <Row className="chatroom-display-message-div">
-                           <Col className="message-user-icon-div">
-                              <BsPersonCircle className="message-user-icon" />
+                           <Col xxl={1} className="message-div-person">
+                              <BsPersonSquare />
                            </Col>
                            <Col className="message-username-time-div">
                               <Row className="username-time-div">
-                                 <Col className="username-div">
-                                    {messageObj.userInfo.username}
-                                 </Col>
-                                 <Col className="time-div">
+                                 <span className="message-username">
+                                    {toLowerCase(messageObj.userInfo.username)}
+                                 </span>
+                                 <span className="message-time">
                                     {formatTimestamp(messageObj.timestamp)}
-                                 </Col>
+                                 </span>
                               </Row>
                               <Row className="message-div">
                                  {messageObj.message}
@@ -174,64 +193,6 @@ function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
                   <Col xxl={12}>{"Placeholder for input box component"}</Col>
                </Row>
             </Container>
-            <div
-               className="bytestreamChatRoom-messagesdiv"
-               ref={messagesContainerRef}
-            >
-               {allMessagesArr.map((messageObj) => (
-                  <div
-                     key={messageObj.id}
-                     className="bytestreamChatRoom-message"
-                  >
-                     {messageObj.system === true ? (
-                        <span className="message-username">BitBabble Bot:</span>
-                     ) : (
-                        <span className="message-username">
-                           {messageObj.userInfo.username}
-                        </span>
-                     )}
-                     <span className="message-text">{messageObj.message}</span>
-                     <span className="message-timestamp">
-                        {formatTimestamp(messageObj.timestamp)}
-                     </span>
-                     {messageObj.userInfo.id == user.id &&
-                     messageObj.system !== true ? (
-                        <span>
-                           <button
-                              className="message-delete"
-                              value={messageObj.id}
-                              onClick={deleteMessage}
-                           >
-                              Delete
-                           </button>
-                        </span>
-                     ) : null}
-                     {messageObj.userInfo.id == user.id &&
-                     messageObj.system !== true ? (
-                        <span>
-                           <button
-                              className="message-update"
-                              value={messageObj.id}
-                              onClick={updateMessage}
-                           >
-                              Update
-                           </button>
-                        </span>
-                     ) : null}
-                  </div>
-               ))}
-            </div>
-            <div className="bytestreamChatRoom-input">
-               <input
-                  value={message}
-                  type="text"
-                  placeholder="Type a message"
-                  onChange={(e) => setMessage(e.target.value)}
-               />
-               <button type="submit" onClick={sendMessage}>
-                  Send
-               </button>
-            </div>
          </>
       );
    }
