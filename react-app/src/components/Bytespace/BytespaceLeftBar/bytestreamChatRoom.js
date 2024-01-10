@@ -11,6 +11,8 @@ import { FaHashtag, FaChevronDown } from "react-icons/fa";
 import Dropdown from "react-bootstrap/Dropdown";
 import { BsPersonSquare } from "react-icons/bs";
 import ChatInputBox from "./chatInputBox";
+import UpdateBytestreamModal from "./updateBytestreamModal";
+import OpenModalButton from "../../OpenModalButton";
 
 function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
    const dispatch = useDispatch();
@@ -120,7 +122,7 @@ function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
    };
 
    const toLowerCase = (string) => {
-      return string.toLowerCase();
+      return string?.toLowerCase();
    };
 
    const allMessagesArr =
@@ -159,7 +161,15 @@ function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
                         </Dropdown.Toggle>
                         <Dropdown.Menu className="chatroom-channel-name-dropdown-open">
                            <Dropdown.Item>
-                              {"Placeholder for Edit Name"}
+                              <OpenModalButton
+                                 modalComponent={
+                                    <UpdateBytestreamModal
+                                       bytestreamId={bytestreamId}
+                                       bytestreamName={bytestreamName}
+                                    />
+                                 }
+                                 buttonText="Update Name"
+                              />
                            </Dropdown.Item>
                            <Dropdown.Item>
                               {"Placeholder for Leave channel"}
@@ -169,7 +179,7 @@ function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
                   </Col>
                </Row>
                <Row className="chatroom-display">
-                  <Col xxl={12}>
+                  <Col xxl={12} className="chatroom-display">
                      {allMessagesArr.map((messageObj) => (
                         <Row className="chatroom-display-message-div">
                            <Col xxl={1} className="message-div-person">

@@ -94,8 +94,8 @@ function BytestreamNameDropdown({
    };
 
    const toggleChannelDropdown = (e) => {
-      e.stopPropagation();
       e.preventDefault();
+      e.stopPropagation();
       setIsChannelOpen(!isChannelOpen);
    };
 
@@ -166,7 +166,6 @@ function BytestreamNameDropdown({
                      />
                   }
                   buttonText="Join Channel"
-                  onButtonClick={toggleChannelDropdown}
                />
                <OpenModalButton
                   modalComponent={
@@ -177,7 +176,6 @@ function BytestreamNameDropdown({
                      />
                   }
                   buttonText="Create Channel"
-                  onButtonClick={toggleChannelDropdown}
                />
             </div>
          )}
