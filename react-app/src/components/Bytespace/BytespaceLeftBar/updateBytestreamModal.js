@@ -3,19 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { thunkUpdateBytestream } from "../../../store/bytestream";
 
-function UpdateBytestreamModal({ bytestream }) {
-   console.log(
-      "🚀 ~ file: updateBytestreamModal.js:7 ~ UpdateBytestreamModal ~ bytestream :",
-      bytestream
-   );
+function UpdateBytestreamModal({ bytestreamId, bytestreamName }) {
    const dispatch = useDispatch();
    const { closeModal } = useModal();
-   const [name, setName] = useState(bytestream.name);
+   const [name, setName] = useState(bytestreamName);
    const [errors, setErrors] = useState("");
 
    const updateBytestream = async () => {
       const errors = await dispatch(
-         thunkUpdateBytestream({ name: name }, bytestream.id)
+         thunkUpdateBytestream({ name: name }, bytestreamId)
       );
 
       if (!errors) {

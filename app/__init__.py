@@ -42,17 +42,10 @@ app.register_blueprint(bytespace_members_routes, url_prefix='/api/bytespace_memb
 app.register_blueprint(bytestream_members_routes, url_prefix='/api/bytestream_members')
 app.register_blueprint(message_routes, url_prefix='/api/messages')
 db.init_app(app)
-Migrate(app, db)
 
-# Application Security
+Migrate(app, db)
 CORS(app)
 
-
-# Since we are deploying with Docker and Flask,
-# we won't be using a buildpack when we deploy to Heroku.
-# Therefore, we need to make sure that in production any
-# request made over http is redirected to https.
-# Well.........
 @app.before_request
 def https_redirect():
     if os.environ.get('FLASK_ENV') == 'production':
@@ -121,7 +114,6 @@ def handle_leave_room(data):
 
 @socketio.on('ws_send_message')
 def handle_send_message(data):
-    print(data)
     bytestream = data['bytestreamId']
     message = data['message']
     if data['system'] == True:
@@ -151,10 +143,21 @@ def handle_send_message(data):
         except Exception as e:
             print(f"An error occurred: {e}")
 
-    # Emit a message indicating success and data details
     emit("ws_receive_message", new_message.to_dict(), broadcast=True)
 
+@socketio.on('ws_update_message')
+def handle_update_message(message_obj):
+    message = Message.query.get(message_obj['id'])
+    message.message = message_obj['message']
+    db.session.commit()
+    emit('update_message_confirm', message.to_dict(), broadcast=True)
 
+@socketio.on('ws_delete_message')
+def handle_delete_message(message_id):
+    message = Message.query.get(message_id)
+    db.session.delete(message)
+    db.session.commit()
+    emit('delete_message_confirm', message.to_dict_delete(), broadcast=True)
 
 @socketio.on('typing')
 def handle_typing(data):
@@ -183,6 +186,8 @@ def handle_disconnect():
         user.is_online = False
         db.session.commit()
         emit('user_status_change', {'user_id': user_id, 'status': 'offline'}, broadcast=True)
+
+
 
 
 

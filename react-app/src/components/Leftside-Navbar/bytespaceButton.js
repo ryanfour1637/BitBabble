@@ -6,61 +6,36 @@ import OpenModalButton from "../OpenModalButton";
 import JoinBytespaceModal from "./joinBytespaceModal";
 import CreateBytespaceModal from "./createBytespaceModel";
 import bytespaceimg from "../../images/bytespaceimage.png";
+import { Dropdown } from "react-bootstrap";
 
 function ByteSpaceDropdown() {
-   const [showMenu, setShowMenu] = useState(false);
    const user = useSelector((state) => state.session.user);
 
-   const ulRefBytespace = useRef();
-
-   const openMenu = () => {
-      if (showMenu) return;
-      setShowMenu(true);
-   };
-
-   useEffect(() => {
-      if (!showMenu) return;
-
-      const closeMenu = (e) => {
-         if (!ulRefBytespace.current.contains(e.target)) {
-            setShowMenu(false);
-         }
-      };
-
-      document.addEventListener("click", closeMenu);
-
-      return () => document.removeEventListener("click", closeMenu);
-   }, [showMenu]);
-
-   const ulClassNameBytespace =
-      "profile-dropdown" + (showMenu ? "" : " hidden");
-   const closeMenu = () => setShowMenu(false);
-
    return (
-      <div>
-         <img
-            onClick={openMenu}
+      <Dropdown>
+         <Dropdown.Toggle
+            as="img"
             src={bytespaceimg}
             alt="logo"
-            className="left-nav-bytespace-dropdown"
+            id="imageDropdown"
+            role="button"
+            className="group-button-nav"
          />
-         <ul className={ulClassNameBytespace} ref={ulRefBytespace}>
-            <li className="left-nav-bytespace-dropdown-button">
+         <Dropdown.Menu>
+            <Dropdown.Item as="button">
                <OpenModalButton
                   buttonText="Join new bytespace"
-                  onItemClick={closeMenu}
                   modalComponent={<JoinBytespaceModal userId={user.id} />}
                />
-            </li>
-            <li className="left-nav-bytespace-dropdown-button">
+            </Dropdown.Item>
+            <Dropdown.Item as="button">
                <OpenModalButton
                   buttonText="Create new bytespace"
-                  onItemClick={closeMenu}
                   modalComponent={<CreateBytespaceModal userId={user.id} />}
                />
-            </li>
-         </ul>
-      </div>
+            </Dropdown.Item>
+         </Dropdown.Menu>
+      </Dropdown>
    );
 }
 

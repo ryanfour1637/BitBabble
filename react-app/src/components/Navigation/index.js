@@ -7,6 +7,9 @@ import LeftsideNav from "../Leftside-Navbar";
 import homeicon from "../../images/homeicon.png";
 import "./Navigation.css";
 import { authenticate } from "../../store/session";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 function Navigation() {
    const dispatch = useDispatch();
@@ -18,15 +21,17 @@ function Navigation() {
    }, [dispatch]);
 
    return (
-      <div className="left-nav">
-         <div className="left-nav-topdiv">
-            <NavLink exact to="/">
-               <img src={homeicon} alt="home" />
-            </NavLink>
-            {sessionUser && <LeftsideNav />}
-         </div>
-         {isLoaded && <ProfileButton user={sessionUser} />}
-      </div>
+      <>
+         <Row style={{ height: "100%" }}>
+            <Col>
+               <NavLink exact to="/" className="homeicon-css">
+                  <img src={homeicon} alt="home" />
+               </NavLink>
+               {sessionUser ? <LeftsideNav /> : null}
+               {isLoaded ? <ProfileButton user={sessionUser} /> : null}
+            </Col>
+         </Row>
+      </>
    );
 }
 

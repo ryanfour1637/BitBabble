@@ -7,7 +7,7 @@ import { RightClickMenuProvider, RightClickMenu } from "./context/rightClick";
 import configureStore from "./store";
 import * as sessionActions from "./store/session";
 import App from "./App";
-
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
 const store = configureStore();

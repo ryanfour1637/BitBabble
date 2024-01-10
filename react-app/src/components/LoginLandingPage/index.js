@@ -60,20 +60,18 @@ function LoginLandingPage() {
          </div>
          <div className="loginlp-middiv">
             <h3 className="loginlp-middiv-your">{`Bytespaces for ${user.firstName} ${user.lastName}`}</h3>
-            {bytespacesArr.length > 0 ? (
-               bytespacesToDisplay.map((bytespace) => (
-                  <NavLink
-                     className="loginlp-middiv-bytespace"
-                     to={`/user/${user.id}/bytespaces/${bytespace.id}`}
-                  >
-                     <h2 className="loginlp-middiv-bytespacename">
-                        {bytespace.name}
-                     </h2>
-                  </NavLink>
-               ))
-            ) : (
-               <h4>Once you join a bytespace, it will appear here</h4>
-            )}
+            {bytespacesArr.length > 0
+               ? bytespacesToDisplay.map((bytespace) => (
+                    <NavLink
+                       className="loginlp-middiv-bytespace"
+                       to={`/user/${user.id}/bytespaces/${bytespace.id}`}
+                    >
+                       <h2 className="loginlp-middiv-bytespacename">
+                          {bytespace.name}
+                       </h2>
+                    </NavLink>
+                 ))
+               : null}
          </div>
          <div className="loginlp-bottom-divs">
             <div className="loginlp-bottom-divs-left">

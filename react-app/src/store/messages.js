@@ -22,7 +22,7 @@ export const actionDeleteBytestreamMessages = (bytestreamId) => ({
    bytestreamId,
 });
 
-const actionDeleteMessage = (messageObj) => ({
+export const actionDeleteMessage = (messageObj) => ({
    type: DELETE_MESSAGE,
    messageObj,
 });

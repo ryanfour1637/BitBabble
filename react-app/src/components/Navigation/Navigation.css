@@ -2,6 +2,10 @@
    position: absolute;
 }
 
+#root {
+   background-color: #732e79;
+}
+
 .hidden {
    display: none;
 }

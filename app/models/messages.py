@@ -27,5 +27,15 @@ class Message(db.Model):
             'message': self.message,
             'timestamp': self.timestamp.isoformat(),
             'system': self.system,
-            'userInfo': user_info  # Include user info here
+            'userInfo': user_info
+        }
+
+    def to_dict_delete(self):
+        return {
+            'id': self.id,
+            'bytestreamId': self.bytestream_id,
+            'userId': self.user_id,
+            'message': self.message,
+            'timestamp': self.timestamp.isoformat(),
+            'system': self.system,
         }
