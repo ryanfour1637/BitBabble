@@ -179,7 +179,7 @@ function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
                   </Col>
                </Row>
                <Row className="chatroom-display">
-                  <Col xxl={12} className="chatroom-display">
+                  <Col xxl={12}>
                      {allMessagesArr.map((messageObj) => (
                         <Row className="chatroom-display-message-div">
                            <Col xxl={1} className="message-div-person">

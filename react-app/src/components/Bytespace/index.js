@@ -22,18 +22,22 @@ function SingleBytespaceLandingPage({ user }) {
             className="searchbar-chatroom"
          ></Row>
          <Row style={{ height: "100%" }}>
-            <Col xxl={1} className="left-nav-bar">
-               <Navigation />
-            </Col>
-            <Col xxl={2} className="workspace-channel">
-               <BytespaceNameDropdown />
-               <BytestreamNameDropdown
-                  setBytestreamId={setBytestreamId}
-                  socket={socket}
-                  bytestreamId={bytestreamId}
-                  user={user}
-                  setBytestreamName={setBytestreamName}
-               />
+            <Col xxl={3}>
+               <Row>
+                  <Col xxl={2} className="left-nav-bar">
+                     <Navigation />
+                  </Col>
+                  <Col xxl={10} className="workspace-channel">
+                     <BytespaceNameDropdown />
+                     <BytestreamNameDropdown
+                        setBytestreamId={setBytestreamId}
+                        socket={socket}
+                        bytestreamId={bytestreamId}
+                        user={user}
+                        setBytestreamName={setBytestreamName}
+                     />
+                  </Col>
+               </Row>
             </Col>
             <Col className="chatroom-outer-div">
                <BytestreamChatRoom
