@@ -14,29 +14,26 @@ import ChatInputBox from "./chatInputBox";
 import UpdateBytestreamModal from "./updateBytestreamModal";
 import OpenModalButton from "../../OpenModalButton";
 
-function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
+function BytestreamChatRoom({
+   bytestreamId,
+   socket,
+   user,
+   bytestreamName,
+   scrollToBottom,
+   messagesContainerRef,
+}) {
    const dispatch = useDispatch();
 
    const messages = useSelector((state) => state.messages);
    const [message, setMessage] = useState("");
-   const messagesContainerRef = useRef(null);
-   const [loading, setLoading] = useState(true);
 
-   // understand this better so you can fix it bc its not working anymore and i cant figure out what I did.
-   function scrollToBottom() {
-      if (messagesContainerRef.current) {
-         messagesContainerRef.current.scrollTop = 0;
-      }
-   }
    useEffect(() => {
-      dispatch(thunkGetAllMessages()).then(() => {
-         scrollToBottom();
-      });
+      dispatch(thunkGetAllMessages());
    }, [dispatch]);
 
    useEffect(() => {
       scrollToBottom();
-   }, [messages]);
+   }, [messages, scrollToBottom]);
 
    useEffect(() => {
       if (!socket) return;
@@ -135,7 +132,7 @@ function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
    } else {
       return (
          <>
-            <Container fluid style={{ height: "100%", width: "100%" }}>
+            <Container fluid className="h-100">
                <Row className="chatroom-topbar">
                   <Col xxl={12}>
                      <Dropdown>
@@ -179,7 +176,10 @@ function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
                   </Col>
                </Row>
                <Row className="chatroom-display">
-                  <Col xxl={12}>
+                  <Col
+                     ref={messagesContainerRef}
+                     className="h-100 chatroom-container"
+                  >
                      {allMessagesArr.map((messageObj) => (
                         <Row className="chatroom-display-message-div">
                            <Col xxl={1} className="message-div-person">
@@ -203,7 +203,7 @@ function BytestreamChatRoom({ bytestreamId, socket, user, bytestreamName }) {
                   </Col>
                </Row>
                <Row className="chatroom-input">
-                  <Col xxl={12} className="chatroom-input-column">
+                  <Col className="chatroom-input-column">
                      <ChatInputBox
                         message={message}
                         setMessage={setMessage}
