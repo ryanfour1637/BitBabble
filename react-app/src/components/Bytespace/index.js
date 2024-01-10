@@ -30,7 +30,7 @@ function SingleBytespaceLandingPage({ user }) {
             style={{ height: "40px", margin: 0, padding: 0 }}
             className="searchbar-chatroom"
          ></Row>
-         <Row>
+         <Row className="for-margin-right">
             <Col xxl={3} className="h-100">
                <Row>
                   <Col xxl={2} className="left-nav-bar">

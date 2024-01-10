@@ -185,7 +185,7 @@ function BytestreamChatRoom({
                            <Col xxl={1} className="message-div-person">
                               <BsPersonSquare />
                            </Col>
-                           <Col className="message-username-time-div">
+                           <Col xxl={11} className="message-username-time-div">
                               <Row className="username-time-div">
                                  <span className="message-username">
                                     {toLowerCase(messageObj.userInfo.username)}
@@ -195,7 +195,9 @@ function BytestreamChatRoom({
                                  </span>
                               </Row>
                               <Row className="message-div">
-                                 {messageObj.message}
+                                 <span className="message-text">
+                                    {messageObj.message}
+                                 </span>
                               </Row>
                            </Col>
                         </Row>
