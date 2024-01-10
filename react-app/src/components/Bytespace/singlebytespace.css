@@ -168,6 +168,8 @@
 }
 
 .join-add-channel-dropdown {
+   position: relative;
+   z-index: 10000;
    margin-top: 10px;
 }
 
@@ -180,7 +182,7 @@
    border: 0;
    box-sizing: border-box;
    border-radius: 24px;
-   background-color: #8e25eb;
+   background-color: #732e79;
    color: #fffdd0;
    font-size: 12px;
    font-family: "Source Sans Pro";
