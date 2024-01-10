@@ -7,6 +7,7 @@ import LoginLandingPage from "./components/LoginLandingPage";
 import SingleBytespaceLandingPage from "./components/Bytespace";
 import LoggedOutLandingPage from "./components/Homepage";
 import { WebSocketProvider } from "./context/webSocket";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
    const user = useSelector((state) => state.session.user);
