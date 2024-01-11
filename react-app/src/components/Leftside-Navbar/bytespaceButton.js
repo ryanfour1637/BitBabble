@@ -8,11 +8,33 @@ import CreateBytespaceModal from "./createBytespaceModel";
 import bytespaceimg from "../../images/bytespaceimage.png";
 import { Dropdown } from "react-bootstrap";
 
-function ByteSpaceDropdown() {
+function ByteSpaceDropdown({
+   closeChannelDropdown,
+   showNavDropdown,
+   setShowNavDropdown,
+   setShowWorkspaceDropdown,
+}) {
    const user = useSelector((state) => state.session.user);
 
+   const clickedDropdown = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (showNavDropdown) {
+         setShowNavDropdown(false);
+      } else {
+         setShowNavDropdown(true);
+         setShowWorkspaceDropdown(false);
+         closeChannelDropdown(e);
+      }
+   };
+
    return (
-      <Dropdown className="left-nav-workspace-dropdown-button">
+      <Dropdown
+         onClick={clickedDropdown}
+         show={showNavDropdown}
+         className="left-nav-workspace-dropdown-button"
+      >
          <Dropdown.Toggle
             as="img"
             src={bytespaceimg}

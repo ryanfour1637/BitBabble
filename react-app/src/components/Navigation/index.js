@@ -11,7 +11,12 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-function Navigation() {
+function Navigation({
+   closeChannelDropdown,
+   showNavDropdown,
+   setShowNavDropdown,
+   setShowWorkspaceDropdown,
+}) {
    const dispatch = useDispatch();
    const sessionUser = useSelector((state) => state.session.user);
    const [isLoaded, setIsLoaded] = useState(false);
@@ -27,7 +32,14 @@ function Navigation() {
                <NavLink exact to="/" className="homeicon-css">
                   <img src={homeicon} alt="home" />
                </NavLink>
-               {sessionUser ? <LeftsideNav /> : null}
+               {sessionUser ? (
+                  <LeftsideNav
+                     closeChannelDropdown={closeChannelDropdown}
+                     showNavDropdown={showNavDropdown}
+                     setShowNavDropdown={setShowNavDropdown}
+                     setShowWorkspaceDropdown={setShowWorkspaceDropdown}
+                  />
+               ) : null}
                {isLoaded ? <ProfileButton user={sessionUser} /> : null}
             </Col>
          </Row>

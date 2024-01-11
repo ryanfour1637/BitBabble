@@ -14,6 +14,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { BsCaretRightFill, BsCaretDownFill } from "react-icons/bs";
 import { FaHashtag } from "react-icons/fa";
 import useDropdownToggle from "../../ReusableComponents/DropdownToggle";
+import { is } from "css-select";
 
 function BytestreamNameDropdown({
    setBytestreamId,
@@ -21,6 +22,8 @@ function BytestreamNameDropdown({
    bytestreamId,
    user,
    setBytestreamName,
+   toggleChannelDropdown,
+   isChannelOpen,
 }) {
    const dispatch = useDispatch();
    const { userId, bytespaceId } = useParams();
@@ -30,7 +33,6 @@ function BytestreamNameDropdown({
    );
    const [isOpen, toggle] = useDropdownToggle();
    const dropdownRef = useRef(null);
-   const [isChannelOpen, setIsChannelOpen] = useState(false);
    const [activeBytestream, setActiveBytestream] = useState(null);
 
    useEffect(() => {
@@ -43,6 +45,8 @@ function BytestreamNameDropdown({
          e.stopPropagation();
       }
    };
+
+   useEffect(() => {}, [isChannelOpen]);
    useEffect(() => {
       document.addEventListener(
          "mousedown",
@@ -91,12 +95,6 @@ function BytestreamNameDropdown({
       setBytestreamId(bytestream.id);
       setActiveBytestream(bytestream.id);
       setBytestreamName(bytestream.name);
-   };
-
-   const toggleChannelDropdown = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setIsChannelOpen(!isChannelOpen);
    };
 
    return (

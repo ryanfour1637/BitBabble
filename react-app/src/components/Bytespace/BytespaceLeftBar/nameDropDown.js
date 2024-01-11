@@ -8,8 +8,14 @@ import LeaveBytespaceModal from "./leaveBytespaceModal";
 import { thunkGetAllBytespaces } from "../../../store/bytespace";
 import { thunkGetAllMembers } from "../../../store/bytespace_members";
 import { Container, Row, Col, Dropdown } from "react-bootstrap";
+import { set } from "harmony-reflect";
 
-function BytespaceNameDropdown() {
+function BytespaceNameDropdown({
+   closeChannelDropdown,
+   showWorkspaceDropdown,
+   setShowWorkspaceDropdown,
+   setShowNavDropdown,
+}) {
    const dispatch = useDispatch();
    const { userId, bytespaceId } = useParams();
    const bytespaces = useSelector((state) => state.bytespace.bytespaces);
@@ -36,9 +42,26 @@ function BytespaceNameDropdown() {
 
    const memberIdToDelete = bytespacesMembershipRosters[bytespaceId][userId];
 
+   const workspaceDropdownClicked = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (showWorkspaceDropdown) {
+         setShowWorkspaceDropdown(false);
+      } else {
+         setShowWorkspaceDropdown(true);
+         setShowNavDropdown(false);
+         closeChannelDropdown(e);
+      }
+   };
+
    return (
       <>
-         <Dropdown className="left-nav-workspace-dropdown-button">
+         <Dropdown
+            onClick={workspaceDropdownClicked}
+            show={showWorkspaceDropdown}
+            className="left-nav-workspace-dropdown-button"
+         >
             <Dropdown.Toggle as="span" className="bytespace-name-words">
                {bytespaceObj.name}
                <Dropdown.Menu className="workspace-dropdown-menu">

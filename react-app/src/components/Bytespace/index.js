@@ -13,8 +13,29 @@ import "./singlebytespace.css";
 function SingleBytespaceLandingPage({ user }) {
    const [bytestreamId, setBytestreamId] = useState(null);
    const [bytestreamName, setBytestreamName] = useState(null);
+   const [isChannelOpen, setIsChannelOpen] = useState(false);
+   const [showNavDropdown, setShowNavDropdown] = useState(false);
+   const [showWorkspaceDropdown, setShowWorkspaceDropdown] = useState(false);
    const socket = useWebSocket();
    const messagesContainerRef = useRef(null);
+
+   const toggleChannelDropdown = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (isChannelOpen) {
+         setIsChannelOpen(false);
+      } else {
+         setIsChannelOpen(true);
+         setShowNavDropdown(false);
+      }
+   };
+
+   const closeChannelDropdown = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setIsChannelOpen(false);
+   };
 
    function scrollToBottom() {
       if (messagesContainerRef.current) {
@@ -34,16 +55,29 @@ function SingleBytespaceLandingPage({ user }) {
             <Col xxl={3} className="h-100">
                <Row>
                   <Col xxl={2} className="left-nav-bar">
-                     <Navigation />
+                     <Navigation
+                        closeChannelDropdown={closeChannelDropdown}
+                        showNavDropdown={showNavDropdown}
+                        setShowNavDropdown={setShowNavDropdown}
+                        setShowWorkspaceDropdown={setShowWorkspaceDropdown}
+                     />
                   </Col>
                   <Col xxl={10} className="workspace-channel">
-                     <BytespaceNameDropdown />
+                     <BytespaceNameDropdown
+                        closeChannelDropdown={closeChannelDropdown}
+                        showWorkspaceDropdown={showWorkspaceDropdown}
+                        setShowWorkspaceDropdown={setShowWorkspaceDropdown}
+                        setShowNavDropdown={setShowNavDropdown}
+                     />
                      <BytestreamNameDropdown
                         setBytestreamId={setBytestreamId}
                         socket={socket}
                         bytestreamId={bytestreamId}
                         user={user}
                         setBytestreamName={setBytestreamName}
+                        toggleChannelDropdown={toggleChannelDropdown}
+                        isChannelOpen={isChannelOpen}
+                        setShowNavDropdown={setShowNavDropdown}
                      />
                   </Col>
                </Row>
