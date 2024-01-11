@@ -31,29 +31,38 @@
 .left-nav-topdiv-secondli {
    width: 100%;
 }
-.left-nav-bytespace-dropdown {
-   cursor: pointer;
-}
 
-.left-nav-bytespace-dropdown-button {
+.workspace-dropdown-menu {
+   background-color: transparent !important;
+   border: none !important;
+}
+.left-nav-workspace-dropdown-button {
+   position: relative;
+   z-index: 10000;
+   cursor: pointer;
    list-style-type: none;
    padding-bottom: 10px;
 }
-.left-nav-bytespace-dropdown-button button {
+.left-nav-workspace-dropdown-button button {
    cursor: pointer;
    width: 100%;
-   height: 20px;
-   padding: 0px 8px;
+   height: 30px;
+   padding: 0px 0px;
    border: 0;
    box-sizing: border-box;
    border-radius: 24px;
-   background-color: #8e25eb;
-   color: #ffffff;
-   font-size: 12px;
-   font-family: "Source Sans Pro";
-   font-weight: 700;
+   background-color: #ebc8e6;
+   color: #732e79;
+   font-size: 14px;
+   font-family: "Lato, sans-serif";
+   font-weight: 900;
    line-height: 22px;
    outline: none;
+   margin-bottom: 10px;
+}
+
+.left-nav-workspace-dropdown-button button:hover {
+   background-color: none;
 }
 
 .personicon {

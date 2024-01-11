@@ -13,6 +13,7 @@ import { BsPersonSquare } from "react-icons/bs";
 import ChatInputBox from "./chatInputBox";
 import UpdateBytestreamModal from "./updateBytestreamModal";
 import OpenModalButton from "../../OpenModalButton";
+import LeaveBytestreamModal from "./leaveBytestreamModal";
 
 function BytestreamChatRoom({
    bytestreamId,
@@ -135,7 +136,7 @@ function BytestreamChatRoom({
             <Container fluid className="h-100">
                <Row className="chatroom-topbar">
                   <Col xxl={12}>
-                     <Dropdown>
+                     <Dropdown className="bytestream-chatroom-dropdown">
                         <Dropdown.Toggle
                            as="div"
                            className="chatroom-channel-name-dropdown"
@@ -156,8 +157,8 @@ function BytestreamChatRoom({
                               }}
                            />
                         </Dropdown.Toggle>
-                        <Dropdown.Menu className="chatroom-channel-name-dropdown-open">
-                           <Dropdown.Item>
+                        <Dropdown.Menu className="chatroom-channel-dropdown-background">
+                           <Dropdown.Item as="button" className="update-button">
                               <OpenModalButton
                                  modalComponent={
                                     <UpdateBytestreamModal
@@ -168,8 +169,11 @@ function BytestreamChatRoom({
                                  buttonText="Update Name"
                               />
                            </Dropdown.Item>
-                           <Dropdown.Item>
-                              {"Placeholder for Leave channel"}
+                           <Dropdown.Item as="button" className="leave-button">
+                              <OpenModalButton
+                                 modalComponent={<LeaveBytestreamModal />}
+                                 buttonText="Leave Channel"
+                              />
                            </Dropdown.Item>
                         </Dropdown.Menu>
                      </Dropdown>

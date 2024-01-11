@@ -8,11 +8,33 @@ import CreateBytespaceModal from "./createBytespaceModel";
 import bytespaceimg from "../../images/bytespaceimage.png";
 import { Dropdown } from "react-bootstrap";
 
-function ByteSpaceDropdown() {
+function ByteSpaceDropdown({
+   closeChannelDropdown,
+   showNavDropdown,
+   setShowNavDropdown,
+   setShowWorkspaceDropdown,
+}) {
    const user = useSelector((state) => state.session.user);
 
+   const clickedDropdown = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (showNavDropdown) {
+         setShowNavDropdown(false);
+      } else {
+         setShowNavDropdown(true);
+         setShowWorkspaceDropdown(false);
+         closeChannelDropdown(e);
+      }
+   };
+
    return (
-      <Dropdown>
+      <Dropdown
+         onClick={clickedDropdown}
+         show={showNavDropdown}
+         className="left-nav-workspace-dropdown-button"
+      >
          <Dropdown.Toggle
             as="img"
             src={bytespaceimg}
@@ -21,16 +43,16 @@ function ByteSpaceDropdown() {
             role="button"
             className="group-button-nav"
          />
-         <Dropdown.Menu>
+         <Dropdown.Menu className="workspace-dropdown-menu">
             <Dropdown.Item as="button">
                <OpenModalButton
-                  buttonText="Join new bytespace"
+                  buttonText="Join Workspace"
                   modalComponent={<JoinBytespaceModal userId={user.id} />}
                />
             </Dropdown.Item>
             <Dropdown.Item as="button">
                <OpenModalButton
-                  buttonText="Create new bytespace"
+                  buttonText="Create Workspace"
                   modalComponent={<CreateBytespaceModal userId={user.id} />}
                />
             </Dropdown.Item>

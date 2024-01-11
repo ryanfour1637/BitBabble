@@ -7,48 +7,31 @@ import DeleteBytespaceModal from "./deleteBytespaceModal";
 import LeaveBytespaceModal from "./leaveBytespaceModal";
 import { thunkGetAllBytespaces } from "../../../store/bytespace";
 import { thunkGetAllMembers } from "../../../store/bytespace_members";
+import { Container, Row, Col, Dropdown } from "react-bootstrap";
+import { set } from "harmony-reflect";
 
-function BytespaceNameDropdown() {
+function BytespaceNameDropdown({
+   closeChannelDropdown,
+   showWorkspaceDropdown,
+   setShowWorkspaceDropdown,
+   setShowNavDropdown,
+}) {
    const dispatch = useDispatch();
-   const ulRefSingleBytespace = useRef();
-   const [showMenu, setShowMenu] = useState(false);
    const { userId, bytespaceId } = useParams();
-
    const bytespaces = useSelector((state) => state.bytespace.bytespaces);
    const bytespacesArr = Object.values(bytespaces);
    const bytespacesMembershipRosters = useSelector(
       (state) => state.bytespaceMembers
    );
-
    const singleBytespace = bytespacesArr.filter(
       (bytespace) => bytespace.id == bytespaceId
    );
    const bytespaceObj = singleBytespace[0];
 
-   const openMenu = () => {
-      if (showMenu) return;
-      setShowMenu(true);
-   };
-
    useEffect(() => {
       dispatch(thunkGetAllBytespaces());
       dispatch(thunkGetAllMembers());
-      if (!showMenu) return;
-
-      const closeMenu = (e) => {
-         if (!ulRefSingleBytespace.current.contains(e.target)) {
-            setShowMenu(false);
-         }
-      };
-
-      document.addEventListener("click", closeMenu);
-
-      return () => document.removeEventListener("click", closeMenu);
-   }, [showMenu, dispatch]);
-
-   const ulClassNameSingleBytespace =
-      "profile-dropdown" + (showMenu ? "" : " hidden");
-   const closeMenu = () => setShowMenu(false);
+   }, [dispatch]);
 
    if (bytespaceObj == undefined) return null;
    if (
@@ -59,52 +42,70 @@ function BytespaceNameDropdown() {
 
    const memberIdToDelete = bytespacesMembershipRosters[bytespaceId][userId];
 
+   const workspaceDropdownClicked = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (showWorkspaceDropdown) {
+         setShowWorkspaceDropdown(false);
+      } else {
+         setShowWorkspaceDropdown(true);
+         setShowNavDropdown(false);
+         closeChannelDropdown(e);
+      }
+   };
+
    return (
-      <div className="bytespace-namedropdown-div">
-         <h1 className="bytespace-name-words" onClick={openMenu}>
-            {bytespaceObj.name}
-         </h1>
+      <>
+         <Dropdown
+            onClick={workspaceDropdownClicked}
+            show={showWorkspaceDropdown}
+            className="left-nav-workspace-dropdown-button"
+         >
+            <Dropdown.Toggle as="span" className="bytespace-name-words">
+               {bytespaceObj.name}
+               <Dropdown.Menu className="workspace-dropdown-menu">
+                  {userId == bytespaceObj.ownerId && (
+                     <>
+                        <Dropdown.Item as="button">
+                           <OpenModalButton
+                              buttonText="Update Workspace"
+                              modalComponent={
+                                 <UpdateBytespaceModal
+                                    bytespaceObj={bytespaceObj}
+                                 />
+                              }
+                           />
+                        </Dropdown.Item>
+                        <Dropdown.Item as="button">
+                           <OpenModalButton
+                              buttonText="Delete Workspace"
+                              modalComponent={
+                                 <DeleteBytespaceModal
+                                    bytespaceId={bytespaceId}
+                                 />
+                              }
+                           />
+                        </Dropdown.Item>
+                     </>
+                  )}
 
-         <ul className={ulClassNameSingleBytespace} ref={ulRefSingleBytespace}>
-            {userId == bytespaceObj.ownerId && (
-               <div>
-                  <li>
-                     <OpenModalButton
-                        buttonText="Update your bytespace"
-                        onItemClick={closeMenu}
-                        modalComponent={
-                           <UpdateBytespaceModal bytespaceObj={bytespaceObj} />
-                        }
-                     />
-                  </li>
-                  <li>
-                     {" "}
-                     <OpenModalButton
-                        buttonText="Delete your bytespace"
-                        onItemClick={closeMenu}
-                        modalComponent={
-                           <DeleteBytespaceModal bytespaceId={bytespaceId} />
-                        }
-                     />
-                  </li>
-               </div>
-            )}
-
-            {userId != bytespaceObj.ownerId && (
-               <div>
-                  <li>
-                     <OpenModalButton
-                        buttonText="Leave Bytespace"
-                        onItemClick={closeMenu}
-                        modalComponent={
-                           <LeaveBytespaceModal idToDelete={memberIdToDelete} />
-                        }
-                     />
-                  </li>
-               </div>
-            )}
-         </ul>
-      </div>
+                  {userId != bytespaceObj.ownerId && (
+                     <Dropdown.Item as="button">
+                        <OpenModalButton
+                           buttonText="Leave Workspace"
+                           modalComponent={
+                              <LeaveBytespaceModal
+                                 idToDelete={memberIdToDelete}
+                              />
+                           }
+                        />
+                     </Dropdown.Item>
+                  )}
+               </Dropdown.Menu>
+            </Dropdown.Toggle>
+         </Dropdown>
+      </>
    );
 }
 
