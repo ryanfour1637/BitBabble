@@ -13,6 +13,7 @@ import { BsPersonSquare } from "react-icons/bs";
 import ChatInputBox from "./chatInputBox";
 import UpdateBytestreamModal from "./updateBytestreamModal";
 import OpenModalButton from "../../OpenModalButton";
+import LeaveBytestreamModal from "./leaveBytestreamModal";
 
 function BytestreamChatRoom({
    bytestreamId,
@@ -169,7 +170,10 @@ function BytestreamChatRoom({
                               />
                            </Dropdown.Item>
                            <Dropdown.Item>
-                              {"Placeholder for Leave channel"}
+                              <OpenModalButton
+                                 modalComponent={<LeaveBytestreamModal />}
+                                 buttonText="Leave Channel"
+                              />
                            </Dropdown.Item>
                         </Dropdown.Menu>
                      </Dropdown>

@@ -12,7 +12,7 @@ function ByteSpaceDropdown() {
    const user = useSelector((state) => state.session.user);
 
    return (
-      <Dropdown>
+      <Dropdown className="left-nav-workspace-dropdown-button">
          <Dropdown.Toggle
             as="img"
             src={bytespaceimg}
@@ -21,16 +21,16 @@ function ByteSpaceDropdown() {
             role="button"
             className="group-button-nav"
          />
-         <Dropdown.Menu>
+         <Dropdown.Menu className="workspace-dropdown-menu">
             <Dropdown.Item as="button">
                <OpenModalButton
-                  buttonText="Join new bytespace"
+                  buttonText="Join Workspace"
                   modalComponent={<JoinBytespaceModal userId={user.id} />}
                />
             </Dropdown.Item>
             <Dropdown.Item as="button">
                <OpenModalButton
-                  buttonText="Create new bytespace"
+                  buttonText="Create Workspace"
                   modalComponent={<CreateBytespaceModal userId={user.id} />}
                />
             </Dropdown.Item>
