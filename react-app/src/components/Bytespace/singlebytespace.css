@@ -26,6 +26,7 @@
    background-color: #371b3a;
    border-top-left-radius: 4px;
    border-bottom-left-radius: 4px;
+   height: 94.65vh;
 }
 
 .bytespace-name-words {
@@ -210,6 +211,44 @@
 
 .bytestream-name-dropdown span {
    cursor: pointer;
+}
+
+.bytestream-chatroom-dropdown {
+   position: relative;
+   z-index: 10000;
+   cursor: pointer;
+   list-style-type: none;
+   padding-bottom: 10px;
+}
+
+.bytestream-chatroom-dropdown button {
+   width: 160px;
+   height: 30px;
+   padding: 0px 0px;
+   border: 0;
+   box-sizing: border-box;
+   border-radius: 24px;
+   background-color: #ebc8e6;
+   color: #732e79;
+   font-size: 14px;
+   font-family: "Lato, sans-serif";
+   font-weight: 900;
+   line-height: 22px;
+   outline: none;
+}
+
+.update-button {
+   margin: 0 0 10px 7.5px;
+}
+
+.leave-button {
+   margin: 0 0 0 7.5px;
+}
+
+.chatroom-channel-dropdown-background {
+   background-color: #732e79 !important;
+   border: none !important;
+   width: 175px;
 }
 
 /*OLD CSS CODE WITHOUT BOOTSTRAP IF I NEED IT LATER*/
