@@ -22,15 +22,17 @@ function BytestreamChatRoom({
    bytestreamName,
    scrollToBottom,
    messagesContainerRef,
+   setBytestreamName,
 }) {
    const dispatch = useDispatch();
-
    const messages = useSelector((state) => state.messages);
    const [message, setMessage] = useState("");
 
    useEffect(() => {
       dispatch(thunkGetAllMessages());
    }, [dispatch]);
+
+   useEffect(() => {}, [bytestreamName]);
 
    useEffect(() => {
       scrollToBottom();
@@ -164,6 +166,7 @@ function BytestreamChatRoom({
                                     <UpdateBytestreamModal
                                        bytestreamId={bytestreamId}
                                        bytestreamName={bytestreamName}
+                                       setBytestreamName={setBytestreamName}
                                     />
                                  }
                                  buttonText="Update Name"

@@ -90,6 +90,7 @@ function SingleBytespaceLandingPage({ user }) {
                   bytestreamName={bytestreamName}
                   scrollToBottom={scrollToBottom}
                   messagesContainerRef={messagesContainerRef}
+                  setBytestreamName={setBytestreamName}
                />
             </Col>
          </Row>

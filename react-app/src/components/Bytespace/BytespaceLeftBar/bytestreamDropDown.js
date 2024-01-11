@@ -171,6 +171,7 @@ function BytestreamNameDropdown({
                         bytespaceId={bytespaceId}
                         socket={socket}
                         setBytestreamId={setBytestreamId}
+                        setBytestreamName={setBytestreamName}
                      />
                   }
                   buttonText="Create Channel"

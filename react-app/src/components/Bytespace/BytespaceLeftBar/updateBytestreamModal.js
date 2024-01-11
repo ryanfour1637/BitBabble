@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { thunkUpdateBytestream } from "../../../store/bytestream";
 
-function UpdateBytestreamModal({ bytestreamId, bytestreamName }) {
+function UpdateBytestreamModal({
+   bytestreamId,
+   bytestreamName,
+   setBytestreamName,
+}) {
    const dispatch = useDispatch();
    const { closeModal } = useModal();
    const [name, setName] = useState(bytestreamName);
@@ -14,7 +18,8 @@ function UpdateBytestreamModal({ bytestreamId, bytestreamName }) {
          thunkUpdateBytestream({ name: name }, bytestreamId)
       );
 
-      if (!errors) {
+      if (errors === null) {
+         setBytestreamName(name);
          closeModal();
       } else {
          setErrors(errors.errors);
