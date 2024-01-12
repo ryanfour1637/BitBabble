@@ -7,7 +7,10 @@ function DemoUser({ setEmail, setPassword }) {
    };
 
    return (
-      <button className="login-modal-submit-buttons" onClick={onClick}>
+      <button
+         className="login-modal-submit-buttons top-button-login"
+         onClick={onClick}
+      >
          Log in as DemoUser
       </button>
    );

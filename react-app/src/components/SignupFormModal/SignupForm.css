@@ -1,5 +1,5 @@
 .signup-modal-outerdiv {
-   background-color: #161616;
+   background-color: #371b3a;
    height: 740px;
    width: 600px;
    border-radius: 24px;
@@ -19,55 +19,60 @@
    justify-content: space-evenly;
 }
 .signup-modal-signupwords {
-   color: #ffffff;
+   color: #d1d2d3;
    font-size: 36px;
-   font-family: "Source Sans Pro";
+   font-family: "Lato, sans-serif";
    font-weight: 700;
    text-align: center;
-   margin-bottom: 5px;
+   margin: 15px 0 0 0;
 }
 
 .signup-modal-startingwords {
-   color: #ffffff;
+   color: #d1d2d3;
    font-size: 14px;
-   font-family: "Source Sans Pro";
+   font-family: "Lato, sans-serif";
    text-align: center;
    margin: 0;
 }
 
 .signup-modal-inputdiv {
-   height: 90px;
    margin-bottom: 5px;
 }
 
 .signup-modal-form-labels {
    display: block;
-   color: #bebebe;
-   font-family: "Source Sans Pro";
+   color: #d1d2d3;
+   font-family: "Lato, sans-serif";
 }
 
 .signup-modal-labels-div {
    display: flex;
    justify-content: flex-start;
    align-items: center;
-   height: 40px;
+   height: 25px;
+   margin: 20px 0 0 0;
+}
+
+.signup-modal-labels-div h4 {
+   font-size: 18px;
 }
 
 .signup-modal-labels-div p {
-   color: red;
+   color: #dc143c;
    padding-left: 25px;
+   margin-top: 10px;
 }
 
 .signup-modal-form-inputs {
    display: block;
    width: 450px;
-   height: 48px;
+   height: 40px;
    padding: 0px 8px;
    border: 0;
    box-sizing: border-box;
    border-radius: 24px;
-   background-color: #323232;
-   color: #bebebe;
+   background-color: #d1d2d3;
+   color: black;
    font-size: 14px;
    font-family: "Source Sans Pro";
    font-weight: 500;
@@ -77,7 +82,7 @@
 }
 
 .signup-modal-form-inputs::placeholder {
-   color: #bebebe;
+   color: black;
 }
 
 .signup-modal-form-submitbutton {
@@ -88,10 +93,10 @@
    border: 0;
    box-sizing: border-box;
    border-radius: 24px;
-   background-color: #8e25eb;
-   color: #ffffff;
+   background-color: #ebc8e6;
+   color: #732e79;
    font-size: 16px;
-   font-family: "Source Sans Pro";
+   font-family: "Lato, sans-serif";
    font-weight: 700;
    line-height: 22px;
    outline: none;
@@ -99,5 +104,5 @@
 }
 
 .signup-errors {
-   color: red;
+   color: #dc143c;
 }
