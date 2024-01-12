@@ -144,12 +144,6 @@ function BytestreamNameDropdown({
                        </div>
                     ))
                   : null}
-               <div className="channel-dropdown-item-div">
-                  <Dropdown.Item className="channel-dropdown-item">
-                     <FaHashtag style={{ marginRight: "10px" }} />
-                     Add Channels
-                  </Dropdown.Item>
-               </div>
             </Dropdown.Menu>
          </Dropdown>
          {isChannelOpen && (
