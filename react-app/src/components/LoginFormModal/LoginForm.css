@@ -1,14 +1,14 @@
 .login-modal-outerdiv {
-   background-color: #161616;
+   background-color: #371b3a;
    height: 525px;
    width: 600px;
    border-radius: 24px;
 }
 
 .login-modal-loginwords {
-   color: #ffffff;
+   color: #d1d2d3;
    font-size: 48px;
-   font-family: "Source Sans Pro";
+   font-family: "Lato, sans-serif";
    font-weight: 700;
    line-height: 56px;
    text-align: center;
@@ -32,7 +32,7 @@
 
 .login-modal-label {
    display: block;
-   color: #bebebe;
+   color: #d1d2d3;
 }
 
 .login-modal-form-inputs {
@@ -44,17 +44,17 @@
    border: 0;
    box-sizing: border-box;
    border-radius: 24px;
-   background-color: #323232;
-   color: #bebebe;
+   background-color: #d1d2d3;
+   color: black;
    font-size: 14px;
-   font-family: "Source Sans Pro";
+   font-family: "Lato, sans-serif";
    font-weight: 500;
    line-height: 18px;
    outline: none;
 }
 
 .login-modal-form-inputs::placeholder {
-   color: #bebebe;
+   color: black;
 }
 
 .login-modal-buttondiv {
@@ -72,13 +72,17 @@
    border: 0;
    box-sizing: border-box;
    border-radius: 24px;
-   background-color: #8e25eb;
-   color: #ffffff;
+   background-color: #ebc8e6;
+   color: #732e79;
    font-size: 16px;
-   font-family: "Source Sans Pro";
+   font-family: "Lato, sans-serif";
    font-weight: 700;
    line-height: 22px;
    outline: none;
+}
+
+.top-button-login {
+   margin: 25px 0 0 0;
 }
 
 .login-modal-errors {
