@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams, NavLink } from "react-router-dom";
+import React from "react";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
 import OpenModalButton from "../OpenModalButton";
 import SignupFormModal from "../SignupFormModal";
 import LoginFormModal from "../LoginFormModal";
@@ -74,9 +73,28 @@ function LoggedOutLandingPage() {
             </Col>
          </Row>
          <Row className="homepage-footer">
-            <p className="bottom-footer-tags">LinkedIn placeholder</p>
-            <p className="bottom-footer-tags">GitHub placeholder</p>
-            <p className="bottom-footer-tags">download resume placeholder</p>
+            <Col>
+               <Row style={{ height: "100%" }}>
+                  <Col className="homepage-footer-icons">
+                     <a
+                        href="https://www.linkedin.com/in/ryan-fournier-software-engineer/"
+                        target="_blank"
+                        rel="noreferrer"
+                     >
+                        <FaLinkedin />
+                     </a>
+                  </Col>
+                  <Col className="homepage-footer-icons">
+                     <a
+                        href="https://github.com/ryanfour1637"
+                        target="_blank"
+                        rel="noreferrer"
+                     >
+                        <FaGithub />
+                     </a>
+                  </Col>
+               </Row>
+            </Col>
          </Row>
       </Container>
    );

@@ -24,8 +24,8 @@ body {
 .homepage-toprow {
    display: flex;
    align-items: center;
-   height: 10%;
-   border-bottom: 2px solid #fadadd;
+   height: 6.7%;
+   background-color: #fadadd;
 }
 
 .homepage-h1 {
@@ -44,7 +44,7 @@ body {
 }
 
 .homepage-h2-img {
-   height: 55%;
+   height: 58.3%;
 }
 
 .homepage-midleft {
@@ -74,8 +74,22 @@ body {
 }
 
 .homepage-footer {
-   border: 2px red solid;
+   background-color: #fadadd;
    height: 5%;
+}
+
+.homepage-footer-icons {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100%;
+}
+
+.homepage-footer-icons svg {
+   cursor: pointer;
+   color: #732e79;
+   height: 30px;
+   width: 30px;
 }
 
 .homepage-topdiv-rightside {
