@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import OpenModalButton from "../../OpenModalButton";
 import UpdateBytespaceModal from "./updateBytespace";
 import DeleteBytespaceModal from "./deleteBytespaceModal";
 import LeaveBytespaceModal from "./leaveBytespaceModal";
 import { thunkGetAllBytespaces } from "../../../store/bytespace";
 import { thunkGetAllMembers } from "../../../store/bytespace_members";
-import { Container, Row, Col, Dropdown } from "react-bootstrap";
-import { set } from "harmony-reflect";
+import { Dropdown } from "react-bootstrap";
 
 function BytespaceNameDropdown({
    closeChannelDropdown,
@@ -83,6 +82,7 @@ function BytespaceNameDropdown({
                               modalComponent={
                                  <DeleteBytespaceModal
                                     bytespaceId={bytespaceId}
+                                    deleteCSSClass="delete-outerdiv"
                                  />
                               }
                            />
@@ -97,6 +97,7 @@ function BytespaceNameDropdown({
                            modalComponent={
                               <LeaveBytespaceModal
                                  idToDelete={memberIdToDelete}
+                                 leaveCSS="leave-outerdiv"
                               />
                            }
                         />

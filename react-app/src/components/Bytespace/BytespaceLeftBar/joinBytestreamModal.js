@@ -34,7 +34,7 @@ function JoinBytestreamModal({
 
    return (
       <div className="joinbytespace-outerdiv">
-         <h1>Join Channels</h1>
+         <h1>Join channels</h1>
          <label className="joinbytespace-label">
             Choose a Channel:
             <select

@@ -28,7 +28,7 @@ function UpdateBytestreamModal({
    return (
       <div className="createbytespace-outerdiv">
          <div>
-            <h1>Update your Channel</h1>
+            <h1>Update your channel</h1>
             <p className="createbytespace-errors">{errors}</p>
          </div>
          <label className="createbytespace-label">

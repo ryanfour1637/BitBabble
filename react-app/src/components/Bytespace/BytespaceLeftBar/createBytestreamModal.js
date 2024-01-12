@@ -36,7 +36,7 @@ function CreateBytestreamModal({
    return (
       <div className="createbytespace-outerdiv">
          <div>
-            <h1>Create a Channel</h1>
+            <h1>Create a channel</h1>
             <p className="createbytespace-errors">{errors}</p>
          </div>
          <label className="createbytespace-label">

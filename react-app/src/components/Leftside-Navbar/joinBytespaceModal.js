@@ -66,7 +66,7 @@ function JoinBytespaceModal() {
 
    return (
       <div className="joinbytespace-outerdiv">
-         <h1>Join Workspaces</h1>
+         <h1>Join workspaces</h1>
          <label className="joinbytespace-label">
             Choose a Workspace:
             <select

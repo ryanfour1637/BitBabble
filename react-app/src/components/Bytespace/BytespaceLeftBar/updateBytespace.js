@@ -25,7 +25,7 @@ function UpdateBytespaceModal({ bytespaceObj }) {
    return (
       <div className="createbytespace-outerdiv">
          <div>
-            <h1>Update your Workspace</h1>
+            <h1>Update your workspace</h1>
             <p className="createbytespace-errors">{errors}</p>
          </div>
          <label className="createbytespace-label">

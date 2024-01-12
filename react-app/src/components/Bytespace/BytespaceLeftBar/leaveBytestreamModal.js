@@ -10,6 +10,7 @@ function LeaveBytestreamModal({
    setBytestreamId,
    bytestreamId,
    user,
+   leaveCSS,
 }) {
    const dispatch = useDispatch();
    const { closeModal } = useModal();
@@ -35,7 +36,7 @@ function LeaveBytestreamModal({
    };
 
    return (
-      <div className="delete-outerdiv">
+      <div className={leaveCSS}>
          <h2>Are you sure you want to leave this channel?</h2>
          <h4>This action cannot be reversed.</h4>
          <div className="delete-button-div">

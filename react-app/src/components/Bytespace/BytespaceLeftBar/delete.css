@@ -1,3 +1,14 @@
+.leave-outerdiv {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-evenly;
+   align-items: center;
+   background-color: #371b3a;
+   height: 300px;
+   width: 600px;
+   border-radius: 24px;
+}
+
 .delete-outerdiv {
    display: flex;
    flex-direction: column;
@@ -9,12 +20,21 @@
    border-radius: 24px;
 }
 
-.delete-outerdiv h2 {
+.leave-outerdiv h2 {
    color: #d1d2d3;
    width: 85%;
 }
 
+.delete-outerdiv h2 {
+   color: #d1d2d3;
+   width: fit-content;
+}
+
 .delete-outerdiv h4 {
+   color: #d1d2d3;
+}
+
+.leave-outerdiv h4 {
    color: #d1d2d3;
 }
 
@@ -24,6 +44,24 @@
 }
 
 .delete-outerdiv button {
+   cursor: pointer;
+   width: 60px;
+   height: 40px;
+   padding: 0px 8px;
+   border: 0;
+   box-sizing: border-box;
+   border-radius: 24px;
+   background-color: #ebc8e6;
+   color: #732e79;
+   font-size: 16px;
+   font-family: "Source Sans Pro";
+   font-weight: 700;
+   line-height: 22px;
+   outline: none;
+   margin-left: 10px;
+}
+
+.leave-outerdiv button {
    cursor: pointer;
    width: 60px;
    height: 40px;

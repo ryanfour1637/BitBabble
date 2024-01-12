@@ -28,7 +28,7 @@ function CreateBytespaceModal({ userId }) {
    return (
       <div className="createbytespace-outerdiv">
          <div>
-            <h1>Create a Workspace</h1>
+            <h1>Create a workspace</h1>
             <p className="createbytespace-errors">{errors}</p>
          </div>
 

@@ -14,6 +14,7 @@ import ChatInputBox from "./chatInputBox";
 import UpdateBytestreamModal from "./updateBytestreamModal";
 import OpenModalButton from "../../OpenModalButton";
 import LeaveBytestreamModal from "./leaveBytestreamModal";
+import DeleteBytestreamModal from "./deleteBytestreamModal";
 
 function BytestreamChatRoom({
    bytestreamId,
@@ -23,6 +24,7 @@ function BytestreamChatRoom({
    scrollToBottom,
    messagesContainerRef,
    setBytestreamName,
+   bytestream,
 }) {
    const dispatch = useDispatch();
    const messages = useSelector((state) => state.messages);
@@ -174,10 +176,28 @@ function BytestreamChatRoom({
                            </Dropdown.Item>
                            <Dropdown.Item as="button" className="leave-button">
                               <OpenModalButton
-                                 modalComponent={<LeaveBytestreamModal />}
+                                 modalComponent={
+                                    <LeaveBytestreamModal leaveCSS="leave-outerdiv" />
+                                 }
                                  buttonText="Leave Channel"
                               />
                            </Dropdown.Item>
+                           {bytestream.ownerId === user.id && (
+                              <Dropdown.Item
+                                 as="button"
+                                 className="delete-button"
+                              >
+                                 <OpenModalButton
+                                    modalComponent={
+                                       <DeleteBytestreamModal
+                                          bytestream={bytestream}
+                                          deleteCSS="delete-outerdiv"
+                                       />
+                                    }
+                                    buttonText="Delete Channel"
+                                 />
+                              </Dropdown.Item>
+                           )}
                         </Dropdown.Menu>
                      </Dropdown>
                   </Col>
