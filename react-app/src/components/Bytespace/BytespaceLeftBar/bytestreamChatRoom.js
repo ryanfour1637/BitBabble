@@ -17,6 +17,7 @@ import LeaveBytestreamModal from "./leaveBytestreamModal";
 import DeleteBytestreamModal from "./deleteBytestreamModal";
 
 function BytestreamChatRoom({
+   setBytestreamId,
    bytestreamId,
    socket,
    user,
@@ -191,6 +192,7 @@ function BytestreamChatRoom({
                                     modalComponent={
                                        <DeleteBytestreamModal
                                           bytestream={bytestream}
+                                          setBytestreamId={setBytestreamId}
                                           deleteCSS="delete-outerdiv"
                                        />
                                     }

@@ -84,6 +84,7 @@ function SingleBytespaceLandingPage({ user }) {
             </Col>
             <Col xxl={9} className="chatroom-outer-div">
                <BytestreamChatRoom
+                  setBytestreamId={setBytestreamId}
                   bytestreamId={bytestreamId}
                   socket={socket}
                   user={user}
