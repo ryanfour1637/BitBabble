@@ -28,13 +28,13 @@ function CreateBytespaceModal({ userId }) {
    return (
       <div className="createbytespace-outerdiv">
          <div>
-            <h1>Create a Bytespace</h1>
+            <h1>Create a Workspace</h1>
             <p className="createbytespace-errors">{errors}</p>
          </div>
 
          <label className="createbytespace-label">
             <div className="createbytespace-label-div">
-               <h4>Bytespace Name:</h4>
+               <h4>Workspace Name:</h4>
                {name.length < 6 || name.length > 25 ? (
                   <p className="createbytespace-label-errors">
                      Must be between 6-25 characters
@@ -54,7 +54,7 @@ function CreateBytespaceModal({ userId }) {
             onClick={createBytespace}
             disabled={name.length < 6 || name.length > 25}
          >
-            Create Bytespace
+            Create Workspace
          </button>
       </div>
    );

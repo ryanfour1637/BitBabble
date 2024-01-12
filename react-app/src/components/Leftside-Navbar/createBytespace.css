@@ -3,16 +3,16 @@
    flex-direction: column;
    justify-content: space-evenly;
    align-items: center;
-   background-color: #161616;
+   background-color: #371b3a;
    height: 300px;
    width: 600px;
    border-radius: 24px;
 }
 
 .createbytespace-outerdiv h1 {
-   color: #ffffff;
+   color: #d1d2d3;
    font-size: 36px;
-   font-family: "Source Sans Pro";
+   font-family: "Lato, sans-serif";
    font-weight: 700;
    text-align: center;
    margin-bottom: 0;
@@ -20,7 +20,8 @@
 
 .createbytespace-label {
    display: block;
-   color: #bebebe;
+   color: #d1d2d3;
+   font-family: "Lato, sans-serif";
 }
 
 .createbytespace-label-div {
@@ -30,7 +31,7 @@
 }
 
 .createbytespace-label-errors {
-   color: red;
+   color: #dc143c;
    padding-left: 25px;
 }
 
@@ -43,14 +44,19 @@
    border: 0;
    box-sizing: border-box;
    border-radius: 24px;
-   background-color: #323232;
-   color: #bebebe;
+   background-color: #d1d2d3;
+   color: black;
    font-size: 14px;
-   font-family: "Source Sans Pro";
+   font-family: "Lato, sans-serif";
    font-weight: 500;
    line-height: 18px;
    outline: none;
 }
+
+.createbytespace-input::placeholder {
+   color: black;
+}
+
 .createbytespace-button {
    cursor: pointer;
    width: 450px;
@@ -59,8 +65,8 @@
    border: 0;
    box-sizing: border-box;
    border-radius: 24px;
-   background-color: #8e25eb;
-   color: #ffffff;
+   background-color: #ebc8e6;
+   color: #732e79;
    font-size: 16px;
    font-family: "Source Sans Pro";
    font-weight: 700;
@@ -69,5 +75,5 @@
 }
 
 .createbytespace-errors {
-   color: red;
+   color: #dc143c;
 }

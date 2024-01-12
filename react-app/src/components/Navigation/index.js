@@ -40,7 +40,9 @@ function Navigation({
                      setShowWorkspaceDropdown={setShowWorkspaceDropdown}
                   />
                ) : null}
-               {isLoaded ? <ProfileButton user={sessionUser} /> : null}
+               {isLoaded ? (
+                  <ProfileButton user={sessionUser} logoutClass="personicon" />
+               ) : null}
             </Col>
          </Row>
       </>

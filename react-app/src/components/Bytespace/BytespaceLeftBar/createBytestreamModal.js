@@ -36,12 +36,12 @@ function CreateBytestreamModal({
    return (
       <div className="createbytespace-outerdiv">
          <div>
-            <h1>Create a Bytestream</h1>
+            <h1>Create a Channel</h1>
             <p className="createbytespace-errors">{errors}</p>
          </div>
          <label className="createbytespace-label">
             <div className="createbytespace-label-div">
-               <h4>Bytestream Name:</h4>
+               <h4>Channel Name:</h4>
                {name.length < 6 || name.length > 25 ? (
                   <p className="createbytespace-label-errors">
                      Must be between 6-25 characters
@@ -60,7 +60,7 @@ function CreateBytestreamModal({
             onClick={createBytestream}
             disabled={name.length < 6 || name.length > 25}
          >
-            Create Bytestream
+            Create Channel
          </button>
       </div>
    );

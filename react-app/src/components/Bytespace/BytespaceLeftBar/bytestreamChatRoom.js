@@ -169,7 +169,7 @@ function BytestreamChatRoom({
                                        setBytestreamName={setBytestreamName}
                                     />
                                  }
-                                 buttonText="Update Name"
+                                 buttonText="Update Channel"
                               />
                            </Dropdown.Item>
                            <Dropdown.Item as="button" className="leave-button">

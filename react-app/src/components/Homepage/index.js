@@ -38,10 +38,10 @@ function LoggedOutLandingPage() {
                   Getting started with BitBabble
                </h2>
                <p className="loggedout-bottompage-leftside-paragraph">
-                  As a new user, you can create and manage bytespaces and
-                  bytestreams on BitBabble. Sign up as a new user to generate
-                  your first bytespace or to join a public one. You can always
-                  create another whenever you need one!
+                  As a new user, you can create and manage workspaces and
+                  channels on BitBabble. Sign up as a new user to generate your
+                  first workspace or to join a public one. You can always create
+                  another whenever you need one!
                </p>
             </div>
             <div className="loggedout-bottompage-rightside">
