@@ -14,27 +14,31 @@ function LoggedOutLandingPage() {
    return (
       <Container fluid className="h-100 loggedout-wholepage">
          <Row className="homepage-toprow">
-            <Col>
+            <Col col={6}>
                <Row>
-                  <Col>
-                     <a>About this Project</a>
+                  <Col className="homepage-topdiv-rightside">
+                     <OpenModalButton
+                        buttonText="About Project"
+                        modalComponent={<SignupFormModal />}
+                     />
                   </Col>
-                  <Col>
-                     <a>About Me</a>
+                  <Col className="homepage-topdiv-rightside">
+                     <OpenModalButton
+                        buttonText="About Me"
+                        modalComponent={<SignupFormModal />}
+                     />
                   </Col>
                </Row>
             </Col>
-            <Col></Col>
-            <Col>
+            <Col col={6}>
                <Row>
-                  <Col>
+                  <Col className="homepage-topdiv-rightside">
                      <OpenModalButton
-                        className="joinNowButton"
                         buttonText="Join Now"
                         modalComponent={<SignupFormModal />}
                      />
                   </Col>
-                  <Col>
+                  <Col className="homepage-topdiv-rightside">
                      <OpenModalButton
                         buttonText="Log In"
                         modalComponent={<LoginFormModal />}
@@ -44,11 +48,11 @@ function LoggedOutLandingPage() {
             </Col>
          </Row>
          <Row className="homepage-h1">
-            <h1>How does BitBabble work</h1>
+            <h1>How does BitBabble work?</h1>
          </Row>
          <Row className="homepage-h2-img">
-            <Col>
-               <Row>
+            <Col col={6}>
+               <Row className="homepage-midleft">
                   <h2>Getting started with BitBabble</h2>
                   <p>
                      {" "}
@@ -58,14 +62,15 @@ function LoggedOutLandingPage() {
                      always create another whenever you need one!
                   </p>
                </Row>
-               <Row></Row>
             </Col>
-            <Col>
-               <img
-                  src={loggedoutimage}
-                  alt="bytespaces and bytestreams"
-                  id="loggedout-image"
-               />
+            <Col col={6}>
+               <Row className="homepage-midright">
+                  <img
+                     src={loggedoutimage}
+                     alt="bytespaces and bytestreams"
+                     id="loggedout-image"
+                  />
+               </Row>
             </Col>
          </Row>
          <Row className="homepage-footer">

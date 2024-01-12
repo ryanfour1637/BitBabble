@@ -22,80 +22,83 @@ body {
 }
 
 .homepage-toprow {
-   height: 7.5%;
-   border: 2px red solid;
+   display: flex;
+   align-items: center;
+   height: 10%;
+   border-bottom: 2px solid #fadadd;
 }
 
 .homepage-h1 {
    height: 30%;
-   border: 2px red solid;
+}
+
+.homepage-h1 h1 {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   color: #fadadd;
+   font-size: 60px;
+   font-family: "Lato, sans-serif";
+   font-weight: 700;
+   line-height: 70px;
 }
 
 .homepage-h2-img {
    height: 55%;
 }
 
+.homepage-midleft {
+   display: flex;
+   justify-content: center;
+}
+
+.homepage-midright {
+   display: flex;
+   justify-content: center;
+}
+
+.homepage-h2-img h2 {
+   color: #fadadd;
+   font-size: 34px;
+   font-family: "Lato, sans-serif";
+   font-weight: 700;
+   width: 56%;
+   margin: 30px 0;
+}
+
+.homepage-h2-img p {
+   color: #fadadd;
+   font-size: 20px;
+   font-family: "Lato, sans-serif";
+   width: 56%;
+}
+
 .homepage-footer {
    border: 2px red solid;
-   height: 7.5%;
+   height: 5%;
 }
 
-.loggedout-topdiv {
+.homepage-topdiv-rightside {
    display: flex;
-   justify-content: space-between;
+   justify-content: center;
 }
 
-.loggedout-topdiv-leftside {
-   width: 500px;
-   display: flex;
-   flex-direction: row;
-   justify-content: space-evenly;
-   margin-left: 75px;
-   margin-top: 25px;
-}
-
-.loggedout-topdiv-rightside {
-   display: flex;
-   width: 400px;
-   justify-content: space-evenly;
-   margin-right: 150px;
-   margin-top: 25px;
-}
-
-.loggedout-topdiv-leftside-links {
-   color: #8e25eb;
-   font-size: 16px;
-   font-family: "Source Sans Pro";
-   font-weight: 500;
-   line-height: 21px;
-}
-
-.loggedout-topdiv-rightside button {
+.homepage-topdiv-rightside button {
    cursor: pointer;
-   width: 153px;
+   width: 160px;
    height: 60px;
    padding: 0px 8px;
+   margin: 0 25px 0 0;
    border: 0;
    box-sizing: border-box;
    border-radius: 24px;
-   background-color: #ffffff;
-   color: #161616;
+   background-color: #fadadd;
+   color: #732e79;
    font-size: 20px;
-   font-family: "Source Sans Pro";
+   font-family: "Lato, sans-serif";
    font-weight: 700;
    line-height: 26px;
    outline: none;
-}
-
-.loggedout-midpage {
-   color: #ffffff;
-   font-size: 60px;
-   font-family: "Source Sans Pro";
-   font-weight: 700;
-   line-height: 70px;
-   text-align: center;
-   margin-top: 100px;
-   margin-bottom: 100px;
 }
 
 .loggedout-bottompage {
