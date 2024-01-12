@@ -17,8 +17,27 @@ body {
 }
 
 .loggedout-wholepage {
-   background-color: #8e25eb;
-   height: 898px;
+   background-color: #732e79;
+   height: 100%;
+}
+
+.homepage-toprow {
+   height: 7.5%;
+   border: 2px red solid;
+}
+
+.homepage-h1 {
+   height: 30%;
+   border: 2px red solid;
+}
+
+.homepage-h2-img {
+   height: 55%;
+}
+
+.homepage-footer {
+   border: 2px red solid;
+   height: 7.5%;
 }
 
 .loggedout-topdiv {

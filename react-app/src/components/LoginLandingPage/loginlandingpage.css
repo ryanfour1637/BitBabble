@@ -3,8 +3,12 @@
    flex-direction: column;
    align-items: center;
    justify-content: space-evenly;
-   height: 900px;
-   background-color: #8e25eb;
+   height: 100vh;
+   background-color: #732e79;
+}
+
+.login-landing-page {
+   cursor: pointer;
 }
 
 .loginlp-topdiv {
@@ -15,9 +19,9 @@
 }
 
 .loginlp-topdiv-bitbabble {
-   color: #ffffff;
+   color: #d1d2d3;
    font-size: 24px;
-   font-family: "Source Sans Pro";
+   font-family: "Lato, sans-serif";
    line-height: 31px;
 }
 
@@ -29,18 +33,18 @@
 }
 
 .loginlp-topdiv-bottomdiv-welcome {
-   color: #f2f2f2;
+   color: #d1d2d3;
    font-size: 39px;
-   font-family: "Lato";
+   font-family: "Lato, sans-serif";
    font-weight: 700;
    line-height: 53px;
    margin-bottom: 0;
 }
 
 .loginlp-topdiv-bottomdiv-choose {
-   color: #f2f2f2;
+   color: #d1d2d3;
    font-size: 17px;
-   font-family: "Lato";
+   font-family: "Lato, sans-serif";
    line-height: 27px;
    margin-top: 0;
 }
