@@ -17,10 +17,9 @@ import useDropdownToggle from "../../ReusableComponents/DropdownToggle";
 import { is } from "css-select";
 
 function BytestreamNameDropdown({
+   setBytestream,
    setBytestreamId,
    socket,
-   bytestreamId,
-   user,
    setBytestreamName,
    toggleChannelDropdown,
    isChannelOpen,
@@ -95,6 +94,7 @@ function BytestreamNameDropdown({
       setBytestreamId(bytestream.id);
       setActiveBytestream(bytestream.id);
       setBytestreamName(bytestream.name);
+      setBytestream(bytestream);
    };
 
    return (

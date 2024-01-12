@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
 import { thunkRemoveFromBytespace } from "../../../store/bytespace_members";
 
-function LeaveBytespaceModal({ idToDelete }) {
+function LeaveBytespaceModal({ idToDelete, leaveCSS }) {
    const dispatch = useDispatch();
    const { push } = useHistory();
    const { closeModal } = useModal();
@@ -15,8 +15,8 @@ function LeaveBytespaceModal({ idToDelete }) {
       return push("/");
    };
    return (
-      <div className="delete-outerdiv">
-         <h2>Are you sure you want to leave this Bytespace</h2>
+      <div className={leaveCSS}>
+         <h2>Are you sure you want to leave this workspace</h2>
          <h4>This action cannot be reversed.</h4>
 
          <div className="delete-button-div">

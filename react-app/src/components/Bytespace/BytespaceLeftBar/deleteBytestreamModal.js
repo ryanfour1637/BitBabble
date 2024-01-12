@@ -7,7 +7,7 @@ import { thunkGetAllBytestreams } from "../../../store/bytestream";
 import { actionDeleteBytestreamMessages } from "../../../store/messages";
 import "./delete.css";
 
-function DeleteBytestreamModal({ bytestream, setBytestreamId, idToDelete }) {
+function DeleteBytestreamModal({ bytestream, setBytestreamId, deleteCSS }) {
    const dispatch = useDispatch();
    const { push } = useHistory();
    const { closeModal } = useModal();
@@ -21,8 +21,8 @@ function DeleteBytestreamModal({ bytestream, setBytestreamId, idToDelete }) {
    };
 
    return (
-      <div className="delete-outerdiv">
-         <h2>Are you sure you want to delete your Bytestream?</h2>
+      <div className={deleteCSS}>
+         <h2>Delete your channel?</h2>
          <h4>This action cannot be reversed.</h4>
          <div className="delete-button-div">
             <button onClick={deleteBytestream}>Yes</button>

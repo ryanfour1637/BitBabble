@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { thunkGetAllBytespaces } from "../../store/bytespace";
 import { thunkGetAllMembers } from "../../store/bytespace_members";
 import OpenModalButton from "../OpenModalButton";
@@ -8,6 +8,7 @@ import JoinBytespaceModal from "../Leftside-Navbar/joinBytespaceModal";
 import CreateBytespaceModal from "../Leftside-Navbar/createBytespaceModel";
 import joinImage from "../../images/joinbytespaceimg.png";
 import createImage from "../../images/createbytespaceimg.png";
+import ProfileButton from "../Navigation/ProfileButton";
 import "./loginlandingpage.css";
 
 function LoginLandingPage() {
@@ -53,13 +54,13 @@ function LoginLandingPage() {
                   Welcome back! You look nice today.
                </h2>
                <h6 className="loginlp-topdiv-bottomdiv-choose">
-                  Choose a bytespace below to get back to working with your
+                  Choose a workspace below to get back to working with your
                   team.
                </h6>
             </div>
          </div>
          <div className="loginlp-middiv">
-            <h3 className="loginlp-middiv-your">{`Bytespaces for ${user.firstName} ${user.lastName}`}</h3>
+            <h3 className="loginlp-middiv-your">{`Workspaces for ${user.firstName} ${user.lastName}`}</h3>
             {bytespacesArr.length > 0
                ? bytespacesToDisplay.map((bytespace) => (
                     <NavLink
@@ -85,7 +86,7 @@ function LoginLandingPage() {
                </p>
             </div>
             <OpenModalButton
-               buttonText="Create Another Bytespace"
+               buttonText="Create Workspace"
                modalComponent={<CreateBytespaceModal />}
             />
          </div>
@@ -97,13 +98,16 @@ function LoginLandingPage() {
                   alt="lightbulb"
                />
                <p className="loginlp-bottom-divs-p">
-                  Looking for a different Bytespace?
+                  Looking for a different workspace?
                </p>
             </div>
             <OpenModalButton
-               buttonText="Join Another Bytespace"
+               buttonText="Join Workspace"
                modalComponent={<JoinBytespaceModal />}
             />
+         </div>
+         <div>
+            <ProfileButton user={user} logoutClass="login-landing-page" />
          </div>
       </div>
    );

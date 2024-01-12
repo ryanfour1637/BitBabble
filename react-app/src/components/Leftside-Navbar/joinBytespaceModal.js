@@ -66,15 +66,15 @@ function JoinBytespaceModal() {
 
    return (
       <div className="joinbytespace-outerdiv">
-         <h1>Join Bytespaces</h1>
+         <h1>Join workspaces</h1>
          <label className="joinbytespace-label">
-            Choose a Bytespace:
+            Choose a Workspace:
             <select
                className="joinbytespace-input"
                value={selectedValue}
                onChange={valueChange}
             >
-               <option value="">Select a bytespace</option>
+               <option value="">Select a workspace</option>
                {bytespacesToDisplay.map((bytespace) => (
                   <option key={bytespace.id} value={bytespace.id}>
                      {bytespace.name}
@@ -87,7 +87,7 @@ function JoinBytespaceModal() {
             onClick={joinBytespace}
             disabled={selectedValue == ""}
          >
-            Join Bytespace
+            Join Workspace
          </button>
       </div>
    );

@@ -25,12 +25,12 @@ function UpdateBytespaceModal({ bytespaceObj }) {
    return (
       <div className="createbytespace-outerdiv">
          <div>
-            <h1>Update your Bytespace</h1>
+            <h1>Update your workspace</h1>
             <p className="createbytespace-errors">{errors}</p>
          </div>
          <label className="createbytespace-label">
             <div className="createbytespace-label-div">
-               <h4>Update Bytespace name:</h4>
+               <h4>Update Workspace name:</h4>
                {name.length < 6 || name.length > 25 ? (
                   <p className="createbytespace-label-errors">
                      Must be between 6-25 characters
@@ -49,7 +49,7 @@ function UpdateBytespaceModal({ bytespaceObj }) {
             onClick={updateBytespace}
             disabled={name.length < 6 || name.length > 25}
          >
-            Update Bytespace
+            Update Workspace
          </button>
       </div>
    );

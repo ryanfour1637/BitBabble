@@ -245,6 +245,10 @@
    margin: 0 0 0 7.5px;
 }
 
+.delete-button {
+   margin: 10px 0 0 7.5px;
+}
+
 .chatroom-channel-dropdown-background {
    background-color: #732e79 !important;
    border: none !important;

@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
 import logouticon from "../../images/personicon.png";
 import { useHistory } from "react-router-dom";
 
-function ProfileButton({ user }) {
+function ProfileButton({ user, logoutClass }) {
    const dispatch = useDispatch();
    const { push } = useHistory();
+   const [logoutCSSClass, setLogoutCSSClass] = useState(logoutClass);
 
    const handleLogout = async (e) => {
       e.preventDefault();
@@ -22,7 +21,7 @@ function ProfileButton({ user }) {
          <img
             src={logouticon}
             onClick={handleLogout}
-            className="personicon"
+            className={logoutCSSClass}
             alt="logout"
          />
       </>

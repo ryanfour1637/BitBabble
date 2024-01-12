@@ -5,7 +5,7 @@ import { useModal } from "../../../context/Modal";
 import { thunkDeleteBytespace } from "../../../store/bytespace";
 import "./delete.css";
 
-function DeleteBytespaceModal({ bytespaceId }) {
+function DeleteBytespaceModal({ bytespaceId, deleteCSSClass }) {
    const dispatch = useDispatch();
    const { push } = useHistory();
    const { closeModal } = useModal();
@@ -17,8 +17,8 @@ function DeleteBytespaceModal({ bytespaceId }) {
    };
 
    return (
-      <div className="delete-outerdiv">
-         <h2>Are you sure you want to delete your Bytespace?</h2>
+      <div className={deleteCSSClass}>
+         <h2>Delete your workspace?</h2>
          <h4>This action cannot be reversed.</h4>
          <div className="delete-button-div">
             <button onClick={deleteBytespace}>Yes</button>

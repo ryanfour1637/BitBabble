@@ -13,6 +13,7 @@ import "./singlebytespace.css";
 function SingleBytespaceLandingPage({ user }) {
    const [bytestreamId, setBytestreamId] = useState(null);
    const [bytestreamName, setBytestreamName] = useState(null);
+   const [bytestream, setBytestream] = useState(null);
    const [isChannelOpen, setIsChannelOpen] = useState(false);
    const [showNavDropdown, setShowNavDropdown] = useState(false);
    const [showWorkspaceDropdown, setShowWorkspaceDropdown] = useState(false);
@@ -70,10 +71,9 @@ function SingleBytespaceLandingPage({ user }) {
                         setShowNavDropdown={setShowNavDropdown}
                      />
                      <BytestreamNameDropdown
+                        setBytestream={setBytestream}
                         setBytestreamId={setBytestreamId}
                         socket={socket}
-                        bytestreamId={bytestreamId}
-                        user={user}
                         setBytestreamName={setBytestreamName}
                         toggleChannelDropdown={toggleChannelDropdown}
                         isChannelOpen={isChannelOpen}
@@ -84,6 +84,7 @@ function SingleBytespaceLandingPage({ user }) {
             </Col>
             <Col xxl={9} className="chatroom-outer-div">
                <BytestreamChatRoom
+                  setBytestreamId={setBytestreamId}
                   bytestreamId={bytestreamId}
                   socket={socket}
                   user={user}
@@ -91,6 +92,7 @@ function SingleBytespaceLandingPage({ user }) {
                   scrollToBottom={scrollToBottom}
                   messagesContainerRef={messagesContainerRef}
                   setBytestreamName={setBytestreamName}
+                  bytestream={bytestream}
                />
             </Col>
          </Row>
