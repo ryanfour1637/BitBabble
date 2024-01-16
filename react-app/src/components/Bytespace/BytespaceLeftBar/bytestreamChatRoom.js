@@ -15,6 +15,8 @@ import UpdateBytestreamModal from "./updateBytestreamModal";
 import OpenModalButton from "../../OpenModalButton";
 import LeaveBytestreamModal from "./leaveBytestreamModal";
 import DeleteBytestreamModal from "./deleteBytestreamModal";
+import Toolbar from "../../ReusableComponents/Toolbar";
+import Message from "./messages";
 
 function BytestreamChatRoom({
    setBytestreamId,
@@ -31,6 +33,7 @@ function BytestreamChatRoom({
    const dispatch = useDispatch();
    const messages = useSelector((state) => state.messages);
    const [message, setMessage] = useState("");
+   const [showEditDelete, setShowEditDelete] = useState(false);
 
    useEffect(() => {
       dispatch(thunkGetAllMessages());
@@ -218,26 +221,7 @@ function BytestreamChatRoom({
                      className="h-100 chatroom-container"
                   >
                      {allMessagesArr.map((messageObj) => (
-                        <Row className="chatroom-display-message-div">
-                           <Col xxl={1} className="message-div-person">
-                              <BsPersonSquare />
-                           </Col>
-                           <Col xxl={11} className="message-username-time-div">
-                              <Row className="username-time-div">
-                                 <span className="message-username">
-                                    {toLowerCase(messageObj.userInfo.username)}
-                                 </span>
-                                 <span className="message-time">
-                                    {formatTimestamp(messageObj.timestamp)}
-                                 </span>
-                              </Row>
-                              <Row className="message-div">
-                                 <span className="message-text">
-                                    {messageObj.message}
-                                 </span>
-                              </Row>
-                           </Col>
-                        </Row>
+                        <Message key={messageObj.id} messageObj={messageObj} />
                      ))}
                   </Col>
                </Row>
