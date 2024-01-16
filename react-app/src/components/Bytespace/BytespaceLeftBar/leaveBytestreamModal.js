@@ -5,21 +5,22 @@ import { thunkRemoveFromBytestream } from "../../../store/bytestream_members";
 import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
 
 function LeaveBytestreamModal({
-   idToDelete,
    socket,
    setBytestreamId,
    bytestreamId,
    user,
    leaveCSS,
+   channelMemberId,
 }) {
    const dispatch = useDispatch();
    const { closeModal } = useModal();
 
    const leaveBytestream = async () => {
       if (!socket) return;
-      await dispatch(thunkRemoveFromBytestream(idToDelete));
+      //this needs to be the bytesteram member id not bytestream id
+      await dispatch(thunkRemoveFromBytestream(channelMemberId));
 
-      await socket.emit("leave_room", { bytestream_id: idToDelete });
+      await socket.emit("leave_room", { bytestream_id: bytestreamId });
 
       await dispatch(thunkGetAllBytestreamMembers());
 

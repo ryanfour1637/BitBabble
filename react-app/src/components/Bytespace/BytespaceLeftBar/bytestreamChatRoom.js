@@ -26,6 +26,7 @@ function BytestreamChatRoom({
    messagesContainerRef,
    setBytestreamName,
    bytestream,
+   channelMemberId,
 }) {
    const dispatch = useDispatch();
    const messages = useSelector((state) => state.messages);
@@ -178,12 +179,19 @@ function BytestreamChatRoom({
                            <Dropdown.Item as="button" className="leave-button">
                               <OpenModalButton
                                  modalComponent={
-                                    <LeaveBytestreamModal leaveCSS="leave-outerdiv" />
+                                    <LeaveBytestreamModal
+                                       socket={socket}
+                                       setBytestreamId={setBytestreamId}
+                                       bytestreamId={bytestreamId}
+                                       user={user}
+                                       leaveCSS="leave-outerdiv"
+                                       channelMemberId={channelMemberId}
+                                    />
                                  }
                                  buttonText="Leave Channel"
                               />
                            </Dropdown.Item>
-                           {bytestream.ownerId === user.id && (
+                           {bytestream?.ownerId == user.id && (
                               <Dropdown.Item
                                  as="button"
                                  className="delete-button"

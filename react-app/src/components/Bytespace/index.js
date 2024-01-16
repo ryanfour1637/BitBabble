@@ -17,6 +17,7 @@ function SingleBytespaceLandingPage({ user }) {
    const [isChannelOpen, setIsChannelOpen] = useState(false);
    const [showNavDropdown, setShowNavDropdown] = useState(false);
    const [showWorkspaceDropdown, setShowWorkspaceDropdown] = useState(false);
+   const [channelMemberId, setChannelMemberId] = useState(null);
    const socket = useWebSocket();
    const messagesContainerRef = useRef(null);
 
@@ -78,6 +79,7 @@ function SingleBytespaceLandingPage({ user }) {
                         toggleChannelDropdown={toggleChannelDropdown}
                         isChannelOpen={isChannelOpen}
                         setShowNavDropdown={setShowNavDropdown}
+                        setChannelMemberId={setChannelMemberId}
                      />
                   </Col>
                </Row>
@@ -93,6 +95,7 @@ function SingleBytespaceLandingPage({ user }) {
                   messagesContainerRef={messagesContainerRef}
                   setBytestreamName={setBytestreamName}
                   bytestream={bytestream}
+                  channelMemberId={channelMemberId}
                />
             </Col>
          </Row>
