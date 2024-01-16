@@ -23,6 +23,7 @@ function BytestreamNameDropdown({
    setBytestreamName,
    toggleChannelDropdown,
    isChannelOpen,
+   setChannelMemberId,
 }) {
    const dispatch = useDispatch();
    const { userId, bytespaceId } = useParams();
@@ -72,6 +73,8 @@ function BytestreamNameDropdown({
 
    const thisBytespacesBytestreams = bytestreams[bytespaceId];
 
+   let memberId;
+
    if (thisBytespacesBytestreams !== undefined) {
       Object.keys(thisBytespacesBytestreams).forEach((bytestreamId) => {
          const bytestream = bytestreams[bytespaceId][bytestreamId];
@@ -95,6 +98,9 @@ function BytestreamNameDropdown({
       setActiveBytestream(bytestream.id);
       setBytestreamName(bytestream.name);
       setBytestream(bytestream);
+      const memberId =
+         bytestreamsMembershipRosters[bytespaceId][bytestream.id][userId];
+      setChannelMemberId(memberId);
    };
 
    return (
