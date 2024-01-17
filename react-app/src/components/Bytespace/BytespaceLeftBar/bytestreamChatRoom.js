@@ -103,31 +103,6 @@ function BytestreamChatRoom({
       }
    };
 
-   const updateMessage = (e) => {
-      e.preventDefault();
-   };
-   const deleteMessage = (e) => {
-      e.preventDefault();
-
-      const messageId = e.target.value;
-
-      socket.emit("ws_delete_message", messageId);
-   };
-
-   const getTimeZone = () => {
-      return Intl.DateTimeFormat().resolvedOptions().timeZone;
-   };
-
-   const formatTimestamp = (timestamp) => {
-      const correctTimestamp = timestamp + "Z";
-      return new Date(correctTimestamp).toLocaleTimeString("en-US", {
-         timeZone: getTimeZone(),
-         hour12: true,
-         hour: "2-digit",
-         minute: "2-digit",
-      });
-   };
-
    const toLowerCase = (string) => {
       return string?.toLowerCase();
    };
@@ -221,7 +196,11 @@ function BytestreamChatRoom({
                      className="h-100 chatroom-container"
                   >
                      {allMessagesArr.map((messageObj) => (
-                        <Message key={messageObj.id} messageObj={messageObj} />
+                        <Message
+                           key={messageObj.id}
+                           messageObj={messageObj}
+                           socket={socket}
+                        />
                      ))}
                   </Col>
                </Row>

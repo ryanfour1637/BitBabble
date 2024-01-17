@@ -3,7 +3,7 @@ import { Row, Col } from "react-bootstrap";
 import { BsPersonSquare } from "react-icons/bs";
 import Toolbar from "../../ReusableComponents/Toolbar";
 
-const Message = ({ messageObj }) => {
+const Message = ({ messageObj, socket }) => {
    const [showEditDelete, setShowEditDelete] = useState(false);
 
    const toLowerCase = (string) => {
@@ -46,7 +46,11 @@ const Message = ({ messageObj }) => {
                <span className="message-text">{messageObj.message}</span>
             </Row>
          </Col>
-         <Toolbar show={showEditDelete} />
+         <Toolbar
+            show={showEditDelete}
+            messageObj={messageObj}
+            socket={socket}
+         />
       </Row>
    );
 };
