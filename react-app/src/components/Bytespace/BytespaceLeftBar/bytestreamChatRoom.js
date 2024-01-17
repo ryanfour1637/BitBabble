@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
    actionAddNewMessage,
@@ -9,12 +9,12 @@ import { useDispatch } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaHashtag, FaChevronDown } from "react-icons/fa";
 import Dropdown from "react-bootstrap/Dropdown";
-import { BsPersonSquare } from "react-icons/bs";
 import ChatInputBox from "./chatInputBox";
 import UpdateBytestreamModal from "./updateBytestreamModal";
 import OpenModalButton from "../../OpenModalButton";
 import LeaveBytestreamModal from "./leaveBytestreamModal";
 import DeleteBytestreamModal from "./deleteBytestreamModal";
+import Message from "./messages";
 
 function BytestreamChatRoom({
    setBytestreamId,
@@ -64,7 +64,7 @@ function BytestreamChatRoom({
       });
 
       socket.on("update_message_confirm", (messageObj) => {
-         actionAddNewMessage(messageObj);
+         dispatch(actionAddNewMessage(messageObj));
       });
 
       socket.on("delete_message_confirm", (messageObj) => {
@@ -98,31 +98,6 @@ function BytestreamChatRoom({
          e.preventDefault();
          sendMessage(e);
       }
-   };
-
-   const updateMessage = (e) => {
-      e.preventDefault();
-   };
-   const deleteMessage = (e) => {
-      e.preventDefault();
-
-      const messageId = e.target.value;
-
-      socket.emit("ws_delete_message", messageId);
-   };
-
-   const getTimeZone = () => {
-      return Intl.DateTimeFormat().resolvedOptions().timeZone;
-   };
-
-   const formatTimestamp = (timestamp) => {
-      const correctTimestamp = timestamp + "Z";
-      return new Date(correctTimestamp).toLocaleTimeString("en-US", {
-         timeZone: getTimeZone(),
-         hour12: true,
-         hour: "2-digit",
-         minute: "2-digit",
-      });
    };
 
    const toLowerCase = (string) => {
@@ -218,26 +193,12 @@ function BytestreamChatRoom({
                      className="h-100 chatroom-container"
                   >
                      {allMessagesArr.map((messageObj) => (
-                        <Row className="chatroom-display-message-div">
-                           <Col xxl={1} className="message-div-person">
-                              <BsPersonSquare />
-                           </Col>
-                           <Col xxl={11} className="message-username-time-div">
-                              <Row className="username-time-div">
-                                 <span className="message-username">
-                                    {toLowerCase(messageObj.userInfo.username)}
-                                 </span>
-                                 <span className="message-time">
-                                    {formatTimestamp(messageObj.timestamp)}
-                                 </span>
-                              </Row>
-                              <Row className="message-div">
-                                 <span className="message-text">
-                                    {messageObj.message}
-                                 </span>
-                              </Row>
-                           </Col>
-                        </Row>
+                        <Message
+                           key={messageObj.id}
+                           messageObj={messageObj}
+                           socket={socket}
+                           user={user}
+                        />
                      ))}
                   </Col>
                </Row>
