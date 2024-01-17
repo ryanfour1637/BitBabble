@@ -166,7 +166,7 @@ function BytestreamChatRoom({
                                  buttonText="Leave Channel"
                               />
                            </Dropdown.Item>
-                           {bytestream?.ownerId == user.id && (
+                           {bytestream?.ownerId == user?.id && (
                               <Dropdown.Item
                                  as="button"
                                  className="delete-button"
