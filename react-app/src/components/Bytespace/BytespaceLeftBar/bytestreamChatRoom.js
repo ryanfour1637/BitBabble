@@ -64,7 +64,7 @@ function BytestreamChatRoom({
       });
 
       socket.on("update_message_confirm", (messageObj) => {
-         actionAddNewMessage(messageObj);
+         dispatch(actionAddNewMessage(messageObj));
       });
 
       socket.on("delete_message_confirm", (messageObj) => {

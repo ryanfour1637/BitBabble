@@ -153,15 +153,37 @@
 
 .toolbar-delete {
    display: flex;
+   justify-content: space-evenly;
    background-color: #ffffff;
-   width: fit-content;
    border-radius: 5px;
+   width: fit-content;
 }
 .toolbar-delete button {
    border: none;
    background: none;
    color: #732e79;
-   margin: 0 3px 3px;
+   margin: 0 0 0 5px;
+}
+
+.edit-button-div {
+   width: 16px !important;
+   margin: 0 !important;
+   padding: 0 !important;
+}
+
+.edit-button {
+   border: none;
+   background: none;
+   color: #732e79;
+   height: 16px;
+}
+
+.edit-button-div:hover {
+   background-color: inherit;
+   color: #732e79;
+   box-shadow: none;
+   transform: none;
+   width: 16px;
 }
 
 .message-div-person {
@@ -279,4 +301,22 @@
    background-color: #732e79 !important;
    border: none !important;
    width: 175px;
+}
+
+.edit-buttons-div {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   margin: 0 0 0 0;
+}
+
+.edit-buttons-for-update {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-evenly;
+   width: 100%;
+}
+
+.edit-button-update {
+   margin: 0 15px 0 0;
 }

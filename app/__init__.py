@@ -107,8 +107,7 @@ def handle_join_room(data):
 def handle_leave_room(data):
     emit('leave_room_confirm', {'bytestreamId': data['bytestream_id'], 'user': current_user.to_dict()}, room=data['bytestream_id'], broadcast=True)
     leave_room(data['bytestream_id'])
-    print(current_user.to_dict())
-    print('leave room success')
+
 
 
 

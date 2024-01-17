@@ -4,13 +4,9 @@ import { useModal } from "../../../context/Modal";
 import "./delete.css";
 
 function DeleteMessageModal({ messageId, socket }) {
-   const dispatch = useDispatch();
-
    const { closeModal } = useModal();
 
-   const updateMessage = (e) => {
-      e.preventDefault();
-   };
+
    const deleteMessage = (e) => {
       e.preventDefault();
       socket.emit("ws_delete_message", messageId);
