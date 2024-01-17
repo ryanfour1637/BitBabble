@@ -46,7 +46,7 @@ const Message = ({ messageObj, socket, user }) => {
                <span className="message-text">{messageObj.message}</span>
             </Row>
          </Col>
-         {messageObj.userId == user.id && (
+         {messageObj.userId == user.id && messageObj.system != true && (
             <Toolbar
                show={showEditDelete}
                messageObj={messageObj}
