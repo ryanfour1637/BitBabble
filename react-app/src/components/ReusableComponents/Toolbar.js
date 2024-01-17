@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { RiEditFill, RiChatDeleteFill } from "react-icons/ri";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Toolbar = ({ show }) => {
@@ -8,14 +8,14 @@ const Toolbar = ({ show }) => {
       <div className={show ? "show-toolbar" : "hide-toolbar"}>
          <Container>
             <Row>
-               <Col>
+               <Col xl={10}></Col>
+               <Col xl={1}></Col>
+               <Col xl={1} className="toolbar-delete">
                   <button>
-                     <FaEdit />
+                     <RiEditFill />
                   </button>
-               </Col>
-               <Col>
                   <button>
-                     <FaTrashAlt />
+                     <RiChatDeleteFill />
                   </button>
                </Col>
             </Row>

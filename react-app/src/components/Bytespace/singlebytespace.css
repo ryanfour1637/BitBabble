@@ -139,16 +139,36 @@
    margin-bottom: 7.5px;
 }
 
+.chatroom-display-message-div:hover {
+   background-color: #f2f2f2;
+   border-radius: 5px;
+}
+
 .show-toolbar {
    position: absolute;
    top: 0;
    right: 0;
-   display: block;
 }
 
 .hide-toolbar {
    display: none;
 }
+
+.toolbar-delete {
+   display: flex;
+   justify-content: space-evenly;
+   background-color: #fadadd;
+   width: fit-content;
+   border-radius: 5px;
+}
+.toolbar-delete button {
+   border: none;
+   margin: 0 0 5px 0;
+   background: none;
+   color: #732e79;
+   margin: 0 3px 3px;
+}
+
 .message-div-person {
    width: 40px !important;
    padding-left: 0 !important;
