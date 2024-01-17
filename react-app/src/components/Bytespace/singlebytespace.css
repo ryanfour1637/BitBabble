@@ -128,9 +128,6 @@
    content: none !important;
 }
 
-.chatroom-channel-name-dropdown-open {
-}
-
 .chatroom-display-message-div {
    position: relative;
    width: 100%;
@@ -156,8 +153,7 @@
 
 .toolbar-delete {
    display: flex;
-   justify-content: space-evenly;
-   background-color: #fadadd;
+   background-color: #ffffff;
    width: fit-content;
    border-radius: 5px;
 }
