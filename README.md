@@ -27,7 +27,7 @@ Libraries Used:
 - WTForms
 
 Languages:
--Javascript
--Python
--JSX
--CSS
+- Javascript
+- Python
+- JSX
+- CSS
