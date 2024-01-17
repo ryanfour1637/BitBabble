@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
    actionAddNewMessage,
@@ -9,13 +9,11 @@ import { useDispatch } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaHashtag, FaChevronDown } from "react-icons/fa";
 import Dropdown from "react-bootstrap/Dropdown";
-import { BsPersonSquare } from "react-icons/bs";
 import ChatInputBox from "./chatInputBox";
 import UpdateBytestreamModal from "./updateBytestreamModal";
 import OpenModalButton from "../../OpenModalButton";
 import LeaveBytestreamModal from "./leaveBytestreamModal";
 import DeleteBytestreamModal from "./deleteBytestreamModal";
-import Toolbar from "../../ReusableComponents/Toolbar";
 import Message from "./messages";
 
 function BytestreamChatRoom({
@@ -33,7 +31,6 @@ function BytestreamChatRoom({
    const dispatch = useDispatch();
    const messages = useSelector((state) => state.messages);
    const [message, setMessage] = useState("");
-   const [showEditDelete, setShowEditDelete] = useState(false);
 
    useEffect(() => {
       dispatch(thunkGetAllMessages());
@@ -200,6 +197,7 @@ function BytestreamChatRoom({
                            key={messageObj.id}
                            messageObj={messageObj}
                            socket={socket}
+                           user={user}
                         />
                      ))}
                   </Col>
