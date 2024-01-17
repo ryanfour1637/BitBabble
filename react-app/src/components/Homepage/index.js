@@ -7,6 +7,8 @@ import loggedoutimage from "../../images/loggedout-homepage-image.png";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import AboutMe from "./aboutMe";
+import AboutTheProject from "./aboutProject";
 import "./homepage.css";
 
 function LoggedOutLandingPage() {
@@ -18,13 +20,13 @@ function LoggedOutLandingPage() {
                   <Col className="homepage-topdiv-rightside">
                      <OpenModalButton
                         buttonText="About Project"
-                        modalComponent={<SignupFormModal />}
+                        modalComponent={<AboutTheProject />}
                      />
                   </Col>
                   <Col className="homepage-topdiv-rightside">
                      <OpenModalButton
                         buttonText="About Me"
-                        modalComponent={<SignupFormModal />}
+                        modalComponent={<AboutMe />}
                      />
                   </Col>
                </Row>
