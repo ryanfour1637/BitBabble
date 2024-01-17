@@ -177,3 +177,24 @@ body {
    line-height: 15px;
    text-align: center;
 }
+
+.about-me-div {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   width: 1000px;
+   background-color: #fadadd;
+   border-radius: 5px;
+   margin: 10px 25px;
+}
+
+.about-me-div h1 {
+   color: #732e79;
+}
+
+.about-me-div p {
+   color: #732e79;
+   width: 85%;
+   font-weight: 600;
+}
