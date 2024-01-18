@@ -37,7 +37,7 @@ def create_bytestream(id):
             return bytestream.to_dict()
         except IntegrityError:
             db.session.rollback()
-            return {'errors': 'A bytestream with this name already exists'}, 400
+            return {'errors': 'A channel with this name already exists'}, 400
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 @bytestream_routes.route('/<int:id>/update', methods=['PUT'])
@@ -55,7 +55,7 @@ def update_bytestream(id):
             return bytestream_to_update.to_dict()
         except IntegrityError:
             db.session.rollback()
-            return {'errors': 'A bytestream with this name already exists'}, 400
+            return {'errors': 'A channel with this name already exists'}, 400
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 @bytestream_routes.route('/<int:id>/delete', methods=['DELETE'])
