@@ -51,7 +51,7 @@ export const thunkCreateBytestream =
       if (response.ok) {
          const data = await response.json();
          dispatch(actionCreateBytestream(data));
-         return data.id;
+         return data;
       } else {
          const errors = await response.json();
          return errors;

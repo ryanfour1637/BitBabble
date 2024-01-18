@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { thunkDeleteBytestream } from "../../../store/bytestream";
 import { thunkGetAllBytestreams } from "../../../store/bytestream";
@@ -9,7 +8,6 @@ import "./delete.css";
 
 function DeleteBytestreamModal({ bytestream, setBytestreamId, deleteCSS }) {
    const dispatch = useDispatch();
-   const { push } = useHistory();
    const { closeModal } = useModal();
 
    const deleteBytestream = async () => {
