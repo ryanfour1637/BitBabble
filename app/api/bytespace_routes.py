@@ -35,7 +35,7 @@ def create_bytespace():
             return bytespace.to_dict()
         except IntegrityError:
             db.session.rollback()
-            return {'errors': 'A bytespace with this name already exists'}, 400
+            return {'errors': 'A workspace with this name already exists'}, 400
     print(form.errors)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
@@ -54,7 +54,7 @@ def update_bytespace(id):
             return bytespace_to_update.to_dict()
         except IntegrityError:
             db.session.rollback()
-            return {'errors': 'A bytespace with this name already exists'}, 400
+            return {'errors': 'A workspace with this name already exists'}, 400
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 @bytespace_routes.route('/<int:id>/delete', methods=['DELETE'])
