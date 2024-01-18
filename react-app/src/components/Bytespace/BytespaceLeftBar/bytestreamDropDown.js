@@ -19,6 +19,7 @@ function BytestreamNameDropdown({
    toggleChannelDropdown,
    isChannelOpen,
    setChannelMemberId,
+   setIsChannelOpen,
 }) {
    const dispatch = useDispatch();
    const { userId, bytespaceId } = useParams();
@@ -67,8 +68,6 @@ function BytestreamNameDropdown({
    const nonJoinedBytestreams = [];
 
    const thisBytespacesBytestreams = bytestreams[bytespaceId];
-
-   let memberId;
 
    if (thisBytespacesBytestreams !== undefined) {
       Object.keys(thisBytespacesBytestreams).forEach((bytestreamId) => {
@@ -158,6 +157,9 @@ function BytestreamNameDropdown({
                         setBytestreamId={setBytestreamId}
                         setBytestreamName={setBytestreamName}
                         setChannelMemberId={setChannelMemberId}
+                        setActiveBytestream={setActiveBytestream}
+                        setIsChannelOpen={setIsChannelOpen}
+                        toggleChannelsDropdown={toggle}
                      />
                   }
                   buttonText="Join Channel"
@@ -170,6 +172,9 @@ function BytestreamNameDropdown({
                         setBytestreamId={setBytestreamId}
                         setBytestreamName={setBytestreamName}
                         setBytestream={setBytestream}
+                        setActiveBytestream={setActiveBytestream}
+                        setIsChannelOpen={setIsChannelOpen}
+                        toggleChannelsDropdown={toggle}
                      />
                   }
                   buttonText="Create Channel"

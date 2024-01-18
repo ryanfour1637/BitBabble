@@ -11,6 +11,9 @@ function JoinBytestreamModal({
    setBytestreamId,
    setBytestreamName,
    setChannelMemberId,
+   setActiveBytestream,
+   setIsChannelOpen,
+   toggleChannelsDropdown,
 }) {
    const dispatch = useDispatch();
    const { closeModal } = useModal();
@@ -32,9 +35,11 @@ function JoinBytestreamModal({
       );
       socket.emit("join_room", { bytestream_id: selectedId });
       setBytestreamId(selectedId);
+      setActiveBytestream(selectedId);
       setBytestreamName(selectedBytestream.name);
       setChannelMemberId(memberId);
-
+      setIsChannelOpen(false);
+      toggleChannelsDropdown();
       closeModal();
    };
 

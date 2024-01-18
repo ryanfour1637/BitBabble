@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { thunkCreateBytestream } from "../../../store/bytestream";
 import { thunkAddToBytestream } from "../../../store/bytestream_members";
-import { useHistory } from "react-router-dom";
 
 function CreateBytestreamModal({
    bytespaceId,
@@ -11,6 +10,9 @@ function CreateBytestreamModal({
    setBytestreamId,
    setBytestreamName,
    setBytestream,
+   setActiveBytestream,
+   setIsChannelOpen,
+   toggleChannelsDropdown,
 }) {
    const dispatch = useDispatch();
    const { closeModal } = useModal();
@@ -27,8 +29,11 @@ function CreateBytestreamModal({
          await dispatch(thunkAddToBytestream(errors.id, bytespaceId));
          socket.emit("join_room", { bytestream_id: errors.id });
          setBytestreamId(errors.id);
+         setActiveBytestream(errors.id);
          setBytestreamName(name);
          setBytestream(errors);
+         setIsChannelOpen(false);
+         toggleChannelsDropdown();
          closeModal();
       } else {
          setErrors(errors.errors);

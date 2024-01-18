@@ -80,6 +80,7 @@ function SingleBytespaceLandingPage({ user }) {
                         isChannelOpen={isChannelOpen}
                         setShowNavDropdown={setShowNavDropdown}
                         setChannelMemberId={setChannelMemberId}
+                        setIsChannelOpen={setIsChannelOpen}
                      />
                   </Col>
                </Row>
