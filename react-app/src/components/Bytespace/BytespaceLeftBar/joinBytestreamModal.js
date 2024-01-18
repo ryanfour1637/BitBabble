@@ -14,6 +14,7 @@ function JoinBytestreamModal({
    setActiveBytestream,
    setIsChannelOpen,
    toggleChannelsDropdown,
+   isOpen,
 }) {
    const dispatch = useDispatch();
    const { closeModal } = useModal();
@@ -39,8 +40,13 @@ function JoinBytestreamModal({
       setBytestreamName(selectedBytestream.name);
       setChannelMemberId(memberId);
       setIsChannelOpen(false);
-      toggleChannelsDropdown();
-      closeModal();
+
+      if (isOpen) {
+         return closeModal();
+      } else {
+         toggleChannelsDropdown();
+         return closeModal();
+      }
    };
 
    return (

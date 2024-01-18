@@ -160,6 +160,7 @@ function BytestreamNameDropdown({
                         setActiveBytestream={setActiveBytestream}
                         setIsChannelOpen={setIsChannelOpen}
                         toggleChannelsDropdown={toggle}
+                        isOpen={isOpen}
                      />
                   }
                   buttonText="Join Channel"
@@ -175,6 +176,8 @@ function BytestreamNameDropdown({
                         setActiveBytestream={setActiveBytestream}
                         setIsChannelOpen={setIsChannelOpen}
                         toggleChannelsDropdown={toggle}
+                        isOpen={isOpen}
+                        setChannelMemberId={setChannelMemberId}
                      />
                   }
                   buttonText="Create Channel"

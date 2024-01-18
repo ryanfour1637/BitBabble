@@ -11,6 +11,7 @@ function DeleteBytestreamModal({ bytestream, setBytestreamId, deleteCSS }) {
    const { closeModal } = useModal();
 
    const deleteBytestream = async () => {
+      console.log("this is it", bytestream);
       await dispatch(thunkDeleteBytestream(bytestream));
       await dispatch(thunkGetAllBytestreams());
       await dispatch(actionDeleteBytestreamMessages(bytestream.id));

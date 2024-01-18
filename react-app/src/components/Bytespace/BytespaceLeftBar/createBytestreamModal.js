@@ -13,6 +13,8 @@ function CreateBytestreamModal({
    setActiveBytestream,
    setIsChannelOpen,
    toggleChannelsDropdown,
+   isOpen,
+   setChannelMemberId,
 }) {
    const dispatch = useDispatch();
    const { closeModal } = useModal();
@@ -20,23 +22,31 @@ function CreateBytestreamModal({
    const [errors, setErrors] = useState("");
 
    const createBytestream = async () => {
-      const errors = await dispatch(
+      const channel = await dispatch(
          thunkCreateBytestream({ name: name }, bytespaceId)
       );
 
-      if (typeof errors.id == "number") {
+      if (typeof channel.id == "number") {
          if (!socket) return;
-         await dispatch(thunkAddToBytestream(errors.id, bytespaceId));
-         socket.emit("join_room", { bytestream_id: errors.id });
-         setBytestreamId(errors.id);
-         setActiveBytestream(errors.id);
+         const memberId = await dispatch(
+            thunkAddToBytestream(channel.id, bytespaceId)
+         );
+         socket.emit("join_room", { bytestream_id: channel.id });
+         setBytestreamId(channel.id);
+         setActiveBytestream(channel.id);
          setBytestreamName(name);
-         setBytestream(errors);
+         setBytestream(channel);
          setIsChannelOpen(false);
-         toggleChannelsDropdown();
-         closeModal();
+         setChannelMemberId(memberId);
+
+         if (isOpen) {
+            return closeModal();
+         } else {
+            toggleChannelsDropdown();
+            return closeModal();
+         }
       } else {
-         setErrors(errors.errors);
+         setErrors(channel.errors);
       }
    };
 
