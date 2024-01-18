@@ -30,11 +30,10 @@ function UpdateMessage({ messageObj, socket, setRenderEdit }) {
                   value={messageToEdit}
                   onChange={(e) => setMessageToEdit(e.target.value)}
                   rows={3}
-                  style={{ resize: "vertical" }}
                />
             </InputGroup>
          </Col>
-         <Col className="edit-buttons-div">
+         <Col xxl={1} className="edit-buttons-div">
             <Button
                className="edit-buttons-for-update edit-button-update"
                onClick={editMessage}

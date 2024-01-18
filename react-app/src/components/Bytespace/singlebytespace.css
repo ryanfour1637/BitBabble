@@ -305,18 +305,14 @@
 
 .edit-buttons-div {
    display: flex;
-   flex-direction: row;
-   align-items: center;
    margin: 0 0 0 0;
+   padding-left: 0;
 }
 
-.edit-buttons-for-update {
-   display: flex;
-   flex-direction: row;
-   justify-content: space-evenly;
-   width: 100%;
-}
-
-.edit-button-update {
-   margin: 0 15px 0 0;
+.edit-buttons-div button {
+   height: 50%;
+   margin-top: auto;
+   margin-bottom: auto;
+   margin-right: 10px;
+   margin-left: 0;
 }
