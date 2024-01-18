@@ -10,6 +10,7 @@ function CreateBytestreamModal({
    socket,
    setBytestreamId,
    setBytestreamName,
+   setBytestream,
 }) {
    const dispatch = useDispatch();
    const { closeModal } = useModal();
@@ -21,12 +22,13 @@ function CreateBytestreamModal({
          thunkCreateBytestream({ name: name }, bytespaceId)
       );
 
-      if (typeof errors == "number") {
+      if (typeof errors.id == "number") {
          if (!socket) return;
-         await dispatch(thunkAddToBytestream(errors, bytespaceId));
-         socket.emit("join_room", { bytestream_id: errors });
-         setBytestreamId(errors);
+         await dispatch(thunkAddToBytestream(errors.id, bytespaceId));
+         socket.emit("join_room", { bytestream_id: errors.id });
+         setBytestreamId(errors.id);
          setBytestreamName(name);
+         setBytestream(errors);
          closeModal();
       } else {
          setErrors(errors.errors);
