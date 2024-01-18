@@ -18,12 +18,12 @@ export function WebSocketProvider({ children, user }) {
          newWebSocket = io(process.env.REACT_APP_BASE_URL);
 
          newWebSocket.on("connect", () => {
-            console.log("WebSocket Connected");
+            // console.log("WebSocket Connected");
             setReconnectAttempts(0); // Reset reconnection attempts on successful connection
          });
 
          newWebSocket.on("disconnect", () => {
-            console.log("WebSocket Disconnected");
+            // console.log("WebSocket Disconnected");
             attemptReconnect(newWebSocket);
          });
 
@@ -38,7 +38,7 @@ export function WebSocketProvider({ children, user }) {
       return () => {
          if (newWebSocket) {
             newWebSocket.disconnect();
-            console.log("WebSocket Disconnected due to cleanup");
+            // console.log("WebSocket Disconnected due to cleanup");
          }
       };
    }, [user]);
@@ -46,9 +46,9 @@ export function WebSocketProvider({ children, user }) {
    const attemptReconnect = (socketInstance) => {
       if (reconnectAttempts < maxReconnectAttempts) {
          setTimeout(() => {
-            console.log(
-               `Attempting to reconnect... (Attempt ${reconnectAttempts + 1})`
-            );
+            // console.log(
+            //    `Attempting to reconnect... (Attempt ${reconnectAttempts + 1})`
+            // );
             setReconnectAttempts((prevAttempts) => prevAttempts + 1);
             socketInstance.connect();
          }, reconnectInterval * reconnectAttempts);

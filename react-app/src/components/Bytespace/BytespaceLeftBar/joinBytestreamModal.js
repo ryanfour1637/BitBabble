@@ -10,6 +10,7 @@ function JoinBytestreamModal({
    socket,
    setBytestreamId,
    setBytestreamName,
+   setChannelMemberId,
 }) {
    const dispatch = useDispatch();
    const { closeModal } = useModal();
@@ -24,12 +25,15 @@ function JoinBytestreamModal({
       setSelectedValue(selectedBytestream);
    };
 
-   const joinBytestream = () => {
+   const joinBytestream = async () => {
       if (!socket) return;
-      dispatch(thunkAddToBytestream(selectedId, bytespaceId));
+      const memberId = await dispatch(
+         thunkAddToBytestream(selectedId, bytespaceId)
+      );
       socket.emit("join_room", { bytestream_id: selectedId });
       setBytestreamId(selectedId);
       setBytestreamName(selectedBytestream.name);
+      setChannelMemberId(memberId);
 
       closeModal();
    };
