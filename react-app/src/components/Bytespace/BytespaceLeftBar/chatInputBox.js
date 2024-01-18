@@ -21,13 +21,14 @@ function ChatInputBox({
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyDown={sendWithEnter}
-                  rows={3}
-                  style={{ resize: "vertical" }}
+                  rows={4}
+                  style={{ resize: "none" }}
                />
                <Button
                   variant="outline-secondary"
                   id="button-addon2"
                   onClick={sendMessage}
+                  disabled={message == ""}
                >
                   <IoMdSend />
                </Button>

@@ -4,17 +4,12 @@ import { useParams } from "react-router-dom";
 import OpenModalButton from "../../OpenModalButton";
 import CreateBytestreamModal from "./createBytestreamModal";
 import JoinBytestreamModal from "./joinBytestreamModal";
-import UpdateBytestreamModal from "./updateBytestreamModal";
-import LeaveBytestreamModal from "./leaveBytestreamModal";
-import DeleteBytestreamModal from "./deleteBytestreamModal";
 import { thunkGetAllBytestreams } from "../../../store/bytestream";
 import { thunkGetAllBytestreamMembers } from "../../../store/bytestream_members";
-import xmark from "../../../images/xmark.png";
 import Dropdown from "react-bootstrap/Dropdown";
 import { BsCaretRightFill, BsCaretDownFill } from "react-icons/bs";
 import { FaHashtag } from "react-icons/fa";
 import useDropdownToggle from "../../ReusableComponents/DropdownToggle";
-import { is } from "css-select";
 
 function BytestreamNameDropdown({
    setBytestream,
@@ -162,6 +157,7 @@ function BytestreamNameDropdown({
                         socket={socket}
                         setBytestreamId={setBytestreamId}
                         setBytestreamName={setBytestreamName}
+                        setChannelMemberId={setChannelMemberId}
                      />
                   }
                   buttonText="Join Channel"
