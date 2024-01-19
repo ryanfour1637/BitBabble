@@ -55,12 +55,14 @@
 
 .signup-modal-labels-div h4 {
    font-size: 18px;
+   font-family: "Lato, sans-serif";
 }
 
 .signup-modal-labels-div p {
    color: #dc143c;
    padding-left: 25px;
    margin-top: 10px;
+   font-family: "Lato, sans-serif";
 }
 
 .signup-modal-form-inputs {
@@ -74,7 +76,7 @@
    background-color: #d1d2d3;
    color: black;
    font-size: 14px;
-   font-family: "Source Sans Pro";
+   font-family: "Lato, sans-serif";
    font-weight: 500;
    line-height: 18px;
    outline: none;
@@ -83,6 +85,7 @@
 
 .signup-modal-form-inputs::placeholder {
    color: black;
+   font-family: "Lato, sans-serif";
 }
 
 .signup-modal-form-submitbutton {
@@ -105,4 +108,5 @@
 
 .signup-errors {
    color: #dc143c;
+   font-family: "Lato, sans-serif";
 }

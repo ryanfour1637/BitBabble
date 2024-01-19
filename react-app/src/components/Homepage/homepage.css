@@ -132,7 +132,7 @@ body {
    justify-content: center;
    color: #ffffff;
    font-size: 40px;
-   font-family: "Source Sans Pro";
+   font-family: "Lato, sans-serif";
    font-weight: 700;
    line-height: 50px;
    margin-bottom: 0px;
@@ -142,7 +142,7 @@ body {
    width: 500px;
    color: #ffffff;
    font-size: 20px;
-   font-family: "Source Sans Pro";
+   font-family: "Lato, sans-serif";
    line-height: 25px;
    margin-left: 218px;
 }
@@ -173,7 +173,7 @@ body {
 .bottom-footer-tags {
    color: #323232;
    font-size: 12px;
-   font-family: "Source Sans Pro";
+   font-family: "Lato, sans-serif";
    line-height: 15px;
    text-align: center;
 }
