@@ -54,4 +54,3 @@ class User(db.Model, UserMixin):
             'email': self.email,
         }
 
-    def greatwork(self) 
