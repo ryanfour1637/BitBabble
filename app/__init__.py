@@ -98,6 +98,8 @@ def not_found(e):
 
 socketio = SocketIO(app, cors_allowed_origins="*")
 
+
+## Begin Channel Routes
 @socketio.on('join_room')
 def handle_join_room(data):
     join_room(data['bytestream_id'])
@@ -107,9 +109,6 @@ def handle_join_room(data):
 def handle_leave_room(data):
     emit('leave_room_confirm', {'bytestreamId': data['bytestream_id'], 'user': current_user.to_dict()}, room=data['bytestream_id'], broadcast=True)
     leave_room(data['bytestream_id'])
-
-
-
 
 @socketio.on('ws_send_message')
 def handle_send_message(data):
@@ -158,60 +157,11 @@ def handle_delete_message(message_id):
     db.session.commit()
     emit('delete_message_confirm', message.to_dict_delete(), broadcast=True)
 
-@socketio.on('typing')
-def handle_typing(data):
-    bytestream = data['bytestream_id']
-    user=data['user']
-    emit('user_typing', {'user': user}, room=bytestream)
-
 @socketio.on('error')
 def handle_error(e):
     print(e)
 
-@socketio.on('connect')
-def handle_connect():
-    user_id = current_user.id
-    user = User.query.get(user_id)
-    if user:
-        user.is_online = True
-        db.session.commit()
-        emit('user_status_change', {'user_id': user_id, 'status': 'online'}, broadcast=True)
 
-@socketio.on('disconnect')
-def handle_disconnect():
-    user_id = current_user.id
-    user = User.query.get(user_id)
-    if user:
-        user.is_online = False
-        db.session.commit()
-        emit('user_status_change', {'user_id': user_id, 'status': 'offline'}, broadcast=True)
+## End Channel Routes
 
-
-
-
-
-
-
-# @socketio.on('send_file')
-# def handle_send_file(data):
-#     bytestream = data['bytestream_id']
-#     file = data['file']
-#     emit('receive_file', {'file': file}, room=bytestream)
-
-# @socketio.on('send_image')
-# def handle_send_image(data):
-#     bytestream = data['bytestream_id']
-#     image = data['image']
-#     emit('receive_image', {'image': image}, room=bytestream)
-
-# @socketio.on('send_video')
-# def handle_send_video(data):
-#     bytestream = data['bytestream_id']
-#     video = data['video']
-#     emit('receive_video', {'video': video}, room=bytestream)
-
-# @socketio.on('send_audio')
-# def handle_send_audio(data):
-#     bytestream = data['bytestream_id']
-#     audio = data['audio']
-#     emit('receive_audio', {'audio': audio}, room=bytestream)
+## Begin Direct Message Routes
