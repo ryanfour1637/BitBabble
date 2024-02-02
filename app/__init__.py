@@ -169,4 +169,4 @@ def handle_error(e):
 ## I am going to have to add users to convos based specifically on their user ID.
 ## I think that it is going to work quite similarly to channels where you 'add' them to a room, but this room is really just going to be the 2 of you.
 ## when someone adds someone, the person who is added needs to be notified and added as well because they wont be able to see it if it doesnt pop up.
-## going to have to figure out how to do this without a message just popping up when I add someone to a convo. going to have to be when the first message is sent. will need logic to stop it after 1 message is sent.
+## going to have to figure out how to do this without a message just popping up when I add someone to a convo. going to have to be when the first message is sent. will need logic to stop it after 1 message is sent. this is adding more
