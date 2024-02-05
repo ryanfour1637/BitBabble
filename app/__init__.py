@@ -6,7 +6,7 @@ from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager, login_required, current_user
 from flask_socketio import SocketIO, send, emit, join_room, leave_room
-from .models import db, User
+from .models import db, User, Message
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.bytespace_routes import bytespace_routes
@@ -14,7 +14,6 @@ from .api.bytespace_members import bytespace_members_routes
 from .api.bytestream_members import bytestream_members_routes
 from .api.bytestream_routes import bytestream_routes
 from .api.messages_routes import message_routes
-from .models import User, Message
 from .seeds import seed_commands
 from .config import Config
 
@@ -169,4 +168,4 @@ def handle_error(e):
 ## I am going to have to add users to convos based specifically on their user ID.
 ## I think that it is going to work quite similarly to channels where you 'add' them to a room, but this room is really just going to be the 2 of you.
 ## when someone adds someone, the person who is added needs to be notified and added as well because they wont be able to see it if it doesnt pop up.
-## going to have to figure out how to do this without a message just popping up when I add someone to a convo. going to have to be when the first message is sent. will need logic to stop it after 1 message is sent.
+## going to have to figure out how to do this without a message just popping up when I add someone to a convo. going to have to be when the first message is sent. will need logic to stop it after 1 message is sent. this is adding more
